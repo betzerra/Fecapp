@@ -1,0 +1,25 @@
+{
+  "id": 1,
+  "title": "Tres",
+  "address": "Teodoro García 2806",
+  "city": "CABA",
+  "latitude": -34.5733,
+  "longitude": -58.4483,
+  "thumbnail": {
+    "url": "https://cdn.betzerra.com/mrpoopypants/production/shop/thumbnail/98/C76C9E31-CAFA-4AEC-95C7-A9ED8C148A9C.jpeg",
+    "thumb": {
+      "url": "https://cdn.betzerra.com/mrpoopypants/production/shop/thumbnail/98/thumb_C76C9E31-CAFA-4AEC-95C7-A9ED8C148A9C.jpeg"
+    }
+  },
+  "phone": "",
+  "instagram": "servimos.cafe",
+  "has_delivery": false,
+  "created_at": "2021-01-04T22:36:07.000Z",
+  "updated_at": "2022-02-11T15:50:16.000Z",
+  "neighborhood_id": 15,
+  "slug": "tres",
+  "rank": 3,
+  "website": "",
+  "message": "",
+  "roaster_id": 2
+}
