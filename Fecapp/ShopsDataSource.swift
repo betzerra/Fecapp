@@ -51,11 +51,15 @@ class ShopsDataSource {
 
     func fetchShops() {
         Task {
-            shops = try await pluma.request(
-                method: .GET,
-                path: "shops.json",
-                params: nil
-            )
+            do {
+                shops = try await pluma.request(
+                    method: .GET,
+                    path: "shops.json",
+                    params: nil
+                )
+            } catch {
+                print(error.localizedDescription)
+            }
         }
     }
 

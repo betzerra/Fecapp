@@ -64,7 +64,10 @@ class ShopCollectionViewCell: UICollectionViewCell {
     func setShop(_ shop: Shop) {
         titleLabel.text = shop.title
         subtitleLabel.text = shop.address
-        imageView.load(url: URL(string: "https://cdn.betzerra.com/mrpoopypants/production/shop/thumbnail/98/thumb_C76C9E31-CAFA-4AEC-95C7-A9ED8C148A9C.jpeg")!)
+
+        if let thumbnail = shop.thumbnail?.small {
+            imageView.load(url: thumbnail)
+        }
     }
 
     required init?(coder aDecoder: NSCoder) {
