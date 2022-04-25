@@ -20,8 +20,34 @@ class ViewController: UIViewController {
     }
 
     private func createLayout() {
-        let config = UICollectionLayoutListConfiguration(appearance: .insetGrouped)
-        collectionView.collectionViewLayout = UICollectionViewCompositionalLayout.list(using: config)
+        let itemSize = NSCollectionLayoutSize(
+            widthDimension: .fractionalWidth(1.0),
+            heightDimension: .fractionalHeight(1.0)
+        )
+
+        let itemLayout = NSCollectionLayoutItem(layoutSize: itemSize)
+        itemLayout.contentInsets = NSDirectionalEdgeInsets(
+            top: 8,
+            leading: 16,
+            bottom: 8,
+            trailing: 16
+        )
+
+        let groupSize = NSCollectionLayoutSize(
+            widthDimension: .fractionalWidth(1.0),
+            heightDimension: .estimated(110)
+        )
+
+        let groupLayout = NSCollectionLayoutGroup.horizontal(
+            layoutSize: groupSize,
+            subitem: itemLayout,
+            count: 1
+        )
+
+        let sectionLayout = NSCollectionLayoutSection(group: groupLayout)
+        let layout = UICollectionViewCompositionalLayout(section: sectionLayout)
+
+        collectionView.collectionViewLayout = layout
     }
 }
 
