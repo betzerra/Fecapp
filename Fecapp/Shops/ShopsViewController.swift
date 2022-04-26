@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  ShopsViewController.swift
 //  Fecapp
 //
 //  Created by Ezequiel Becerra on 23/04/2022.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class ShopsViewController: UIViewController {
     @IBOutlet weak var collectionView: UICollectionView!
     var dataSource: ShopsDataSource?
 

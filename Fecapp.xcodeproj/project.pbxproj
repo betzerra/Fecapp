@@ -16,7 +16,7 @@
 		679AEC4928161EA700180CEF /* ShopImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 679AEC4828161EA700180CEF /* ShopImage.swift */; };
 		67E2281928147E1F0083D9EF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67E2281828147E1F0083D9EF /* AppDelegate.swift */; };
 		67E2281B28147E1F0083D9EF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67E2281A28147E1F0083D9EF /* SceneDelegate.swift */; };
-		67E2281D28147E1F0083D9EF /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67E2281C28147E1F0083D9EF /* ViewController.swift */; };
+		67E2281D28147E1F0083D9EF /* ShopsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67E2281C28147E1F0083D9EF /* ShopsViewController.swift */; };
 		67E2282028147E1F0083D9EF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 67E2281E28147E1F0083D9EF /* Main.storyboard */; };
 		67E2282228147E1F0083D9EF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 67E2282128147E1F0083D9EF /* Assets.xcassets */; };
 		67E2282528147E1F0083D9EF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 67E2282328147E1F0083D9EF /* LaunchScreen.storyboard */; };
@@ -53,7 +53,7 @@
 		67E2281528147E1F0083D9EF /* Fecapp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Fecapp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		67E2281828147E1F0083D9EF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		67E2281A28147E1F0083D9EF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		67E2281C28147E1F0083D9EF /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		67E2281C28147E1F0083D9EF /* ShopsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopsViewController.swift; sourceTree = "<group>"; };
 		67E2281F28147E1F0083D9EF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		67E2282128147E1F0083D9EF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		67E2282428147E1F0083D9EF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -92,6 +92,33 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		67A9FAB42818B3E200CEF1E2 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				67E2284828147E550083D9EF /* Shop.swift */,
+				679AEC4828161EA700180CEF /* ShopImage.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		67A9FAB52818B3ED00CEF1E2 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				679AEC46281509CD00180CEF /* UIImageView+Lazy.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		67A9FAB62818BD3B00CEF1E2 /* Shops */ = {
+			isa = PBXGroup;
+			children = (
+				67E2281C28147E1F0083D9EF /* ShopsViewController.swift */,
+				679AEC422814C6AF00180CEF /* ShopsDataSource.swift */,
+				679AEC442814FB7400180CEF /* ShopCollectionViewCell.swift */,
+			);
+			path = Shops;
+			sourceTree = "<group>";
+		};
 		67E2280C28147E1F0083D9EF = {
 			isa = PBXGroup;
 			children = (
@@ -117,12 +144,9 @@
 			children = (
 				67E2281828147E1F0083D9EF /* AppDelegate.swift */,
 				67E2281A28147E1F0083D9EF /* SceneDelegate.swift */,
-				67E2281C28147E1F0083D9EF /* ViewController.swift */,
-				679AEC422814C6AF00180CEF /* ShopsDataSource.swift */,
-				679AEC442814FB7400180CEF /* ShopCollectionViewCell.swift */,
-				679AEC46281509CD00180CEF /* UIImageView+Lazy.swift */,
-				67E2284828147E550083D9EF /* Shop.swift */,
-				679AEC4828161EA700180CEF /* ShopImage.swift */,
+				67A9FAB62818BD3B00CEF1E2 /* Shops */,
+				67A9FAB52818B3ED00CEF1E2 /* Extensions */,
+				67A9FAB42818B3E200CEF1E2 /* Models */,
 				67E2281E28147E1F0083D9EF /* Main.storyboard */,
 				67E2282128147E1F0083D9EF /* Assets.xcassets */,
 				67E2282328147E1F0083D9EF /* LaunchScreen.storyboard */,
@@ -289,7 +313,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				679AEC452814FB7400180CEF /* ShopCollectionViewCell.swift in Sources */,
-				67E2281D28147E1F0083D9EF /* ViewController.swift in Sources */,
+				67E2281D28147E1F0083D9EF /* ShopsViewController.swift in Sources */,
 				67E2281928147E1F0083D9EF /* AppDelegate.swift in Sources */,
 				67E2281B28147E1F0083D9EF /* SceneDelegate.swift in Sources */,
 				679AEC47281509CD00180CEF /* UIImageView+Lazy.swift in Sources */,
