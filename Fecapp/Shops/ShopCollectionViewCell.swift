@@ -22,7 +22,7 @@ class ShopCollectionViewCell: UICollectionViewCell {
         return label
     }()
 
-    let subtitleLabel: UILabel = {
+    let neighboorhoodLabel: UILabel = {
         let label = UILabel(frame: .zero)
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.preferredFont(forTextStyle: .subheadline)
@@ -41,7 +41,7 @@ class ShopCollectionViewCell: UICollectionViewCell {
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.setContentCompressionResistancePriority(.defaultHigh, for: .vertical)
 
-        let rightStackView = UIStackView(arrangedSubviews: [titleLabel, subtitleLabel, UIView()])
+        let rightStackView = UIStackView(arrangedSubviews: [titleLabel, neighboorhoodLabel, UIView()])
         rightStackView.translatesAutoresizingMaskIntoConstraints = false
         rightStackView.axis = .vertical
         rightStackView.spacing = 4
@@ -63,7 +63,7 @@ class ShopCollectionViewCell: UICollectionViewCell {
 
     func setShop(_ shop: Shop) {
         titleLabel.text = shop.title
-        subtitleLabel.text = shop.address
+        neighboorhoodLabel.text = shop.neighborhood?.title
 
         if let thumbnail = shop.thumbnail?.small {
             imageView.load(url: thumbnail)

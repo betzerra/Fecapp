@@ -23,6 +23,7 @@ class ShopTests: XCTestCase {
         XCTAssertEqual(shop.hasDelivery, false)
         XCTAssertEqual(shop.createdAt, Date(timeIntervalSince1970: 1609799767))
         XCTAssertEqual(shop.updatedAt, Date(timeIntervalSince1970: 1644594616))
+        XCTAssertEqual(shop.neighborhood?.title, "Colegiales")
         XCTAssertEqual(shop.thumbnail?.regular.absoluteString, "https://cdn.betzerra.com/mrpoopypants/production/shop/thumbnail/98/C76C9E31-CAFA-4AEC-95C7-A9ED8C148A9C.jpeg")
         XCTAssertEqual(shop.thumbnail?.small.absoluteString, "https://cdn.betzerra.com/mrpoopypants/production/shop/thumbnail/98/thumb_C76C9E31-CAFA-4AEC-95C7-A9ED8C148A9C.jpeg")
     }
