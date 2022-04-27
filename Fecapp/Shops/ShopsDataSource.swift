@@ -73,7 +73,8 @@ class ShopsDataSource {
                         return UICollectionViewCell()
                     }
 
-                cell.setShop(shop)
+                let viewModel = ShopCellViewModel(shop: shop)
+                cell.setViewModel(viewModel)
                 return cell
           })
           return dataSource
