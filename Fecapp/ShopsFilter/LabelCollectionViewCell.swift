@@ -11,8 +11,8 @@ import UIKit
 class LabelCollectionViewCell: UICollectionViewCell {
 
     // UI Constants
-    private let verticalPadding: CGFloat = 4.0
-    private let horizontalPadding: CGFloat = 8.0
+    private let verticalPadding: CGFloat = 6.0
+    private let horizontalPadding: CGFloat = 12.0
 
     override var isSelected: Bool {
         didSet {
@@ -52,10 +52,12 @@ class LabelCollectionViewCell: UICollectionViewCell {
         layer.cornerRadius = 8.0
 
         if isSelected {
-            titleLabel.textColor = .primary
+            titleLabel.textColor = .white
+            backgroundColor = .primary
             layer.borderColor = UIColor.primary.cgColor
         } else {
             titleLabel.textColor = .label
+            backgroundColor = .systemBackground
             layer.borderColor = UIColor.label.cgColor
         }
     }
