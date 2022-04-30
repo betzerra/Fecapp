@@ -20,6 +20,10 @@ class ShopsViewModel {
 
     var cancellables = [AnyCancellable]()
 
+    var layoutColumns: Int {
+        UIScreen.main.traitCollection.horizontalSizeClass == .regular ? 2 : 1
+    }
+
     init(collectionView: UICollectionView, dataSource: ShopsDataSource) {
         collectionView.register(
             ShopCollectionViewCell.self,
@@ -84,7 +88,7 @@ class ShopsViewModel {
         let groupLayout = NSCollectionLayoutGroup.horizontal(
             layoutSize: groupSize,
             subitem: itemLayout,
-            count: 1
+            count: layoutColumns
         )
 
         let sectionLayout = NSCollectionLayoutSection(group: groupLayout)
