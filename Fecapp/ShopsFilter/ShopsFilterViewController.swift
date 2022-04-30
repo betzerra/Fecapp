@@ -15,7 +15,7 @@ class ShopsFilterViewController: UIViewController {
     // UI constants
     private let collectionViewTopMargin: CGFloat = 32.0
     private let collectionViewMargin: CGFloat = 16.0
-    private let collectionViewItemSpacing: CGFloat = 4.0
+    private let collectionViewItemSpacing: CGFloat = 6.0
     private let collectionViewLineSpacing: CGFloat = 16.0
 
     init(dataSource: ShopsDataSource) {

@@ -29,7 +29,7 @@ class ShopsFilterViewModel {
             .map { shops -> [Neighborhood] in
                 // Remove duplicates
                 let neighborhoods: Set<Neighborhood> = Set(shops.compactMap { $0.neighborhood })
-                return Array(neighborhoods)
+                return Array(neighborhoods).sorted(by: { $0.title < $1.title })
             }
             .receive(on: RunLoop.main)
             .sink { [weak self] neighborhoods in

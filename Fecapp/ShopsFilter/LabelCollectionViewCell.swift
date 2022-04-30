@@ -10,6 +10,10 @@ import UIKit
 
 class LabelCollectionViewCell: UICollectionViewCell {
 
+    // UI Constants
+    private let verticalPadding: CGFloat = 4.0
+    private let horizontalPadding: CGFloat = 8.0
+
     let titleLabel: UILabel = {
         let label = UILabel(frame: .zero)
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -23,17 +27,24 @@ class LabelCollectionViewCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         addViews()
+        setupStyle()
     }
 
     func addViews() {
         addSubview(titleLabel)
 
         NSLayoutConstraint.activate([
-            titleLabel.leftAnchor.constraint(equalTo: self.leftAnchor),
-            titleLabel.topAnchor.constraint(equalTo: self.topAnchor),
-            titleLabel.rightAnchor.constraint(equalTo: self.rightAnchor),
-            titleLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor)
+            titleLabel.leftAnchor.constraint(equalTo: self.leftAnchor, constant: horizontalPadding),
+            titleLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: verticalPadding),
+            titleLabel.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -horizontalPadding),
+            titleLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -verticalPadding)
         ])
+    }
+
+    func setupStyle() {
+        layer.borderWidth = 1.0
+        layer.borderColor = UIColor.white.cgColor
+        layer.cornerRadius = 8.0
     }
 
     func setTitle(_ title: String) {
