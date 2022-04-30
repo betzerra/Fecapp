@@ -17,6 +17,12 @@
   "created_at": "2021-01-04T22:36:07.000Z",
   "updated_at": "2022-02-11T15:50:16.000Z",
   "neighborhood_id": 15,
+  "neighborhood": {
+        "id": 15,
+        "title": "Colegiales",
+        "created_at": "2020-06-07T16:57:36.827Z",
+        "updated_at": "2020-06-07T16:57:36.827Z"
+  },
   "slug": "tres",
   "rank": 3,
   "website": "",

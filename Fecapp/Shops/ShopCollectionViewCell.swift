@@ -61,11 +61,11 @@ class ShopCollectionViewCell: UICollectionViewCell {
         ])
     }
 
-    func setShop(_ shop: Shop) {
-        titleLabel.text = shop.title
-        subtitleLabel.text = shop.address
+    func setViewModel(_ viewModel: ShopCellViewModel) {
+        titleLabel.text = viewModel.title
+        subtitleLabel.text = viewModel.subtitle
 
-        if let thumbnail = shop.thumbnail?.small {
+        if let thumbnail = viewModel.shop.thumbnail?.small {
             imageView.load(url: thumbnail)
         }
     }
