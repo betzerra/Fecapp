@@ -9,50 +9,36 @@ import UIKit
 
 class ShopsViewController: UIViewController {
     @IBOutlet weak var collectionView: UICollectionView!
-    var dataSource: ShopsDataSource?
 
-    // UI constants
-    private let cellVerticalPadding: CGFloat = 8.0
-    private let cellHorizontalPadding: CGFloat = 16.0
-    private let cellHeight: CGFloat = 110.0
+    let dataSource = ShopsDataSource()
+
+    var viewModel: ShopsViewModel?
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        createLayout()
+        setupNavigationItem()
 
-        dataSource = ShopsDataSource(collectionView: collectionView)
-        dataSource?.fetchShops()
+        viewModel = ShopsViewModel(collectionView: collectionView, dataSource: dataSource)
     }
 
-    private func createLayout() {
-        let itemSize = NSCollectionLayoutSize(
-            widthDimension: .fractionalWidth(1.0),
-            heightDimension: .fractionalHeight(1.0)
+    private func setupNavigationItem() {
+        let filterAction = UIAction { [weak self] _ in
+            guard let dataSource = self?.dataSource else {
+                return
+            }
+
+            let filterController = ShopsFilterViewController(dataSource: dataSource)
+            let navigationController = UINavigationController(rootViewController: filterController)
+
+            self?.present(navigationController, animated: true)
+        }
+
+        navigationItem.rightBarButtonItem = UIBarButtonItem(
+            title: nil,
+            image: UIImage(systemName: "slider.horizontal.3")?.withTintColor(.primary),
+            primaryAction: filterAction,
+            menu: nil
         )
-
-        let itemLayout = NSCollectionLayoutItem(layoutSize: itemSize)
-        itemLayout.contentInsets = NSDirectionalEdgeInsets(
-            top: cellVerticalPadding,
-            leading: cellHorizontalPadding,
-            bottom: cellVerticalPadding,
-            trailing: cellHorizontalPadding
-        )
-
-        let groupSize = NSCollectionLayoutSize(
-            widthDimension: .fractionalWidth(1.0),
-            heightDimension: .estimated(cellHeight)
-        )
-
-        let groupLayout = NSCollectionLayoutGroup.horizontal(
-            layoutSize: groupSize,
-            subitem: itemLayout,
-            count: 1
-        )
-
-        let sectionLayout = NSCollectionLayoutSection(group: groupLayout)
-        let layout = UICollectionViewCompositionalLayout(section: sectionLayout)
-
-        collectionView.collectionViewLayout = layout
     }
 }
 
