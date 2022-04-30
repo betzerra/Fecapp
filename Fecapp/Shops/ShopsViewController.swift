@@ -11,6 +11,11 @@ class ShopsViewController: UIViewController {
     @IBOutlet weak var collectionView: UICollectionView!
     var dataSource: ShopsDataSource?
 
+    // UI constants
+    private let cellVerticalPadding: CGFloat = 8.0
+    private let cellHorizontalPadding: CGFloat = 16.0
+    private let cellHeight: CGFloat = 110.0
+
     override func viewDidLoad() {
         super.viewDidLoad()
         createLayout()
@@ -27,15 +32,15 @@ class ShopsViewController: UIViewController {
 
         let itemLayout = NSCollectionLayoutItem(layoutSize: itemSize)
         itemLayout.contentInsets = NSDirectionalEdgeInsets(
-            top: 8,
-            leading: 16,
-            bottom: 8,
-            trailing: 16
+            top: cellVerticalPadding,
+            leading: cellHorizontalPadding,
+            bottom: cellVerticalPadding,
+            trailing: cellHorizontalPadding
         )
 
         let groupSize = NSCollectionLayoutSize(
             widthDimension: .fractionalWidth(1.0),
-            heightDimension: .estimated(110)
+            heightDimension: .estimated(cellHeight)
         )
 
         let groupLayout = NSCollectionLayoutGroup.horizontal(

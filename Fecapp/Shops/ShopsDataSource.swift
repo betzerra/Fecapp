@@ -39,14 +39,18 @@ class ShopsDataSource {
             .compactMap { $0 }
             .receive(on: RunLoop.main)
             .sink { [weak self] shops in
-                var snapshot = NSDiffableDataSourceSnapshot<Section, Shop>()
-                snapshot.appendSections([.main])
-                snapshot.appendItems(shops)
-                self?.dataSource.apply(snapshot, animatingDifferences: false)
+                self?.refreshDatasource(shops: shops)
             }
             .store(in: &cancellables)
 
         fetchShops()
+    }
+
+    func refreshDatasource(shops: [Shop]) {
+        var snapshot = NSDiffableDataSourceSnapshot<Section, Shop>()
+        snapshot.appendSections([.main])
+        snapshot.appendItems(shops)
+        dataSource.apply(snapshot, animatingDifferences: false)
     }
 
     func fetchShops() {
