@@ -24,6 +24,7 @@ class ShopsFilterViewController: UIViewController {
         collectionViewLayout.minimumLineSpacing = collectionViewLineSpacing
         collectionViewLayout.minimumInteritemSpacing = collectionViewItemSpacing
         collectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionViewLayout)
+        collectionView.allowsMultipleSelection = true
 
         viewModel = ShopsFilterViewModel(collectionView: collectionView, dataSource: dataSource)
 

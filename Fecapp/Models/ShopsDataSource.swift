@@ -19,6 +19,7 @@ class ShopsDataSource {
     let pluma: Pluma
 
     @Published var shops: [Shop]?
+    @Published var filteredNeighborhoods =  Set<Neighborhood>()
 
     init() {
         pluma = Pluma(baseURL: baseURL, decoder: nil)

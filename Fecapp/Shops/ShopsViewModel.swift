@@ -36,6 +36,30 @@ class ShopsViewModel {
                 self?.refreshDatasource(shops: shops)
             }
             .store(in: &cancellables)
+
+        dataSource.$filteredNeighborhoods
+            .receive(on: RunLoop.main)
+            .sink { [weak self] neighborhoods in
+                guard let shops = dataSource.shops else {
+                    return
+                }
+
+                if neighborhoods.count == 0 {
+                    self?.refreshDatasource(shops: shops)
+                    return
+                }
+
+                let filteredShops = shops.filter { shop in
+                    guard let shopNeighborhood = shop.neighborhood else {
+                        return false
+                    }
+
+                    return neighborhoods.contains(shopNeighborhood)
+                }
+
+                self?.refreshDatasource(shops: filteredShops)
+            }
+            .store(in: &cancellables)
     }
 
     private func setupCollectionViewLayout() {

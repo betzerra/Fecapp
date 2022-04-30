@@ -11,8 +11,11 @@ import UIKit
 
 typealias NeighborhoodDiffableDataSource = UICollectionViewDiffableDataSource<Section, Neighborhood>
 
-class ShopsFilterViewModel {
+class ShopsFilterViewModel: NSObject, UICollectionViewDelegate {
     let collectionView: UICollectionView
+    let shopsDataSource: ShopsDataSource
+
+    var neighborhoods: [Neighborhood]?
 
     var cancellables = [AnyCancellable]()
 
@@ -22,7 +25,11 @@ class ShopsFilterViewModel {
             forCellWithReuseIdentifier: "LabelCollectionViewCell"
         )
 
+        self.shopsDataSource = dataSource
         self.collectionView = collectionView
+        super.init()
+
+        self.collectionView.delegate = self
 
         dataSource.$shops
             .compactMap { $0 }
@@ -39,10 +46,19 @@ class ShopsFilterViewModel {
     }
 
     func refreshDatasource(neighborhoods: [Neighborhood]) {
+        self.neighborhoods = neighborhoods
+
         var snapshot = NSDiffableDataSourceSnapshot<Section, Neighborhood>()
         snapshot.appendSections([.main])
         snapshot.appendItems(neighborhoods)
         dataSource.apply(snapshot, animatingDifferences: false)
+
+        neighborhoods.enumerated().forEach { index, neighborhood in
+            if shopsDataSource.filteredNeighborhoods.contains(neighborhood) {
+                let indexPath = IndexPath(row: index, section: 0)
+                collectionView.selectItem(at: indexPath, animated: false, scrollPosition: .top)
+            }
+        }
     }
 
     private lazy var dataSource: NeighborhoodDiffableDataSource = {
@@ -60,4 +76,23 @@ class ShopsFilterViewModel {
           })
           return dataSource
     }()
+
+    // MARK: - UICollectionViewDelegate
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let neighborhoods = neighborhoods else {
+            return
+        }
+
+        let selected = neighborhoods[indexPath.row]
+        shopsDataSource.filteredNeighborhoods.insert(selected)
+    }
+
+    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+        guard let neighborhoods = neighborhoods else {
+            return
+        }
+
+        let selected = neighborhoods[indexPath.row]
+        shopsDataSource.filteredNeighborhoods.remove(selected)
+    }
 }

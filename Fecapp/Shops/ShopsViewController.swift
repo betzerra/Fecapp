@@ -35,7 +35,7 @@ class ShopsViewController: UIViewController {
 
         navigationItem.rightBarButtonItem = UIBarButtonItem(
             title: nil,
-            image: UIImage(systemName: "slider.horizontal.3"),
+            image: UIImage(systemName: "slider.horizontal.3")?.withTintColor(.primary),
             primaryAction: filterAction,
             menu: nil
         )

@@ -14,6 +14,12 @@ class LabelCollectionViewCell: UICollectionViewCell {
     private let verticalPadding: CGFloat = 4.0
     private let horizontalPadding: CGFloat = 8.0
 
+    override var isSelected: Bool {
+        didSet {
+            setupStyle(isSelected: isSelected)
+        }
+    }
+
     let titleLabel: UILabel = {
         let label = UILabel(frame: .zero)
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -27,7 +33,7 @@ class LabelCollectionViewCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         addViews()
-        setupStyle()
+        setupStyle(isSelected: false)
     }
 
     func addViews() {
@@ -41,10 +47,17 @@ class LabelCollectionViewCell: UICollectionViewCell {
         ])
     }
 
-    func setupStyle() {
+    func setupStyle(isSelected: Bool) {
         layer.borderWidth = 1.0
-        layer.borderColor = UIColor.white.cgColor
         layer.cornerRadius = 8.0
+
+        if isSelected {
+            titleLabel.textColor = .primary
+            layer.borderColor = UIColor.primary.cgColor
+        } else {
+            titleLabel.textColor = .label
+            layer.borderColor = UIColor.label.cgColor
+        }
     }
 
     func setTitle(_ title: String) {
