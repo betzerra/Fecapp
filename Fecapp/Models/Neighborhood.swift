@@ -14,3 +14,15 @@ struct Neighborhood: Decodable {
         case title
     }
 }
+
+extension Neighborhood: Hashable {
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(title)
+    }
+}
+
+extension Neighborhood: Equatable {
+    static func == (lhs: Neighborhood, rhs: Neighborhood) -> Bool {
+        lhs.title == rhs.title
+    }
+}

@@ -1,49 +1,72 @@
 //
-//  ShopsDataSource.swift
+//  ShopsViewModel.swift
 //  Fecapp
 //
-//  Created by Ezequiel Becerra on 23/04/2022.
+//  Created by Ezequiel Becerra on 30/04/2022.
 //
 
-import Foundation
 import Combine
-import Pluma
+import Foundation
 import UIKit
-
-enum Section {
-    case main
-}
 
 typealias ShopsDiffableDataSource = UICollectionViewDiffableDataSource<Section, Shop>
 
-class ShopsDataSource {
+class ShopsViewModel {
+    private let cellVerticalPadding: CGFloat = 8.0
+    private let cellHorizontalPadding: CGFloat = 16.0
+    private let cellHeight: CGFloat = 110.0
+
     let collectionView: UICollectionView
-
-    let baseURL = URL(string: "https://www.tomafeca.com")!
-    let pluma: Pluma
-
-    @Published var shops: [Shop]?
 
     var cancellables = [AnyCancellable]()
 
-    init(collectionView: UICollectionView) {
-        self.pluma = Pluma(baseURL: baseURL, decoder: nil)
-        self.collectionView = collectionView
-
+    init(collectionView: UICollectionView, dataSource: ShopsDataSource) {
         collectionView.register(
             ShopCollectionViewCell.self,
             forCellWithReuseIdentifier: "ShopCollectionViewCell"
         )
 
-        $shops
+        self.collectionView = collectionView
+        setupCollectionViewLayout()
+
+        dataSource.$shops
             .compactMap { $0 }
             .receive(on: RunLoop.main)
             .sink { [weak self] shops in
                 self?.refreshDatasource(shops: shops)
             }
             .store(in: &cancellables)
+    }
 
-        fetchShops()
+    private func setupCollectionViewLayout() {
+        let itemSize = NSCollectionLayoutSize(
+            widthDimension: .fractionalWidth(1.0),
+            heightDimension: .fractionalHeight(1.0)
+        )
+
+        let itemLayout = NSCollectionLayoutItem(layoutSize: itemSize)
+        itemLayout.contentInsets = NSDirectionalEdgeInsets(
+            top: cellVerticalPadding,
+            leading: cellHorizontalPadding,
+            bottom: cellVerticalPadding,
+            trailing: cellHorizontalPadding
+        )
+
+        let groupSize = NSCollectionLayoutSize(
+            widthDimension: .fractionalWidth(1.0),
+            heightDimension: .estimated(cellHeight)
+        )
+
+        let groupLayout = NSCollectionLayoutGroup.horizontal(
+            layoutSize: groupSize,
+            subitem: itemLayout,
+            count: 1
+        )
+
+        let sectionLayout = NSCollectionLayoutSection(group: groupLayout)
+        let layout = UICollectionViewCompositionalLayout(section: sectionLayout)
+
+        collectionView.collectionViewLayout = layout
     }
 
     func refreshDatasource(shops: [Shop]) {
@@ -51,20 +74,6 @@ class ShopsDataSource {
         snapshot.appendSections([.main])
         snapshot.appendItems(shops)
         dataSource.apply(snapshot, animatingDifferences: false)
-    }
-
-    func fetchShops() {
-        Task {
-            do {
-                shops = try await pluma.request(
-                    method: .GET,
-                    path: "shops.json",
-                    params: nil
-                )
-            } catch {
-                print(error.localizedDescription)
-            }
-        }
     }
 
     private lazy var dataSource: ShopsDiffableDataSource = {
