@@ -12,6 +12,11 @@ class ShopCollectionViewCell: UICollectionViewCell {
 
     var imageView: UIImageView!
 
+    // UI constants
+    private let thumbnailSize: CGFloat = 90.0
+    private let horizontalSpacing: CGFloat = 16.0
+    private let verticalSpacing: CGFloat = 4.0
+
     let titleLabel: UILabel = {
         let label = UILabel(frame: .zero)
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -44,16 +49,16 @@ class ShopCollectionViewCell: UICollectionViewCell {
         let rightStackView = UIStackView(arrangedSubviews: [titleLabel, subtitleLabel, UIView()])
         rightStackView.translatesAutoresizingMaskIntoConstraints = false
         rightStackView.axis = .vertical
-        rightStackView.spacing = 4
+        rightStackView.spacing = verticalSpacing
 
         let stackView = UIStackView(arrangedSubviews: [imageView, rightStackView])
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .horizontal
-        stackView.spacing = 16
+        stackView.spacing = horizontalSpacing
         addSubview(stackView)
 
         NSLayoutConstraint.activate([
-            imageView.widthAnchor.constraint(equalToConstant: 90),
+            imageView.widthAnchor.constraint(equalToConstant: thumbnailSize),
             stackView.leftAnchor.constraint(equalTo: self.leftAnchor),
             stackView.topAnchor.constraint(equalTo: self.topAnchor),
             stackView.rightAnchor.constraint(equalTo: self.rightAnchor),
