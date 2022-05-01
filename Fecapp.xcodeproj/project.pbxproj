@@ -14,6 +14,9 @@
 		679AEC452814FB7400180CEF /* ShopCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 679AEC442814FB7400180CEF /* ShopCollectionViewCell.swift */; };
 		679AEC47281509CD00180CEF /* UIImageView+Lazy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 679AEC46281509CD00180CEF /* UIImageView+Lazy.swift */; };
 		679AEC4928161EA700180CEF /* ShopImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 679AEC4828161EA700180CEF /* ShopImage.swift */; };
+		67A02285281DF912007987BE /* ShopDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67A02284281DF912007987BE /* ShopDetailViewController.swift */; };
+		67A02287281DF9CE007987BE /* ShopDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67A02286281DF9CE007987BE /* ShopDetailViewModel.swift */; };
+		67A02289281DFDDD007987BE /* ShopHeadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67A02288281DFDDD007987BE /* ShopHeadView.swift */; };
 		67A9FAB82818C84200CEF1E2 /* Neighborhood.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67A9FAB72818C84200CEF1E2 /* Neighborhood.swift */; };
 		67A9FABA2818C9EE00CEF1E2 /* ShopCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67A9FAB92818C9EE00CEF1E2 /* ShopCellViewModel.swift */; };
 		67CD60E9281DA59E000BEEC4 /* ShopsFilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67CD60E8281DA59E000BEEC4 /* ShopsFilterViewController.swift */; };
@@ -57,6 +60,9 @@
 		679AEC442814FB7400180CEF /* ShopCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopCollectionViewCell.swift; sourceTree = "<group>"; };
 		679AEC46281509CD00180CEF /* UIImageView+Lazy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+Lazy.swift"; sourceTree = "<group>"; };
 		679AEC4828161EA700180CEF /* ShopImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopImage.swift; sourceTree = "<group>"; };
+		67A02284281DF912007987BE /* ShopDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopDetailViewController.swift; sourceTree = "<group>"; };
+		67A02286281DF9CE007987BE /* ShopDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopDetailViewModel.swift; sourceTree = "<group>"; };
+		67A02288281DFDDD007987BE /* ShopHeadView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopHeadView.swift; sourceTree = "<group>"; };
 		67A9FAB72818C84200CEF1E2 /* Neighborhood.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Neighborhood.swift; sourceTree = "<group>"; };
 		67A9FAB92818C9EE00CEF1E2 /* ShopCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopCellViewModel.swift; sourceTree = "<group>"; };
 		67CD60E8281DA59E000BEEC4 /* ShopsFilterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopsFilterViewController.swift; sourceTree = "<group>"; };
@@ -106,6 +112,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		67A02283281DF906007987BE /* ShopDetail */ = {
+			isa = PBXGroup;
+			children = (
+				67A02284281DF912007987BE /* ShopDetailViewController.swift */,
+				67A02286281DF9CE007987BE /* ShopDetailViewModel.swift */,
+				67A02288281DFDDD007987BE /* ShopHeadView.swift */,
+			);
+			path = ShopDetail;
+			sourceTree = "<group>";
+		};
 		67A9FAB42818B3E200CEF1E2 /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -172,6 +188,7 @@
 			children = (
 				67E2281828147E1F0083D9EF /* AppDelegate.swift */,
 				67E2281A28147E1F0083D9EF /* SceneDelegate.swift */,
+				67A02283281DF906007987BE /* ShopDetail */,
 				67CD60E7281DA587000BEEC4 /* ShopsFilter */,
 				67A9FAB62818BD3B00CEF1E2 /* Shops */,
 				67A9FAB52818B3ED00CEF1E2 /* Extensions */,
@@ -345,8 +362,11 @@
 				67CD60ED281DBB0D000BEEC4 /* ShopsViewModel.swift in Sources */,
 				679AEC452814FB7400180CEF /* ShopCollectionViewCell.swift in Sources */,
 				67E2281D28147E1F0083D9EF /* ShopsViewController.swift in Sources */,
+				67A02287281DF9CE007987BE /* ShopDetailViewModel.swift in Sources */,
 				67E2281928147E1F0083D9EF /* AppDelegate.swift in Sources */,
+				67A02285281DF912007987BE /* ShopDetailViewController.swift in Sources */,
 				67A9FAB82818C84200CEF1E2 /* Neighborhood.swift in Sources */,
+				67A02289281DFDDD007987BE /* ShopHeadView.swift in Sources */,
 				67E2281B28147E1F0083D9EF /* SceneDelegate.swift in Sources */,
 				679AEC47281509CD00180CEF /* UIImageView+Lazy.swift in Sources */,
 				67A9FABA2818C9EE00CEF1E2 /* ShopCellViewModel.swift in Sources */,

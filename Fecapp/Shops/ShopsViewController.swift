@@ -5,6 +5,7 @@
 //  Created by Ezequiel Becerra on 23/04/2022.
 //
 
+import Combine
 import UIKit
 
 class ShopsViewController: UIViewController {
@@ -12,13 +13,25 @@ class ShopsViewController: UIViewController {
 
     let dataSource = ShopsDataSource()
 
-    var viewModel: ShopsViewModel?
+    var viewModel: ShopsViewModel!
+
+    var cancellables = [AnyCancellable]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         setupNavigationItem()
 
         viewModel = ShopsViewModel(collectionView: collectionView, dataSource: dataSource)
+
+        viewModel.events
+            .receive(on: RunLoop.main)
+            .sink { [weak self] event in
+                switch event {
+                case .shopSelected(let shop):
+                    self?.pushDetailShop(shop)
+                }
+            }
+            .store(in: &cancellables)
     }
 
     private func setupNavigationItem() {
@@ -39,6 +52,11 @@ class ShopsViewController: UIViewController {
             primaryAction: filterAction,
             menu: nil
         )
+    }
+
+    private func pushDetailShop(_ shop: Shop) {
+        let controller = ShopDetailViewController(shop: shop)
+        navigationController?.pushViewController(controller, animated: true)
     }
 }
 
