@@ -100,5 +100,9 @@ class ShopHeadView: UIView {
         roasterLabel.attributedText = viewModel.attributedRoaster
 
         mapView.setRegion(viewModel.mapRegion, animated: false)
+
+        let pin = MKPointAnnotation() // map pin
+        pin.coordinate = viewModel.shop.coordinates.locationCoordinate
+        mapView.addAnnotation(pin)
     }
 }
