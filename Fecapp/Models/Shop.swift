@@ -24,6 +24,10 @@ struct Shop: Decodable {
 
     let thumbnail: ShopThumbnail?
 
+    var webURL: URL? {
+        URL(string: "https://www.tomafeca.com/d/\(slug)")
+    }
+
     enum CodingKeys: String, CodingKey {
         case id
         case slug

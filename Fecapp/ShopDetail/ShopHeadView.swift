@@ -16,29 +16,16 @@ class ShopHeadView: UIView {
     private let containerStackView: UIStackView
     private let detailSubView: UIView
 
-    private let addressLabel: UILabel = {
-        let label = UILabel(frame: .zero)
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.preferredFont(forTextStyle: .body)
-        label.textColor = .label
-        label.numberOfLines = 0
-        return label
+    private let addressButton: UIButton = {
+        return ShopHeadView.detailButton()
     }()
 
-    private let instagramLabel: UILabel = {
-        let label = UILabel(frame: .zero)
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.preferredFont(forTextStyle: .body)
-        label.textColor = .label
-        return label
+    private let instagramButton: UIButton = {
+        return ShopHeadView.detailButton()
     }()
 
-    private let roasterLabel: UILabel = {
-        let label = UILabel(frame: .zero)
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.preferredFont(forTextStyle: .body)
-        label.textColor = .label
-        return label
+    private let roasterButton: UIButton = {
+        return ShopHeadView.detailButton()
     }()
 
     private let mapView: MKMapView = {
@@ -75,7 +62,7 @@ class ShopHeadView: UIView {
     private func setupLayout() {
         detailSubView.translatesAutoresizingMaskIntoConstraints = false
 
-        let detailStackView = UIStackView(arrangedSubviews: [addressLabel, instagramLabel, roasterLabel])
+        let detailStackView = UIStackView(arrangedSubviews: [addressButton, instagramButton, roasterButton])
         detailStackView.translatesAutoresizingMaskIntoConstraints = false
         detailStackView.spacing = spacing
         detailStackView.axis = .vertical
@@ -95,14 +82,28 @@ class ShopHeadView: UIView {
     }
 
     private func updateContent() {
-        addressLabel.attributedText = viewModel.attributedAddress
-        instagramLabel.attributedText = viewModel.attributedInstagram
-        roasterLabel.attributedText = viewModel.attributedRoaster
+        addressButton.setAttributedTitle(viewModel.attributedAddress, for: .normal)
+        addressButton.addAction(viewModel.openMapAction, for: .touchUpInside)
+
+        instagramButton.setAttributedTitle(viewModel.attributedInstagram, for: .normal)
+        instagramButton.addAction(viewModel.instagramAction, for: .touchUpInside)
+
+        roasterButton.setAttributedTitle(viewModel.attributedRoaster, for: .normal)
+        roasterButton.addAction(viewModel.roastersAction, for: .touchUpInside)
 
         mapView.setRegion(viewModel.mapRegion, animated: false)
 
         let pin = MKPointAnnotation() // map pin
         pin.coordinate = viewModel.shop.coordinates.locationCoordinate
         mapView.addAnnotation(pin)
+    }
+
+    static func detailButton() -> UIButton {
+        let button = UIButton(type: .system)
+        button.titleLabel?.font = UIFont.preferredFont(forTextStyle: .body)
+        button.contentHorizontalAlignment = .left
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.tintColor = .label
+        return button
     }
 }
