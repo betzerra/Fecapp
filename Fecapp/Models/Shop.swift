@@ -16,8 +16,7 @@ struct Shop: Decodable {
     let title: String
 
     let address: String
-    let latitude: Float
-    let longitude: Float
+    let coordinates: ShopCoordinates
     let neighborhood: Neighborhood?
 
     let instagram: String
@@ -48,8 +47,12 @@ struct Shop: Decodable {
         updatedAt = try values.decode(Date.self, forKey: .updatedAt)
         title = try values.decode(String.self, forKey: .title)
         address = try values.decode(String.self, forKey: .address)
-        latitude = try values.decode(Float.self, forKey: .latitude)
-        longitude = try values.decode(Float.self, forKey: .longitude)
+
+        coordinates = ShopCoordinates(
+            latitude: try values.decode(Double.self, forKey: .latitude),
+            longitude: try values.decode(Double.self, forKey: .longitude)
+        )
+
         neighborhood = try? values.decode(Neighborhood.self, forKey: .neighborhood)
         instagram = try values.decode(String.self, forKey: .instagram)
         hasDelivery = try values.decode(Bool.self, forKey: .hasDelivery)

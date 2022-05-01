@@ -15,9 +15,6 @@ class ShopDetailViewController: UIViewController {
     private let headView: ShopHeadView
     private let containerStackView: UIStackView
 
-    // UI Constants
-    private let headViewHeight: CGFloat = 120.0
-
     init(shop: Shop) {
         self.viewModel = ShopDetailViewModel(shop: shop)
 
@@ -51,8 +48,7 @@ class ShopDetailViewController: UIViewController {
         NSLayoutConstraint.activate([
             containerStackView.leftAnchor.constraint(equalTo: view.leftAnchor),
             containerStackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            containerStackView.rightAnchor.constraint(equalTo: view.rightAnchor),
-            containerStackView.heightAnchor.constraint(equalToConstant: headViewHeight)
+            containerStackView.rightAnchor.constraint(equalTo: view.rightAnchor)
         ])
     }
 }

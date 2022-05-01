@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import MapKit
 import UIKit
 
 class ShopDetailViewModel {
@@ -41,6 +42,26 @@ class ShopDetailViewModel {
         string.append(NSAttributedString(string: " \(shop.instagram)"))
 
         return string
+    }
+
+    var attributedRoaster: NSAttributedString {
+        let roasterString = "Tostador: "
+        let string = NSMutableAttributedString(string: roasterString)
+        string.addAttribute(
+            .font, value: UIFont.preferredFont(forTextStyle: .body).bold(),
+            range: NSRange.init(location: 0, length: roasterString.utf16.count)
+        )
+
+        string.append(NSAttributedString(string: "N/A"))
+        return string
+    }
+
+    var mapRegion: MKCoordinateRegion {
+        MKCoordinateRegion(
+            center: shop.coordinates.locationCoordinate,
+            latitudinalMeters: 300,
+            longitudinalMeters: 300
+        )
     }
 
     init(shop: Shop) {
