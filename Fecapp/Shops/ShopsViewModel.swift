@@ -11,14 +11,22 @@ import UIKit
 
 typealias ShopsDiffableDataSource = UICollectionViewDiffableDataSource<Section, Shop>
 
-class ShopsViewModel {
+enum ShopsViewModelEvents {
+    case shopSelected(Shop)
+}
+
+class ShopsViewModel: NSObject, UICollectionViewDelegate {
     private let cellVerticalPadding: CGFloat = 8.0
     private let cellHorizontalPadding: CGFloat = 16.0
     private let cellHeight: CGFloat = 110.0
 
     let collectionView: UICollectionView
 
-    var cancellables = [AnyCancellable]()
+    private var shops: [Shop]?
+
+    let events: AnyPublisher<ShopsViewModelEvents, Never>
+    private let _events = PassthroughSubject<ShopsViewModelEvents, Never>()
+    private var cancellables = [AnyCancellable]()
 
     var layoutColumns: Int {
         UIScreen.main.traitCollection.horizontalSizeClass == .regular ? 2 : 1
@@ -31,6 +39,10 @@ class ShopsViewModel {
         )
 
         self.collectionView = collectionView
+        self.events = _events.eraseToAnyPublisher()
+
+        super.init()
+        self.collectionView.delegate = self
         setupCollectionViewLayout()
 
         dataSource.$shops
@@ -98,6 +110,8 @@ class ShopsViewModel {
     }
 
     func refreshDatasource(shops: [Shop]) {
+        self.shops = shops
+
         var snapshot = NSDiffableDataSourceSnapshot<Section, Shop>()
         snapshot.appendSections([.main])
         snapshot.appendItems(shops)
@@ -120,4 +134,13 @@ class ShopsViewModel {
           })
           return dataSource
     }()
+
+    // MARK: UICollectionViewDelegate
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let selected = shops?[indexPath.row] else {
+            return
+        }
+
+        _events.send(.shopSelected(selected))
+    }
 }
