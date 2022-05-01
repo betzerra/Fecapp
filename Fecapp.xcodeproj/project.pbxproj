@@ -17,6 +17,8 @@
 		67A02285281DF912007987BE /* ShopDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67A02284281DF912007987BE /* ShopDetailViewController.swift */; };
 		67A02287281DF9CE007987BE /* ShopDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67A02286281DF9CE007987BE /* ShopDetailViewModel.swift */; };
 		67A02289281DFDDD007987BE /* ShopHeadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67A02288281DFDDD007987BE /* ShopHeadView.swift */; };
+		67A0228B281E201B007987BE /* ShopCoordinates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67A0228A281E201B007987BE /* ShopCoordinates.swift */; };
+		67A0228D281E2B09007987BE /* UIFont+Styles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67A0228C281E2B09007987BE /* UIFont+Styles.swift */; };
 		67A9FAB82818C84200CEF1E2 /* Neighborhood.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67A9FAB72818C84200CEF1E2 /* Neighborhood.swift */; };
 		67A9FABA2818C9EE00CEF1E2 /* ShopCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67A9FAB92818C9EE00CEF1E2 /* ShopCellViewModel.swift */; };
 		67CD60E9281DA59E000BEEC4 /* ShopsFilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67CD60E8281DA59E000BEEC4 /* ShopsFilterViewController.swift */; };
@@ -63,6 +65,8 @@
 		67A02284281DF912007987BE /* ShopDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopDetailViewController.swift; sourceTree = "<group>"; };
 		67A02286281DF9CE007987BE /* ShopDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopDetailViewModel.swift; sourceTree = "<group>"; };
 		67A02288281DFDDD007987BE /* ShopHeadView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopHeadView.swift; sourceTree = "<group>"; };
+		67A0228A281E201B007987BE /* ShopCoordinates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopCoordinates.swift; sourceTree = "<group>"; };
+		67A0228C281E2B09007987BE /* UIFont+Styles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+Styles.swift"; sourceTree = "<group>"; };
 		67A9FAB72818C84200CEF1E2 /* Neighborhood.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Neighborhood.swift; sourceTree = "<group>"; };
 		67A9FAB92818C9EE00CEF1E2 /* ShopCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopCellViewModel.swift; sourceTree = "<group>"; };
 		67CD60E8281DA59E000BEEC4 /* ShopsFilterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopsFilterViewController.swift; sourceTree = "<group>"; };
@@ -129,6 +133,7 @@
 				67E2284828147E550083D9EF /* Shop.swift */,
 				679AEC422814C6AF00180CEF /* ShopsDataSource.swift */,
 				679AEC4828161EA700180CEF /* ShopImage.swift */,
+				67A0228A281E201B007987BE /* ShopCoordinates.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -138,6 +143,7 @@
 			children = (
 				679AEC46281509CD00180CEF /* UIImageView+Lazy.swift */,
 				67CD60F0281DD5C3000BEEC4 /* UIColor+Utils.swift */,
+				67A0228C281E2B09007987BE /* UIFont+Styles.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -365,12 +371,14 @@
 				67A02287281DF9CE007987BE /* ShopDetailViewModel.swift in Sources */,
 				67E2281928147E1F0083D9EF /* AppDelegate.swift in Sources */,
 				67A02285281DF912007987BE /* ShopDetailViewController.swift in Sources */,
+				67A0228B281E201B007987BE /* ShopCoordinates.swift in Sources */,
 				67A9FAB82818C84200CEF1E2 /* Neighborhood.swift in Sources */,
 				67A02289281DFDDD007987BE /* ShopHeadView.swift in Sources */,
 				67E2281B28147E1F0083D9EF /* SceneDelegate.swift in Sources */,
 				679AEC47281509CD00180CEF /* UIImageView+Lazy.swift in Sources */,
 				67A9FABA2818C9EE00CEF1E2 /* ShopCellViewModel.swift in Sources */,
 				67CD60E9281DA59E000BEEC4 /* ShopsFilterViewController.swift in Sources */,
+				67A0228D281E2B09007987BE /* UIFont+Styles.swift in Sources */,
 				67CD60EF281DC1EB000BEEC4 /* LabelCollectionViewCell.swift in Sources */,
 				67CD60EB281DB828000BEEC4 /* ShopsFilterViewModel.swift in Sources */,
 				67E2284928147E550083D9EF /* Shop.swift in Sources */,
