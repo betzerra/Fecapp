@@ -10,10 +10,8 @@ import UIKit
 
 class ShopCollectionViewCell: UICollectionViewCell {
 
-    var imageView: UIImageView!
-
     // UI constants
-    private let thumbnailSize: CGFloat = 90.0
+    private let thumbnailVerticalMargin: CGFloat = 8.0
     private let horizontalSpacing: CGFloat = 16.0
     private let verticalSpacing: CGFloat = 4.0
 
@@ -35,34 +33,39 @@ class ShopCollectionViewCell: UICollectionViewCell {
         return label
     }()
 
+    let imageView: UIImageView = {
+        let imageView = UIImageView(frame: .zero)
+        imageView.contentMode = .scaleToFill
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.setContentCompressionResistancePriority(.defaultHigh, for: .vertical)
+        imageView.layer.cornerRadius = 8
+        imageView.layer.masksToBounds = true
+        return imageView
+    }()
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         addViews()
     }
 
     func addViews() {
-        imageView = UIImageView(frame: .zero)
-        imageView.contentMode = .scaleToFill
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.setContentCompressionResistancePriority(.defaultHigh, for: .vertical)
+        addSubview(imageView)
 
-        let rightStackView = UIStackView(arrangedSubviews: [titleLabel, subtitleLabel, UIView()])
-        rightStackView.translatesAutoresizingMaskIntoConstraints = false
-        rightStackView.axis = .vertical
-        rightStackView.spacing = verticalSpacing
-
-        let stackView = UIStackView(arrangedSubviews: [imageView, rightStackView])
+        let stackView = UIStackView(arrangedSubviews: [titleLabel, subtitleLabel, UIView()])
         stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.axis = .horizontal
-        stackView.spacing = horizontalSpacing
+        stackView.axis = .vertical
+        stackView.spacing = verticalSpacing
         addSubview(stackView)
 
         NSLayoutConstraint.activate([
-            imageView.widthAnchor.constraint(equalToConstant: thumbnailSize),
-            stackView.leftAnchor.constraint(equalTo: self.leftAnchor),
-            stackView.topAnchor.constraint(equalTo: self.topAnchor),
+            imageView.leftAnchor.constraint(equalTo: self.leftAnchor),
+            imageView.widthAnchor.constraint(equalTo: imageView.heightAnchor),
+            imageView.topAnchor.constraint(equalTo: self.topAnchor, constant: thumbnailVerticalMargin),
+            imageView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
+            stackView.leftAnchor.constraint(equalTo: imageView.rightAnchor, constant: horizontalSpacing),
+            stackView.topAnchor.constraint(equalTo: self.imageView.topAnchor, constant: verticalSpacing),
             stackView.rightAnchor.constraint(equalTo: self.rightAnchor),
-            stackView.bottomAnchor.constraint(equalTo: self.bottomAnchor)
+            stackView.bottomAnchor.constraint(equalTo: self.imageView.bottomAnchor)
         ])
     }
 
