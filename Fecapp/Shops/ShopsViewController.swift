@@ -17,6 +17,44 @@ class ShopsViewController: UIViewController {
 
     var cancellables = [AnyCancellable]()
 
+    var menuItems: [UIAction] {
+        [defaultSortAction, sortByLocationAction, filterNeighborhoodsAction]
+    }
+
+    lazy var defaultSortAction: UIAction = {
+        UIAction(
+            title: "Ordenar por default",
+            image: UIImage(systemName: "arrow.up.arrow.down")) { [weak self] action in
+                self?.dataSource.reset()
+            }
+    }()
+
+    lazy var sortByLocationAction: UIAction = {
+        UIAction(
+            title: "Ordenar por proximidad",
+            image: UIImage(systemName: "location")) { [weak self] action in
+                let filterController = LocationOnboardingViewController()
+                let navigationController = UINavigationController(rootViewController: filterController)
+
+                self?.present(navigationController, animated: true)
+            }
+    }()
+
+    lazy var filterNeighborhoodsAction: UIAction = {
+        UIAction(
+            title: "Filtrar por barrios",
+            image: UIImage(systemName: "building.2")) { [weak self] action in
+                guard let dataSource = self?.dataSource else {
+                    return
+                }
+
+                let filterController = ShopsFilterViewController(dataSource: dataSource)
+                let navigationController = UINavigationController(rootViewController: filterController)
+
+                self?.present(navigationController, animated: true)
+            }
+    }()
+
     override func viewDidLoad() {
         super.viewDidLoad()
         setupNavigationItem()
@@ -35,22 +73,19 @@ class ShopsViewController: UIViewController {
     }
 
     private func setupNavigationItem() {
-        let filterAction = UIAction { [weak self] _ in
-            guard let dataSource = self?.dataSource else {
-                return
-            }
-
-            let filterController = ShopsFilterViewController(dataSource: dataSource)
-            let navigationController = UINavigationController(rootViewController: filterController)
-
-            self?.present(navigationController, animated: true)
-        }
+        let menu = UIMenu(
+            title: "Menu",
+            image: nil,
+            identifier: nil,
+            options: [],
+            children: menuItems
+        )
 
         navigationItem.rightBarButtonItem = UIBarButtonItem(
             title: nil,
             image: UIImage(systemName: "slider.horizontal.3")?.withTintColor(.primary),
-            primaryAction: filterAction,
-            menu: nil
+            primaryAction: nil,
+            menu: menu
         )
     }
 
