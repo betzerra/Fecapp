@@ -40,4 +40,8 @@ class ShopsDataSource {
             params: nil
         )
     }
+
+    func reset() {
+        filteredNeighborhoods.removeAll()
+    }
 }

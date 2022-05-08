@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		67177C7E2828616D001677E2 /* LocationOnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67177C7D2828616D001677E2 /* LocationOnboardingViewController.swift */; };
+		67177C802828624C001677E2 /* LocationOnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67177C7F2828624C001677E2 /* LocationOnboardingView.swift */; };
 		679AEC3A2814BE4700180CEF /* Pluma in Frameworks */ = {isa = PBXBuildFile; productRef = 679AEC392814BE4700180CEF /* Pluma */; };
 		679AEC3C2814C06100180CEF /* shop_mock.json in Resources */ = {isa = PBXBuildFile; fileRef = 679AEC3B2814C06100180CEF /* shop_mock.json */; };
 		679AEC3E2814C07200180CEF /* ShopTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 679AEC3D2814C07200180CEF /* ShopTests.swift */; };
@@ -56,6 +58,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		67177C7D2828616D001677E2 /* LocationOnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationOnboardingViewController.swift; sourceTree = "<group>"; };
+		67177C7F2828624C001677E2 /* LocationOnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationOnboardingView.swift; sourceTree = "<group>"; };
 		679AEC3B2814C06100180CEF /* shop_mock.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = shop_mock.json; sourceTree = "<group>"; };
 		679AEC3D2814C07200180CEF /* ShopTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopTests.swift; sourceTree = "<group>"; };
 		679AEC422814C6AF00180CEF /* ShopsDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopsDataSource.swift; sourceTree = "<group>"; };
@@ -116,6 +120,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		67177C7C28286110001677E2 /* LocationOnboarding */ = {
+			isa = PBXGroup;
+			children = (
+				67177C7D2828616D001677E2 /* LocationOnboardingViewController.swift */,
+				67177C7F2828624C001677E2 /* LocationOnboardingView.swift */,
+			);
+			path = LocationOnboarding;
+			sourceTree = "<group>";
+		};
 		67A02283281DF906007987BE /* ShopDetail */ = {
 			isa = PBXGroup;
 			children = (
@@ -194,6 +207,7 @@
 			children = (
 				67E2281828147E1F0083D9EF /* AppDelegate.swift */,
 				67E2281A28147E1F0083D9EF /* SceneDelegate.swift */,
+				67177C7C28286110001677E2 /* LocationOnboarding */,
 				67A02283281DF906007987BE /* ShopDetail */,
 				67CD60E7281DA587000BEEC4 /* ShopsFilter */,
 				67A9FAB62818BD3B00CEF1E2 /* Shops */,
@@ -368,6 +382,7 @@
 				67CD60ED281DBB0D000BEEC4 /* ShopsViewModel.swift in Sources */,
 				679AEC452814FB7400180CEF /* ShopCollectionViewCell.swift in Sources */,
 				67E2281D28147E1F0083D9EF /* ShopsViewController.swift in Sources */,
+				67177C7E2828616D001677E2 /* LocationOnboardingViewController.swift in Sources */,
 				67A02287281DF9CE007987BE /* ShopDetailViewModel.swift in Sources */,
 				67E2281928147E1F0083D9EF /* AppDelegate.swift in Sources */,
 				67A02285281DF912007987BE /* ShopDetailViewController.swift in Sources */,
@@ -375,6 +390,7 @@
 				67A9FAB82818C84200CEF1E2 /* Neighborhood.swift in Sources */,
 				67A02289281DFDDD007987BE /* ShopHeadView.swift in Sources */,
 				67E2281B28147E1F0083D9EF /* SceneDelegate.swift in Sources */,
+				67177C802828624C001677E2 /* LocationOnboardingView.swift in Sources */,
 				679AEC47281509CD00180CEF /* UIImageView+Lazy.swift in Sources */,
 				67A9FABA2818C9EE00CEF1E2 /* ShopCellViewModel.swift in Sources */,
 				67CD60E9281DA59E000BEEC4 /* ShopsFilterViewController.swift in Sources */,
