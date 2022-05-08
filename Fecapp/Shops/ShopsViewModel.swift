@@ -21,8 +21,10 @@ class ShopsViewModel: NSObject, UICollectionViewDelegate {
     private let cellHeight: CGFloat = 110.0
 
     let collectionView: UICollectionView
+    let refreshControl: UIRefreshControl
 
     private var shops: [Shop]?
+    let shopsDataSource: ShopsDataSource
 
     let events: AnyPublisher<ShopsViewModelEvents, Never>
     private let _events = PassthroughSubject<ShopsViewModelEvents, Never>()
@@ -38,13 +40,25 @@ class ShopsViewModel: NSObject, UICollectionViewDelegate {
             forCellWithReuseIdentifier: "ShopCollectionViewCell"
         )
 
+        self.shopsDataSource = dataSource
+
         self.collectionView = collectionView
+        self.refreshControl = UIRefreshControl()
         self.events = _events.eraseToAnyPublisher()
 
         super.init()
         self.collectionView.delegate = self
         setupCollectionViewLayout()
 
+        // Bind refresh control to fetch shops if enabled
+        collectionView.addSubview(refreshControl)
+        refreshControl.addTarget(
+            self,
+            action: #selector(fetchShops),
+            for: .valueChanged
+        )
+
+        // Bind shops changes to UICollectionView
         dataSource.$shops
             .compactMap { $0 }
             .receive(on: RunLoop.main)
@@ -53,6 +67,7 @@ class ShopsViewModel: NSObject, UICollectionViewDelegate {
             }
             .store(in: &cancellables)
 
+        // Bind neighborhoods picks to UICollectionView
         dataSource.$filteredNeighborhoods
             .receive(on: RunLoop.main)
             .sink { [weak self] neighborhoods in
@@ -76,6 +91,18 @@ class ShopsViewModel: NSObject, UICollectionViewDelegate {
                 self?.refreshDatasource(shops: filteredShops)
             }
             .store(in: &cancellables)
+    }
+
+    @objc private func fetchShops() {
+        Task {
+            do {
+                refreshControl.beginRefreshing()
+                try await shopsDataSource.fetchShops()
+                refreshControl.endRefreshing()
+            } catch {
+                print(error.localizedDescription)
+            }
+        }
     }
 
     private func setupCollectionViewLayout() {
