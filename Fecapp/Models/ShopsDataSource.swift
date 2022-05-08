@@ -23,20 +23,21 @@ class ShopsDataSource {
 
     init() {
         pluma = Pluma(baseURL: baseURL, decoder: nil)
-        fetchShops()
-    }
 
-    func fetchShops() {
         Task {
             do {
-                shops = try await pluma.request(
-                    method: .GET,
-                    path: "shops.json",
-                    params: nil
-                )
+                try await fetchShops()
             } catch {
                 print(error.localizedDescription)
             }
         }
+    }
+
+    func fetchShops() async throws {
+        shops = try await pluma.request(
+            method: .GET,
+            path: "shops.json",
+            params: nil
+        )
     }
 }
