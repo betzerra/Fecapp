@@ -47,7 +47,7 @@ class LocationManager: NSObject, CLLocationManagerDelegate {
     }
 
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        LogService.error(error.localizedDescription.toMessage)
+        LogService.error(error.localizedDescription.logMessage)
     }
 
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {

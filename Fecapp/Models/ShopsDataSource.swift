@@ -29,7 +29,7 @@ class ShopsDataSource {
             do {
                 try await fetchShops()
             } catch {
-                LogService.error(error.localizedDescription.toMessage)
+                LogService.error(error.localizedDescription.logMessage)
             }
         }
     }
@@ -42,11 +42,7 @@ class ShopsDataSource {
             params: nil
         )
 
-        if let shops = shops {
-            LogService.debug(shops.toMessage(event: "Shop request finished"))
-        } else {
-            LogService.debug("Shop request finished")
-        }
+        LogService.debug("Shop request finished", metadata: shops?.logMetadata)
     }
 
     func reset() {

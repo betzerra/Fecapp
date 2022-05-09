@@ -37,6 +37,7 @@ class LogService {
 extension LogService: LogServiceProtocol {
     static func trace(
         _ message: @autoclosure () -> Message,
+        metadata: @autoclosure () -> Logger.Metadata? = nil,
         file: String = #file,
         function: String = #function,
         line: UInt = #line
@@ -46,37 +47,65 @@ extension LogService: LogServiceProtocol {
 
     static func debug(
         _ message: @autoclosure () -> Message,
+        metadata: @autoclosure () -> Logger.Metadata? = nil,
         file: String = #file,
         function: String = #function,
         line: UInt = #line
     ) {
-        shared.logger.debug(message(), file: file, function: function, line: line)
+        shared.logger.debug(
+            message(),
+            metadata: metadata(),
+            file: file,
+            function: function,
+            line: line
+        )
     }
 
     static func info(
         _ message: @autoclosure () -> Message,
+        metadata: @autoclosure () -> Logger.Metadata? = nil,
         file: String = #file,
         function: String = #function,
         line: UInt = #line
     ) {
-        shared.logger.info(message(), file: file, function: function, line: line)
+        shared.logger.info(
+            message(),
+            metadata: metadata(),
+            file: file,
+            function: function,
+            line: line
+        )
     }
 
     static func warning(
         _ message: @autoclosure () -> Message,
+        metadata: @autoclosure () -> Logger.Metadata? = nil,
         file: String = #file,
         function: String = #function,
         line: UInt = #line
     ) {
-        shared.logger.warning(message(), file: file, function: function, line: line)
+        shared.logger.warning(
+            message(),
+            metadata: metadata(),
+            file: file,
+            function: function,
+            line: line
+        )
     }
 
     static func error(
         _ message: @autoclosure () -> Message,
+        metadata: @autoclosure () -> Logger.Metadata? = nil,
         file: String = #file,
         function: String = #function,
         line: UInt = #line
     ) {
-        shared.logger.error(message(), file: file, function: function, line: line)
+        shared.logger.error(
+            message(),
+            metadata: metadata(),
+            file: file,
+            function: function,
+            line: line
+        )
     }
 }

@@ -11,7 +11,8 @@
 		6700F64C2829840500AB90BA /* LogService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6700F64B2829840500AB90BA /* LogService.swift */; };
 		6700F64E282986CE00AB90BA /* LogServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6700F64D282986CE00AB90BA /* LogServiceProtocol.swift */; };
 		6700F65128298BBC00AB90BA /* LogFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6700F65028298BBC00AB90BA /* LogFormatter.swift */; };
-		6700F65328298D4400AB90BA /* Loggeable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6700F65228298D4400AB90BA /* Loggeable.swift */; };
+		6700F65328298D4400AB90BA /* MessageLoggeable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6700F65228298D4400AB90BA /* MessageLoggeable.swift */; };
+		6700F6552829A88800AB90BA /* MetadataLoggeable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6700F6542829A88800AB90BA /* MetadataLoggeable.swift */; };
 		67177C7E2828616D001677E2 /* LocationOnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67177C7D2828616D001677E2 /* LocationOnboardingViewController.swift */; };
 		67177C802828624C001677E2 /* LocationOnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67177C7F2828624C001677E2 /* LocationOnboardingView.swift */; };
 		67177C822828743C001677E2 /* LocationOnboardingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67177C812828743C001677E2 /* LocationOnboardingViewModel.swift */; };
@@ -68,7 +69,8 @@
 		6700F64B2829840500AB90BA /* LogService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogService.swift; sourceTree = "<group>"; };
 		6700F64D282986CE00AB90BA /* LogServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogServiceProtocol.swift; sourceTree = "<group>"; };
 		6700F65028298BBC00AB90BA /* LogFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogFormatter.swift; sourceTree = "<group>"; };
-		6700F65228298D4400AB90BA /* Loggeable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Loggeable.swift; sourceTree = "<group>"; };
+		6700F65228298D4400AB90BA /* MessageLoggeable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageLoggeable.swift; sourceTree = "<group>"; };
+		6700F6542829A88800AB90BA /* MetadataLoggeable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetadataLoggeable.swift; sourceTree = "<group>"; };
 		67177C7D2828616D001677E2 /* LocationOnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationOnboardingViewController.swift; sourceTree = "<group>"; };
 		67177C7F2828624C001677E2 /* LocationOnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationOnboardingView.swift; sourceTree = "<group>"; };
 		67177C812828743C001677E2 /* LocationOnboardingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationOnboardingViewModel.swift; sourceTree = "<group>"; };
@@ -137,7 +139,8 @@
 		6700F64F282986EB00AB90BA /* Logger */ = {
 			isa = PBXGroup;
 			children = (
-				6700F65228298D4400AB90BA /* Loggeable.swift */,
+				6700F65228298D4400AB90BA /* MessageLoggeable.swift */,
+				6700F6542829A88800AB90BA /* MetadataLoggeable.swift */,
 				6700F64B2829840500AB90BA /* LogService.swift */,
 				6700F65028298BBC00AB90BA /* LogFormatter.swift */,
 				6700F64D282986CE00AB90BA /* LogServiceProtocol.swift */,
@@ -424,7 +427,7 @@
 				67A02289281DFDDD007987BE /* ShopHeadView.swift in Sources */,
 				67E2281B28147E1F0083D9EF /* SceneDelegate.swift in Sources */,
 				67177C802828624C001677E2 /* LocationOnboardingView.swift in Sources */,
-				6700F65328298D4400AB90BA /* Loggeable.swift in Sources */,
+				6700F65328298D4400AB90BA /* MessageLoggeable.swift in Sources */,
 				679AEC47281509CD00180CEF /* UIImageView+Lazy.swift in Sources */,
 				67A9FABA2818C9EE00CEF1E2 /* ShopCellViewModel.swift in Sources */,
 				67CD60E9281DA59E000BEEC4 /* ShopsFilterViewController.swift in Sources */,
@@ -432,6 +435,7 @@
 				67CD60EF281DC1EB000BEEC4 /* LabelCollectionViewCell.swift in Sources */,
 				67CD60EB281DB828000BEEC4 /* ShopsFilterViewModel.swift in Sources */,
 				6700F64C2829840500AB90BA /* LogService.swift in Sources */,
+				6700F6552829A88800AB90BA /* MetadataLoggeable.swift in Sources */,
 				67177C842828853B001677E2 /* LocationManager.swift in Sources */,
 				67E2284928147E550083D9EF /* Shop.swift in Sources */,
 				679AEC432814C6AF00180CEF /* ShopsDataSource.swift in Sources */,
