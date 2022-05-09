@@ -29,7 +29,7 @@ class ShopsDataSource {
             do {
                 try await fetchShops()
             } catch {
-                LogService.error(error.localizedDescription.logMessage)
+                LogService.logError(error)
             }
         }
     }

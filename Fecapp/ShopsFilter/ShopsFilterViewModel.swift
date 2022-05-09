@@ -84,6 +84,7 @@ class ShopsFilterViewModel: NSObject, UICollectionViewDelegate {
         }
 
         let selected = neighborhoods[indexPath.row]
+        LogService.info("Selected \(selected.title)")
         shopsDataSource.filteredNeighborhoods.insert(selected)
     }
 
@@ -93,6 +94,7 @@ class ShopsFilterViewModel: NSObject, UICollectionViewDelegate {
         }
 
         let selected = neighborhoods[indexPath.row]
+        LogService.info("Deselected \(selected.title)")
         shopsDataSource.filteredNeighborhoods.remove(selected)
     }
 }

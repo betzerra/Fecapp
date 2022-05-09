@@ -27,6 +27,7 @@ class ShopsViewController: UIViewController {
         UIAction(
             title: "Ordenar por default",
             image: UIImage(systemName: "arrow.up.arrow.down")) { [weak self] action in
+                LogService.info("Tapped 'sort by default'")
                 self?.dataSource.reset()
             }
     }()
@@ -35,6 +36,7 @@ class ShopsViewController: UIViewController {
         UIAction(
             title: "Ordenar por proximidad",
             image: UIImage(systemName: "location")) { [weak self] action in
+                LogService.info("Tapped 'sort by location'")
                 guard let locationManager = self?.locationManager else {
                     return
                 }
@@ -56,6 +58,8 @@ class ShopsViewController: UIViewController {
         UIAction(
             title: "Filtrar por barrios",
             image: UIImage(systemName: "building.2")) { [weak self] action in
+                LogService.info("Tapped 'neighborhood filter'")
+
                 guard let dataSource = self?.dataSource else {
                     return
                 }
@@ -79,6 +83,7 @@ class ShopsViewController: UIViewController {
             .sink { [weak self] event in
                 switch event {
                 case .shopSelected(let shop):
+                    LogService.info("Selected '\(shop.title)'")
                     self?.pushDetailShop(shop)
                 }
             }

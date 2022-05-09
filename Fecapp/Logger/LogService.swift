@@ -32,6 +32,30 @@ class LogService {
 
         logger = Logger(label: swiftLogLabel)
     }
+
+    static func logError(_ error: Error) {
+        var metadata = Logger.Metadata()
+        metadata["debug_description"] = .string(error.localizedDescription.debugDescription)
+
+        if let failureReason = (error as NSError).localizedFailureReason {
+            metadata["failure_reason"] = .string(failureReason)
+        }
+
+        if let recoveryOptions = (error as NSError).localizedRecoveryOptions {
+            let recoveryMetadata = recoveryOptions.map { Logger.MetadataValue.string($0) }
+            metadata["recovery_options"] = .array(recoveryMetadata)
+        }
+
+        if let recoverySuggestion = (error as NSError).localizedRecoveryOptions {
+            let recoveryMetadata = recoverySuggestion.map { Logger.MetadataValue.string($0) }
+            metadata["recovery_suggestion"] = .array(recoveryMetadata)
+        }
+
+        metadata["domain"] = .string((error as NSError).domain)
+        metadata["code"] = .stringConvertible((error as NSError).code)
+
+        shared.logger.error(error.localizedDescription.logMessage, metadata: metadata)
+    }
 }
 
 extension LogService: LogServiceProtocol {
