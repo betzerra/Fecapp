@@ -25,7 +25,7 @@ class LocationManager: NSObject, CLLocationManagerDelegate {
     }
 
     func requestLocation() {
-        print("Request location")
+        LogService.info("Request location")
         locationManager.requestLocation()
     }
 
@@ -42,12 +42,12 @@ class LocationManager: NSObject, CLLocationManagerDelegate {
         _ manager: CLLocationManager,
         didUpdateLocations locations: [CLLocation]
     ) {
-        print("Location changed")
+        LogService.info("Location changed")
         lastLocation = locations.first
     }
 
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        print(error.localizedDescription)
+        LogService.error(error.localizedDescription.toMessage)
     }
 
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {

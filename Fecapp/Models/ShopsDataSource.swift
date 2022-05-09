@@ -27,9 +27,11 @@ class ShopsDataSource {
 
         Task {
             do {
+                LogService.info("Shop request started")
                 try await fetchShops()
+                LogService.info("Shop request finished")
             } catch {
-                print(error.localizedDescription)
+                LogService.error(error.localizedDescription.toMessage)
             }
         }
     }

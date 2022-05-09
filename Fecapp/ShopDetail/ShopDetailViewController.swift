@@ -38,7 +38,7 @@ class ShopDetailViewController: UIViewController {
 
                 case .openRoasters:
                     // TODO: Implement this
-                    print("openRoasters")
+                    LogService.info("openRoasters")
 
                 case .openInstagram(let username):
                     self?.openInstagram(username: username)
