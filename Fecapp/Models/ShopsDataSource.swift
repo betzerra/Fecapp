@@ -7,6 +7,7 @@
 
 import Foundation
 import Combine
+import CoreLocation
 import Pluma
 import UIKit
 
@@ -43,5 +44,11 @@ class ShopsDataSource {
 
     func reset() {
         filteredNeighborhoods.removeAll()
+    }
+
+    func sortByNearestLocation(_ location: CLLocation) {
+        shops = shops?.sorted(by: {
+            $0.distance(to: location) < $1.distance(to: location)
+        })
     }
 }

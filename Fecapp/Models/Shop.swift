@@ -5,6 +5,7 @@
 //  Created by Ezequiel Becerra on 23/04/2022.
 //
 
+import CoreLocation
 import Foundation
 
 struct Shop: Decodable {
@@ -61,6 +62,10 @@ struct Shop: Decodable {
         instagram = try values.decode(String.self, forKey: .instagram)
         hasDelivery = try values.decode(Bool.self, forKey: .hasDelivery)
         thumbnail = try? values.decode(ShopThumbnail.self, forKey: .thumbnail)
+    }
+
+    func distance(to location: CLLocation) -> CLLocationDistance {
+        return location.distance(from: self.coordinates.location)
     }
 }
 

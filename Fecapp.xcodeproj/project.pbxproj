@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		67177C7E2828616D001677E2 /* LocationOnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67177C7D2828616D001677E2 /* LocationOnboardingViewController.swift */; };
 		67177C802828624C001677E2 /* LocationOnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67177C7F2828624C001677E2 /* LocationOnboardingView.swift */; };
+		67177C822828743C001677E2 /* LocationOnboardingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67177C812828743C001677E2 /* LocationOnboardingViewModel.swift */; };
+		67177C842828853B001677E2 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67177C832828853B001677E2 /* LocationManager.swift */; };
 		679AEC3A2814BE4700180CEF /* Pluma in Frameworks */ = {isa = PBXBuildFile; productRef = 679AEC392814BE4700180CEF /* Pluma */; };
 		679AEC3C2814C06100180CEF /* shop_mock.json in Resources */ = {isa = PBXBuildFile; fileRef = 679AEC3B2814C06100180CEF /* shop_mock.json */; };
 		679AEC3E2814C07200180CEF /* ShopTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 679AEC3D2814C07200180CEF /* ShopTests.swift */; };
@@ -60,6 +62,8 @@
 /* Begin PBXFileReference section */
 		67177C7D2828616D001677E2 /* LocationOnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationOnboardingViewController.swift; sourceTree = "<group>"; };
 		67177C7F2828624C001677E2 /* LocationOnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationOnboardingView.swift; sourceTree = "<group>"; };
+		67177C812828743C001677E2 /* LocationOnboardingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationOnboardingViewModel.swift; sourceTree = "<group>"; };
+		67177C832828853B001677E2 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		679AEC3B2814C06100180CEF /* shop_mock.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = shop_mock.json; sourceTree = "<group>"; };
 		679AEC3D2814C07200180CEF /* ShopTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopTests.swift; sourceTree = "<group>"; };
 		679AEC422814C6AF00180CEF /* ShopsDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopsDataSource.swift; sourceTree = "<group>"; };
@@ -124,6 +128,7 @@
 			isa = PBXGroup;
 			children = (
 				67177C7D2828616D001677E2 /* LocationOnboardingViewController.swift */,
+				67177C812828743C001677E2 /* LocationOnboardingViewModel.swift */,
 				67177C7F2828624C001677E2 /* LocationOnboardingView.swift */,
 			);
 			path = LocationOnboarding;
@@ -207,6 +212,7 @@
 			children = (
 				67E2281828147E1F0083D9EF /* AppDelegate.swift */,
 				67E2281A28147E1F0083D9EF /* SceneDelegate.swift */,
+				67177C832828853B001677E2 /* LocationManager.swift */,
 				67177C7C28286110001677E2 /* LocationOnboarding */,
 				67A02283281DF906007987BE /* ShopDetail */,
 				67CD60E7281DA587000BEEC4 /* ShopsFilter */,
@@ -380,6 +386,7 @@
 			files = (
 				67CD60F1281DD5C3000BEEC4 /* UIColor+Utils.swift in Sources */,
 				67CD60ED281DBB0D000BEEC4 /* ShopsViewModel.swift in Sources */,
+				67177C822828743C001677E2 /* LocationOnboardingViewModel.swift in Sources */,
 				679AEC452814FB7400180CEF /* ShopCollectionViewCell.swift in Sources */,
 				67E2281D28147E1F0083D9EF /* ShopsViewController.swift in Sources */,
 				67177C7E2828616D001677E2 /* LocationOnboardingViewController.swift in Sources */,
@@ -397,6 +404,7 @@
 				67A0228D281E2B09007987BE /* UIFont+Styles.swift in Sources */,
 				67CD60EF281DC1EB000BEEC4 /* LabelCollectionViewCell.swift in Sources */,
 				67CD60EB281DB828000BEEC4 /* ShopsFilterViewModel.swift in Sources */,
+				67177C842828853B001677E2 /* LocationManager.swift in Sources */,
 				67E2284928147E550083D9EF /* Shop.swift in Sources */,
 				679AEC432814C6AF00180CEF /* ShopsDataSource.swift in Sources */,
 				679AEC4928161EA700180CEF /* ShopImage.swift in Sources */,

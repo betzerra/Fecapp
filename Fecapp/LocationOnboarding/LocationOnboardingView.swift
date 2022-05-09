@@ -9,11 +9,14 @@ import Foundation
 import UIKit
 
 class LocationOnboardingView: UIView {
+    let viewModel: LocationOnboardingViewModel
+
+    // UI Constants
     private let horizontalPadding: CGFloat = 24
-    private let symbolPointSize: CGFloat = 64
     private let spacing: CGFloat = 16
     private let smallerSpacing: CGFloat = 4
 
+    // SubViews
     private let contentStackView: UIStackView
 
     let symbolImageView: UIImageView = {
@@ -41,7 +44,7 @@ class LocationOnboardingView: UIView {
         return label
     }()
 
-    let agreeButton: UIButton = {
+    let acceptButton: UIButton = {
         let button = UIButton(configuration: .filled())
         return button
     }()
@@ -51,9 +54,9 @@ class LocationOnboardingView: UIView {
         return button
     }()
 
-    override init(frame: CGRect) {
+    init(viewModel: LocationOnboardingViewModel) {
         let buttonsStackView = UIStackView(arrangedSubviews: [
-            agreeButton, cancelButton
+            acceptButton, cancelButton
         ])
         buttonsStackView.spacing = smallerSpacing
         buttonsStackView.axis = .vertical
@@ -68,7 +71,9 @@ class LocationOnboardingView: UIView {
         contentStackView.spacing = spacing
         contentStackView.axis = .vertical
 
-        super.init(frame: frame)
+        self.viewModel = viewModel
+
+        super.init(frame: .zero)
 
         addSubview(contentStackView)
 
@@ -76,6 +81,9 @@ class LocationOnboardingView: UIView {
 
         setupLayout()
         setupContent()
+
+        acceptButton.addAction(viewModel.acceptAction, for: .touchUpInside)
+        cancelButton.addAction(viewModel.cancelAction, for: .touchUpInside)
     }
 
     func setupLayout() {
@@ -87,21 +95,12 @@ class LocationOnboardingView: UIView {
     }
 
     func setupContent() {
-        let symbolConfiguration = UIImage.SymbolConfiguration(
-            pointSize: symbolPointSize,
-            weight: .medium
-        )
+        symbolImageView.image = viewModel.image
+        titleLabel.text = viewModel.titleText
+        subtitleLabel.text = viewModel.subtitleText
 
-        symbolImageView.image =  UIImage(
-            systemName: "location.circle",
-            withConfiguration: symbolConfiguration
-        )
-
-        titleLabel.text = "Necesitamos saber tu ubicación"
-        subtitleLabel.text = "Para mostrarte cafeterías cerca tuyo, necesitamos saber dónde estás."
-
-        agreeButton.setTitle("Continuar", for: .normal)
-        cancelButton.setTitle("No quiero compartir", for: .normal)
+        acceptButton.setTitle(viewModel.acceptText, for: .normal)
+        cancelButton.setTitle(viewModel.cancelText, for: .normal)
     }
     
     required init?(coder: NSCoder) {

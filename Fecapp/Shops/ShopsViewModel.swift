@@ -6,6 +6,7 @@
 //
 
 import Combine
+import CoreLocation
 import Foundation
 import UIKit
 
@@ -23,6 +24,7 @@ class ShopsViewModel: NSObject, UICollectionViewDelegate {
     let collectionView: UICollectionView
     let refreshControl: UIRefreshControl
 
+    private var lastUserLocation: CLLocation?
     private var shops: [Shop]?
     let shopsDataSource: ShopsDataSource
 
@@ -93,6 +95,11 @@ class ShopsViewModel: NSObject, UICollectionViewDelegate {
             .store(in: &cancellables)
     }
 
+    func sortByNearestLocation(_ location: CLLocation) {
+        lastUserLocation = location
+        shopsDataSource.sortByNearestLocation(location)
+    }
+
     @objc private func fetchShops() {
         Task {
             do {
@@ -148,7 +155,12 @@ class ShopsViewModel: NSObject, UICollectionViewDelegate {
     private lazy var dataSource: ShopsDiffableDataSource = {
         let dataSource = UICollectionViewDiffableDataSource<Section, Shop>(
             collectionView: collectionView,
-            cellProvider: { (collectionView, indexPath, shop) -> UICollectionViewCell? in
+            cellProvider: { [weak self](collectionView, indexPath, shop) -> UICollectionViewCell? in
+
+                guard let self = self else {
+                    return UICollectionViewCell()
+                }
+
                 guard let cell = collectionView.dequeueReusableCell(
                     withReuseIdentifier: "ShopCollectionViewCell",
                     for: indexPath) as? ShopCollectionViewCell else {
@@ -156,7 +168,7 @@ class ShopsViewModel: NSObject, UICollectionViewDelegate {
                     }
 
                 let viewModel = ShopCellViewModel(shop: shop)
-                cell.setViewModel(viewModel)
+                cell.setViewModel(viewModel, location: self.lastUserLocation)
                 return cell
           })
           return dataSource

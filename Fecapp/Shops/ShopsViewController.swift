@@ -6,11 +6,13 @@
 //
 
 import Combine
+import CoreLocation
 import UIKit
 
 class ShopsViewController: UIViewController {
     @IBOutlet weak var collectionView: UICollectionView!
 
+    let locationManager = LocationManager()
     let dataSource = ShopsDataSource()
 
     var viewModel: ShopsViewModel!
@@ -33,10 +35,20 @@ class ShopsViewController: UIViewController {
         UIAction(
             title: "Ordenar por proximidad",
             image: UIImage(systemName: "location")) { [weak self] action in
-                let filterController = LocationOnboardingViewController()
-                let navigationController = UINavigationController(rootViewController: filterController)
+                guard let locationManager = self?.locationManager else {
+                    return
+                }
 
-                self?.present(navigationController, animated: true)
+                switch locationManager.fetchAuthorizationStatus() {
+                case .authorizedWhenInUse, .authorizedAlways, .authorized:
+                    locationManager.requestLocation()
+
+                case .restricted, .notDetermined, .denied:
+                    self?.showLocationOnboarding()
+
+                @unknown default:
+                    assertionFailure("@unknown default")
+                }
             }
     }()
 
@@ -57,6 +69,7 @@ class ShopsViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
         setupNavigationItem()
 
         viewModel = ShopsViewModel(collectionView: collectionView, dataSource: dataSource)
@@ -68,6 +81,17 @@ class ShopsViewController: UIViewController {
                 case .shopSelected(let shop):
                     self?.pushDetailShop(shop)
                 }
+            }
+            .store(in: &cancellables)
+
+        locationManager.$lastLocation
+            .receive(on: RunLoop.main)
+            .sink { [weak self] location in
+                guard let location = location else {
+                    return
+                }
+
+                self?.viewModel.sortByNearestLocation(location)
             }
             .store(in: &cancellables)
     }
@@ -92,6 +116,12 @@ class ShopsViewController: UIViewController {
     private func pushDetailShop(_ shop: Shop) {
         let controller = ShopDetailViewController(shop: shop)
         navigationController?.pushViewController(controller, animated: true)
+    }
+
+    private func showLocationOnboarding() {
+        let controller = LocationOnboardingViewController(locationManager: locationManager)
+        let navigationController = UINavigationController(rootViewController: controller)
+        present(navigationController, animated: true)
     }
 }
 
