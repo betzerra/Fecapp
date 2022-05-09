@@ -35,29 +35,48 @@ class LogService {
 }
 
 extension LogService: LogServiceProtocol {
-    static func trace(_ message: @autoclosure () -> Message, file: String, function: String, line: UInt) {
+    static func trace(
+        _ message: @autoclosure () -> Message,
+        file: String = #file,
+        function: String = #function,
+        line: UInt = #line
+    ) {
         shared.logger.trace(message(), file: file, function: function, line: line)
     }
 
-    static func debug(_ message: @autoclosure () -> Message, file: String, function: String, line: UInt) {
+    static func debug(
+        _ message: @autoclosure () -> Message,
+        file: String = #file,
+        function: String = #function,
+        line: UInt = #line
+    ) {
         shared.logger.debug(message(), file: file, function: function, line: line)
     }
 
-    static func info(_ message: @autoclosure () -> Message, file: String, function: String, line: UInt) {
+    static func info(
+        _ message: @autoclosure () -> Message,
+        file: String = #file,
+        function: String = #function,
+        line: UInt = #line
+    ) {
         shared.logger.info(message(), file: file, function: function, line: line)
     }
 
-    static func warning(_ message: @autoclosure () -> Message, file: String, function: String, line: UInt) {
+    static func warning(
+        _ message: @autoclosure () -> Message,
+        file: String = #file,
+        function: String = #function,
+        line: UInt = #line
+    ) {
         shared.logger.warning(message(), file: file, function: function, line: line)
     }
 
-    static func error(_ message: @autoclosure () -> Message, file: String, function: String, line: UInt) {
+    static func error(
+        _ message: @autoclosure () -> Message,
+        file: String = #file,
+        function: String = #function,
+        line: UInt = #line
+    ) {
         shared.logger.error(message(), file: file, function: function, line: line)
-    }
-}
-
-extension String {
-    var toMessage: Logger.Message {
-        Logger.Message(stringLiteral: self)
     }
 }

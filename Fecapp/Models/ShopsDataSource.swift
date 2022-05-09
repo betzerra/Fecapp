@@ -27,9 +27,7 @@ class ShopsDataSource {
 
         Task {
             do {
-                LogService.info("Shop request started")
                 try await fetchShops()
-                LogService.info("Shop request finished")
             } catch {
                 LogService.error(error.localizedDescription.toMessage)
             }
@@ -37,11 +35,18 @@ class ShopsDataSource {
     }
 
     func fetchShops() async throws {
+        LogService.debug("Shop request started")
         shops = try await pluma.request(
             method: .GET,
             path: "shops.json",
             params: nil
         )
+
+        if let shops = shops {
+            LogService.debug(shops.toMessage(event: "Shop request finished"))
+        } else {
+            LogService.debug("Shop request finished")
+        }
     }
 
     func reset() {
