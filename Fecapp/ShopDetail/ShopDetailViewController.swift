@@ -34,13 +34,15 @@ class ShopDetailViewController: UIViewController {
             .sink { [weak self] events in
                 switch events {
                 case .openMap(let shop):
+                    LogService.info("Opened map: \(shop.title)")
                     self?.openMap(shop: shop)
 
                 case .openRoasters:
                     // TODO: Implement this
-                    print("openRoasters")
+                    LogService.info("openRoasters")
 
                 case .openInstagram(let username):
+                    LogService.info("Opened instagram: \(username)")
                     self?.openInstagram(username: username)
                 }
             }

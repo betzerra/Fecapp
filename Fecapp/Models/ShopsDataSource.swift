@@ -29,17 +29,20 @@ class ShopsDataSource {
             do {
                 try await fetchShops()
             } catch {
-                print(error.localizedDescription)
+                LogService.logError(error)
             }
         }
     }
 
     func fetchShops() async throws {
+        LogService.debug("Shop request started")
         shops = try await pluma.request(
             method: .GET,
             path: "shops.json",
             params: nil
         )
+
+        LogService.debug("Shop request finished", metadata: shops?.logMetadata)
     }
 
     func reset() {

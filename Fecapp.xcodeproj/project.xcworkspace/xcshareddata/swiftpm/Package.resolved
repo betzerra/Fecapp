@@ -8,6 +8,24 @@
         "branch" : "main",
         "revision" : "31c9be0a3dbee7d379331acb2f1f71512dc7023b"
       }
+    },
+    {
+      "identity" : "puppy",
+      "kind" : "remoteSourceControl",
+      "location" : "git@github.com:sushichop/Puppy.git",
+      "state" : {
+        "revision" : "7cfae42becac2d8916cb1a866dd12d9843199df9",
+        "version" : "0.5.0"
+      }
+    },
+    {
+      "identity" : "swift-log",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/apple/swift-log.git",
+      "state" : {
+        "revision" : "5d66f7ba25daf4f94100e7022febf3c75e37a6c7",
+        "version" : "1.4.2"
+      }
     }
   ],
   "version" : 2

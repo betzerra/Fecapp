@@ -107,7 +107,7 @@ class ShopsViewModel: NSObject, UICollectionViewDelegate {
                 try await shopsDataSource.fetchShops()
                 refreshControl.endRefreshing()
             } catch {
-                print(error.localizedDescription)
+                LogService.logError(error)
             }
         }
     }

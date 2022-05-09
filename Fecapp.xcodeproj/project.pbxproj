@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6700F64A282983C600AB90BA /* Puppy in Frameworks */ = {isa = PBXBuildFile; productRef = 6700F649282983C600AB90BA /* Puppy */; };
+		6700F64C2829840500AB90BA /* LogService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6700F64B2829840500AB90BA /* LogService.swift */; };
+		6700F64E282986CE00AB90BA /* LogServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6700F64D282986CE00AB90BA /* LogServiceProtocol.swift */; };
+		6700F65128298BBC00AB90BA /* LogFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6700F65028298BBC00AB90BA /* LogFormatter.swift */; };
+		6700F65328298D4400AB90BA /* MessageLoggeable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6700F65228298D4400AB90BA /* MessageLoggeable.swift */; };
+		6700F6552829A88800AB90BA /* MetadataLoggeable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6700F6542829A88800AB90BA /* MetadataLoggeable.swift */; };
 		67177C7E2828616D001677E2 /* LocationOnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67177C7D2828616D001677E2 /* LocationOnboardingViewController.swift */; };
 		67177C802828624C001677E2 /* LocationOnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67177C7F2828624C001677E2 /* LocationOnboardingView.swift */; };
 		67177C822828743C001677E2 /* LocationOnboardingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67177C812828743C001677E2 /* LocationOnboardingViewModel.swift */; };
@@ -60,6 +66,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		6700F64B2829840500AB90BA /* LogService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogService.swift; sourceTree = "<group>"; };
+		6700F64D282986CE00AB90BA /* LogServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogServiceProtocol.swift; sourceTree = "<group>"; };
+		6700F65028298BBC00AB90BA /* LogFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogFormatter.swift; sourceTree = "<group>"; };
+		6700F65228298D4400AB90BA /* MessageLoggeable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageLoggeable.swift; sourceTree = "<group>"; };
+		6700F6542829A88800AB90BA /* MetadataLoggeable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetadataLoggeable.swift; sourceTree = "<group>"; };
 		67177C7D2828616D001677E2 /* LocationOnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationOnboardingViewController.swift; sourceTree = "<group>"; };
 		67177C7F2828624C001677E2 /* LocationOnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationOnboardingView.swift; sourceTree = "<group>"; };
 		67177C812828743C001677E2 /* LocationOnboardingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationOnboardingViewModel.swift; sourceTree = "<group>"; };
@@ -104,6 +115,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				679AEC3A2814BE4700180CEF /* Pluma in Frameworks */,
+				6700F64A282983C600AB90BA /* Puppy in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -124,6 +136,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		6700F64F282986EB00AB90BA /* Logger */ = {
+			isa = PBXGroup;
+			children = (
+				6700F65228298D4400AB90BA /* MessageLoggeable.swift */,
+				6700F6542829A88800AB90BA /* MetadataLoggeable.swift */,
+				6700F64B2829840500AB90BA /* LogService.swift */,
+				6700F65028298BBC00AB90BA /* LogFormatter.swift */,
+				6700F64D282986CE00AB90BA /* LogServiceProtocol.swift */,
+			);
+			path = Logger;
+			sourceTree = "<group>";
+		};
 		67177C7C28286110001677E2 /* LocationOnboarding */ = {
 			isa = PBXGroup;
 			children = (
@@ -213,6 +237,7 @@
 				67E2281828147E1F0083D9EF /* AppDelegate.swift */,
 				67E2281A28147E1F0083D9EF /* SceneDelegate.swift */,
 				67177C832828853B001677E2 /* LocationManager.swift */,
+				6700F64F282986EB00AB90BA /* Logger */,
 				67177C7C28286110001677E2 /* LocationOnboarding */,
 				67A02283281DF906007987BE /* ShopDetail */,
 				67CD60E7281DA587000BEEC4 /* ShopsFilter */,
@@ -264,6 +289,7 @@
 			name = Fecapp;
 			packageProductDependencies = (
 				679AEC392814BE4700180CEF /* Pluma */,
+				6700F649282983C600AB90BA /* Puppy */,
 			);
 			productName = Fecapp;
 			productReference = 67E2281528147E1F0083D9EF /* Fecapp.app */;
@@ -339,6 +365,7 @@
 			mainGroup = 67E2280C28147E1F0083D9EF;
 			packageReferences = (
 				679AEC382814BE4700180CEF /* XCRemoteSwiftPackageReference "Pluma" */,
+				6700F648282983C600AB90BA /* XCRemoteSwiftPackageReference "Puppy" */,
 			);
 			productRefGroup = 67E2281628147E1F0083D9EF /* Products */;
 			projectDirPath = "";
@@ -386,11 +413,13 @@
 			files = (
 				67CD60F1281DD5C3000BEEC4 /* UIColor+Utils.swift in Sources */,
 				67CD60ED281DBB0D000BEEC4 /* ShopsViewModel.swift in Sources */,
+				6700F64E282986CE00AB90BA /* LogServiceProtocol.swift in Sources */,
 				67177C822828743C001677E2 /* LocationOnboardingViewModel.swift in Sources */,
 				679AEC452814FB7400180CEF /* ShopCollectionViewCell.swift in Sources */,
 				67E2281D28147E1F0083D9EF /* ShopsViewController.swift in Sources */,
 				67177C7E2828616D001677E2 /* LocationOnboardingViewController.swift in Sources */,
 				67A02287281DF9CE007987BE /* ShopDetailViewModel.swift in Sources */,
+				6700F65128298BBC00AB90BA /* LogFormatter.swift in Sources */,
 				67E2281928147E1F0083D9EF /* AppDelegate.swift in Sources */,
 				67A02285281DF912007987BE /* ShopDetailViewController.swift in Sources */,
 				67A0228B281E201B007987BE /* ShopCoordinates.swift in Sources */,
@@ -398,12 +427,15 @@
 				67A02289281DFDDD007987BE /* ShopHeadView.swift in Sources */,
 				67E2281B28147E1F0083D9EF /* SceneDelegate.swift in Sources */,
 				67177C802828624C001677E2 /* LocationOnboardingView.swift in Sources */,
+				6700F65328298D4400AB90BA /* MessageLoggeable.swift in Sources */,
 				679AEC47281509CD00180CEF /* UIImageView+Lazy.swift in Sources */,
 				67A9FABA2818C9EE00CEF1E2 /* ShopCellViewModel.swift in Sources */,
 				67CD60E9281DA59E000BEEC4 /* ShopsFilterViewController.swift in Sources */,
 				67A0228D281E2B09007987BE /* UIFont+Styles.swift in Sources */,
 				67CD60EF281DC1EB000BEEC4 /* LabelCollectionViewCell.swift in Sources */,
 				67CD60EB281DB828000BEEC4 /* ShopsFilterViewModel.swift in Sources */,
+				6700F64C2829840500AB90BA /* LogService.swift in Sources */,
+				6700F6552829A88800AB90BA /* MetadataLoggeable.swift in Sources */,
 				67177C842828853B001677E2 /* LocationManager.swift in Sources */,
 				67E2284928147E550083D9EF /* Shop.swift in Sources */,
 				679AEC432814C6AF00180CEF /* ShopsDataSource.swift in Sources */,
@@ -756,6 +788,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		6700F648282983C600AB90BA /* XCRemoteSwiftPackageReference "Puppy" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "git@github.com:sushichop/Puppy.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.5.0;
+			};
+		};
 		679AEC382814BE4700180CEF /* XCRemoteSwiftPackageReference "Pluma" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "git@github.com:betzerra/Pluma.git";
@@ -767,6 +807,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		6700F649282983C600AB90BA /* Puppy */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6700F648282983C600AB90BA /* XCRemoteSwiftPackageReference "Puppy" */;
+			productName = Puppy;
+		};
 		679AEC392814BE4700180CEF /* Pluma */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 679AEC382814BE4700180CEF /* XCRemoteSwiftPackageReference "Pluma" */;
