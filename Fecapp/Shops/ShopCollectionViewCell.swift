@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import CoreLocation
 
 class ShopCollectionViewCell: UICollectionViewCell {
 
@@ -51,7 +52,12 @@ class ShopCollectionViewCell: UICollectionViewCell {
     func addViews() {
         addSubview(imageView)
 
-        let stackView = UIStackView(arrangedSubviews: [titleLabel, subtitleLabel, UIView()])
+        let stackView = UIStackView(arrangedSubviews: [
+            titleLabel,
+            subtitleLabel,
+            UIView()
+        ])
+
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
         stackView.spacing = verticalSpacing
@@ -69,9 +75,9 @@ class ShopCollectionViewCell: UICollectionViewCell {
         ])
     }
 
-    func setViewModel(_ viewModel: ShopCellViewModel) {
+    func setViewModel(_ viewModel: ShopCellViewModel, location: CLLocation?) {
         titleLabel.text = viewModel.title
-        subtitleLabel.text = viewModel.subtitle
+        subtitleLabel.attributedText = viewModel.attributedSubtitle(location: location)
 
         if let thumbnail = viewModel.shop.thumbnail?.small {
             imageView.load(url: thumbnail)
