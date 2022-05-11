@@ -140,7 +140,7 @@ class ShopsViewController: UIViewController {
     }
 
     private func pushDetailShop(_ shop: Shop) {
-        let controller = ShopDetailViewController(shop: shop)
+        let controller = ShopDetailViewController(shop: shop, style: .fullscreen)
         navigationController?.pushViewController(controller, animated: true)
     }
 

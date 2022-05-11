@@ -18,6 +18,7 @@ enum ShopDetailViewModelEvents {
 
 class ShopDetailViewModel {
     let shop: Shop
+    let style: ShopDetailViewController.Style
     let view: ShopDetailView
 
     let events: AnyPublisher<ShopDetailViewModelEvents, Never>
@@ -101,8 +102,9 @@ class ShopDetailViewModel {
         }
     }
 
-    init(shop: Shop, view: ShopDetailView) {
+    init(shop: Shop, view: ShopDetailView, style: ShopDetailViewController.Style) {
         self.shop = shop
+        self.style = style
         self.events = _events.eraseToAnyPublisher()
         self.view = view
 
@@ -110,6 +112,8 @@ class ShopDetailViewModel {
     }
 
     func updateContent() {
+        view.headView.titleLabel.text = shop.title
+
         view.headView.addressButton.setAttributedTitle(attributedAddress, for: .normal)
         view.headView.addressButton.addAction(openMapAction, for: .touchUpInside)
 
@@ -118,11 +122,29 @@ class ShopDetailViewModel {
 
         view.headView.roasterButton.setAttributedTitle(attributedRoaster, for: .normal)
         view.headView.roasterButton.addAction(roastersAction, for: .touchUpInside)
-
         view.headView.mapView.setRegion(mapRegion, animated: false)
 
-        let pin = MKPointAnnotation() // map pin
-        pin.coordinate = shop.coordinates.locationCoordinate
-        view.headView.mapView.addAnnotation(pin)
+        updateThumbnail()
+        updateMap()
+    }
+
+    func updateThumbnail() {
+        guard let url = shop.thumbnail?.small else {
+            view.headView.thumbnailImageView.isHidden = true
+            return
+        }
+
+        view.headView.thumbnailImageView.load(url: url)
+    }
+
+    func updateMap() {
+        switch style {
+        case .fullscreen:
+            let pin = MKPointAnnotation() // map pin
+            pin.coordinate = shop.coordinates.locationCoordinate
+            view.headView.mapView.addAnnotation(pin)
+        case .sheet:
+            view.headView.mapView.isHidden = true
+        }
     }
 }

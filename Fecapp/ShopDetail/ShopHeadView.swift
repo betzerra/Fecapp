@@ -31,10 +31,22 @@ class ShopHeadView: UIView {
         return view
     }()
 
+    let titleLabel: UILabel = {
+        let label = UILabel(frame: .zero)
+        label.font = UIFont.preferredFont(forTextStyle: .title1)
+        label.numberOfLines = 0
+        return label
+    }()
+
+    let thumbnailImageView: RoundedImageView = {
+        return RoundedImageView(frame: .zero)
+    }()
+
     // UI Constants
-    private let horizontalPadding: CGFloat = 16.0
+    private let horizontalPadding: CGFloat = 24.0
     private let spacing: CGFloat = 16.0
     private let mapHeight: CGFloat = 150
+    private let thumbnailSize: CGFloat = 60
 
     init() {
         detailSubView = UIView(frame: .zero)
@@ -45,7 +57,6 @@ class ShopHeadView: UIView {
         addSubview(containerStackView)
         containerStackView.translatesAutoresizingMaskIntoConstraints = false
         containerStackView.axis = .vertical
-        containerStackView.spacing = spacing
 
         setupLayout()
     }
@@ -57,7 +68,12 @@ class ShopHeadView: UIView {
     private func setupLayout() {
         detailSubView.translatesAutoresizingMaskIntoConstraints = false
 
-        let detailStackView = UIStackView(arrangedSubviews: [addressButton, instagramButton, roasterButton])
+        let titleStackView = UIStackView(arrangedSubviews: [thumbnailImageView, titleLabel])
+        titleStackView.spacing = spacing
+        titleStackView.alignment = .center
+        titleStackView.translatesAutoresizingMaskIntoConstraints = false
+
+        let detailStackView = UIStackView(arrangedSubviews: [titleStackView, addressButton, instagramButton, roasterButton])
         detailStackView.translatesAutoresizingMaskIntoConstraints = false
         detailStackView.spacing = spacing
         detailStackView.axis = .vertical
@@ -69,10 +85,12 @@ class ShopHeadView: UIView {
             containerStackView.topAnchor.constraint(equalTo: self.topAnchor),
             containerStackView.rightAnchor.constraint(equalTo: self.rightAnchor),
             detailStackView.leftAnchor.constraint(equalTo: detailSubView.leftAnchor, constant: horizontalPadding),
-            detailStackView.topAnchor.constraint(equalTo: detailSubView.topAnchor),
+            detailStackView.topAnchor.constraint(equalTo: detailSubView.topAnchor, constant: spacing),
             detailStackView.rightAnchor.constraint(equalTo: detailSubView.rightAnchor, constant: -horizontalPadding),
             detailStackView.bottomAnchor.constraint(equalTo: detailSubView.bottomAnchor),
-            mapView.heightAnchor.constraint(equalToConstant: mapHeight)
+            mapView.heightAnchor.constraint(equalToConstant: mapHeight),
+            thumbnailImageView.heightAnchor.constraint(equalToConstant: thumbnailSize),
+            thumbnailImageView.widthAnchor.constraint(equalTo: thumbnailImageView.heightAnchor)
         ])
     }
 
