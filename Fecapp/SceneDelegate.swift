@@ -18,12 +18,29 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     ) {
         guard let windowScene = (scene as? UIWindowScene) else { return }
 
+        // Creating ShopsDataSource so it can be used by 1st and 2nd screen
+        let dataSource = ShopsDataSource()
+
         // Setting first screen programmatically
-        let controller = ShopsViewController()
-        let navigationController = UINavigationController(rootViewController: controller)
+        // 1st screen - Coffee shops
+        let shopsController = ShopsViewController(dataSource: dataSource)
+        let firstNavigationController = UINavigationController(rootViewController: shopsController)
+        firstNavigationController.tabBarItem = ShopsViewController.tabBarItem
+
+        // 2nd screen - Map
+        let mapController = MapViewController(dataSource: dataSource)
+        let secondNavigationController = UINavigationController(rootViewController: mapController)
+        secondNavigationController.tabBarItem = MapViewController.tabBarItem
+
+        // Putting all screens toghether into a UITabBar
+        let tabBarController = UITabBarController()
+        tabBarController.setViewControllers(
+            [firstNavigationController, secondNavigationController],
+            animated: false
+        )
 
         let window = UIWindow(windowScene: windowScene)
-        window.rootViewController = navigationController
+        window.rootViewController = tabBarController
         self.window = window
         window.makeKeyAndVisible()
     }
