@@ -17,12 +17,7 @@ enum ShopsViewModelEvents {
 }
 
 class ShopsViewModel: NSObject, UICollectionViewDelegate {
-    private let cellVerticalPadding: CGFloat = 8.0
-    private let cellHorizontalPadding: CGFloat = 16.0
-    private let cellHeight: CGFloat = 110.0
-
-    let collectionView: UICollectionView
-    let refreshControl: UIRefreshControl
+    let view: ShopsView
 
     private var lastUserLocation: CLLocation?
     private var shops: [Shop]?
@@ -32,29 +27,22 @@ class ShopsViewModel: NSObject, UICollectionViewDelegate {
     private let _events = PassthroughSubject<ShopsViewModelEvents, Never>()
     private var cancellables = [AnyCancellable]()
 
-    var layoutColumns: Int {
-        UIScreen.main.traitCollection.horizontalSizeClass == .regular ? 2 : 1
-    }
-
-    init(collectionView: UICollectionView, dataSource: ShopsDataSource) {
-        collectionView.register(
+    init(view: ShopsView, dataSource: ShopsDataSource) {
+        view.collectionView.register(
             ShopCollectionViewCell.self,
             forCellWithReuseIdentifier: "ShopCollectionViewCell"
         )
 
+        self.view = view
         self.shopsDataSource = dataSource
 
-        self.collectionView = collectionView
-        self.refreshControl = UIRefreshControl()
         self.events = _events.eraseToAnyPublisher()
 
         super.init()
-        self.collectionView.delegate = self
-        setupCollectionViewLayout()
+        view.collectionView.delegate = self
 
         // Bind refresh control to fetch shops if enabled
-        collectionView.addSubview(refreshControl)
-        refreshControl.addTarget(
+        view.refreshControl.addTarget(
             self,
             action: #selector(fetchShops),
             for: .valueChanged
@@ -103,44 +91,13 @@ class ShopsViewModel: NSObject, UICollectionViewDelegate {
     @objc private func fetchShops() {
         Task {
             do {
-                refreshControl.beginRefreshing()
+                view.refreshControl.beginRefreshing()
                 try await shopsDataSource.fetchShops()
-                refreshControl.endRefreshing()
+                view.refreshControl.endRefreshing()
             } catch {
                 LogService.logError(error)
             }
         }
-    }
-
-    private func setupCollectionViewLayout() {
-        let itemSize = NSCollectionLayoutSize(
-            widthDimension: .fractionalWidth(1.0),
-            heightDimension: .fractionalHeight(1.0)
-        )
-
-        let itemLayout = NSCollectionLayoutItem(layoutSize: itemSize)
-        itemLayout.contentInsets = NSDirectionalEdgeInsets(
-            top: cellVerticalPadding,
-            leading: cellHorizontalPadding,
-            bottom: cellVerticalPadding,
-            trailing: cellHorizontalPadding
-        )
-
-        let groupSize = NSCollectionLayoutSize(
-            widthDimension: .fractionalWidth(1.0),
-            heightDimension: .estimated(cellHeight)
-        )
-
-        let groupLayout = NSCollectionLayoutGroup.horizontal(
-            layoutSize: groupSize,
-            subitem: itemLayout,
-            count: layoutColumns
-        )
-
-        let sectionLayout = NSCollectionLayoutSection(group: groupLayout)
-        let layout = UICollectionViewCompositionalLayout(section: sectionLayout)
-
-        collectionView.collectionViewLayout = layout
     }
 
     func refreshDatasource(shops: [Shop]) {
@@ -154,7 +111,7 @@ class ShopsViewModel: NSObject, UICollectionViewDelegate {
 
     private lazy var dataSource: ShopsDiffableDataSource = {
         let dataSource = UICollectionViewDiffableDataSource<Section, Shop>(
-            collectionView: collectionView,
+            collectionView: view.collectionView,
             cellProvider: { [weak self](collectionView, indexPath, shop) -> UICollectionViewCell? in
 
                 guard let self = self else {
