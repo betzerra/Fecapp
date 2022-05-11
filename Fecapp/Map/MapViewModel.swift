@@ -9,14 +9,17 @@ import Foundation
 import Combine
 import MapKit
 
-class MapViewModel {
-    let dataSource: ShopsDataSource
-    let view: MapView
+enum MapViewModelEvent {
+    case selected(shop: Shop)
+}
+
+class MapViewModel: NSObject, MKMapViewDelegate {
     private var cancellables = [AnyCancellable]()
+    private let _events = PassthroughSubject<MapViewModelEvent, Never>()
+    let events: AnyPublisher<MapViewModelEvent, Never>
 
     init(dataSource: ShopsDataSource, view: MapView) {
-        self.dataSource = dataSource
-        self.view = view
+        events = _events.eraseToAnyPublisher()
 
         dataSource.$shops
             .compactMap { $0 }
@@ -26,8 +29,7 @@ class MapViewModel {
                 view.mapView.removeAnnotations(view.mapView.annotations)
 
                 shops.forEach { shop in
-                    let pin = MKPointAnnotation() // map pin
-                    pin.coordinate = shop.coordinates.locationCoordinate
+                    let pin = ShopMapAnnotation(shop: shop) // map pin
                     view.mapView.addAnnotation(pin)
                 }
 
@@ -35,5 +37,18 @@ class MapViewModel {
                 view.mapView.showAnnotations(view.mapView.annotations, animated: true)
             }
             .store(in: &cancellables)
+
+        super.init()
+        view.mapView.delegate = self
+    }
+
+    // MARK: - MKMapViewDelegate
+    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+        guard let annotation = view.annotation as? ShopMapAnnotation else {
+            return
+        }
+
+        LogService.info("Annotation selected: \(annotation.shop.title)")
+        _events.send(.selected(shop: annotation.shop))
     }
 }
