@@ -14,16 +14,12 @@ class ShopDetailViewController: UIViewController {
     let viewModel: ShopDetailViewModel
 
     // Subviews
-    private let headView: ShopHeadView
-    private let containerStackView: UIStackView
-
+    private let _view = ShopDetailView()
+    
     private var cancellables = [AnyCancellable]()
 
     init(shop: Shop) {
-        self.viewModel = ShopDetailViewModel(shop: shop)
-
-        self.headView = ShopHeadView(viewModel: viewModel)
-        self.containerStackView = UIStackView(arrangedSubviews: [headView])
+        self.viewModel = ShopDetailViewModel(shop: shop, view: _view)
 
         super.init(nibName: nil, bundle: nil)
 
@@ -55,25 +51,7 @@ class ShopDetailViewController: UIViewController {
 
     override func loadView() {
         super.loadView()
-        view.backgroundColor = .systemBackground
-
-        addSubviews()
-        setupConstraints()
-    }
-
-    private func addSubviews() {
-        view.addSubview(containerStackView)
-    }
-
-    private func setupConstraints() {
-        containerStackView.translatesAutoresizingMaskIntoConstraints = false
-
-        NSLayoutConstraint.activate([
-            containerStackView.leftAnchor.constraint(equalTo: view.leftAnchor),
-            containerStackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            containerStackView.rightAnchor.constraint(equalTo: view.rightAnchor),
-            containerStackView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
-        ])
+        view = _view
     }
 
     private func openMap(shop: Shop) {
