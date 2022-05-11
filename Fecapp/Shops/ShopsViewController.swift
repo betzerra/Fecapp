@@ -11,12 +11,19 @@ import UIKit
 
 class ShopsViewController: UIViewController {
     private let locationManager = LocationManager()
-    private let dataSource = ShopsDataSource()
+    private let dataSource: ShopsDataSource
 
     private let _view = ShopsView()
     private var viewModel: ShopsViewModel
 
     private var cancellables = [AnyCancellable]()
+
+    static let tabBarItem: UITabBarItem = {
+        return UITabBarItem(
+            title: "Cafeterías",
+            image: UIImage(systemName: "cup.and.saucer"),
+            selectedImage: nil)
+    }()
 
     var menuItems: [UIAction] {
         [defaultSortAction, sortByLocationAction, filterNeighborhoodsAction]
@@ -70,7 +77,8 @@ class ShopsViewController: UIViewController {
             }
     }()
 
-    init() {
+    init(dataSource: ShopsDataSource) {
+        self.dataSource = dataSource
         viewModel = ShopsViewModel(view: _view, dataSource: dataSource)
         super.init(nibName: nil, bundle: nil)
 
