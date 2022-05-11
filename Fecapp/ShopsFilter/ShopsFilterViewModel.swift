@@ -12,24 +12,24 @@ import UIKit
 typealias NeighborhoodDiffableDataSource = UICollectionViewDiffableDataSource<Section, Neighborhood>
 
 class ShopsFilterViewModel: NSObject, UICollectionViewDelegate {
-    let collectionView: UICollectionView
+    let view: ShopsFilterView
     let shopsDataSource: ShopsDataSource
 
     var neighborhoods: [Neighborhood]?
 
     var cancellables = [AnyCancellable]()
 
-    init(collectionView: UICollectionView, dataSource: ShopsDataSource) {
-        collectionView.register(
+    init(view: ShopsFilterView, dataSource: ShopsDataSource) {
+        view.collectionView.register(
             LabelCollectionViewCell.self,
             forCellWithReuseIdentifier: "LabelCollectionViewCell"
         )
 
         self.shopsDataSource = dataSource
-        self.collectionView = collectionView
+        self.view = view
         super.init()
 
-        self.collectionView.delegate = self
+        self.view.collectionView.delegate = self
 
         dataSource.$shops
             .compactMap { $0 }
@@ -56,14 +56,14 @@ class ShopsFilterViewModel: NSObject, UICollectionViewDelegate {
         neighborhoods.enumerated().forEach { index, neighborhood in
             if shopsDataSource.filteredNeighborhoods.contains(neighborhood) {
                 let indexPath = IndexPath(row: index, section: 0)
-                collectionView.selectItem(at: indexPath, animated: false, scrollPosition: .top)
+                view.collectionView.selectItem(at: indexPath, animated: false, scrollPosition: .top)
             }
         }
     }
 
     private lazy var dataSource: NeighborhoodDiffableDataSource = {
         let dataSource = UICollectionViewDiffableDataSource<Section, Neighborhood>(
-            collectionView: collectionView,
+            collectionView: view.collectionView,
             cellProvider: { (collectionView, indexPath, neighborhood) -> UICollectionViewCell? in
                 guard let cell = collectionView.dequeueReusableCell(
                     withReuseIdentifier: "LabelCollectionViewCell",

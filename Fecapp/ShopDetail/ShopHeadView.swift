@@ -10,25 +10,23 @@ import MapKit
 import UIKit
 
 class ShopHeadView: UIView {
-    let viewModel: ShopDetailViewModel
-
     // Subviews
     private let containerStackView: UIStackView
     private let detailSubView: UIView
 
-    private let addressButton: UIButton = {
+    let addressButton: UIButton = {
         return ShopHeadView.detailButton()
     }()
 
-    private let instagramButton: UIButton = {
+    let instagramButton: UIButton = {
         return ShopHeadView.detailButton()
     }()
 
-    private let roasterButton: UIButton = {
+    let roasterButton: UIButton = {
         return ShopHeadView.detailButton()
     }()
 
-    private let mapView: MKMapView = {
+    let mapView: MKMapView = {
         let view = MKMapView(frame: .zero)
         return view
     }()
@@ -38,9 +36,7 @@ class ShopHeadView: UIView {
     private let spacing: CGFloat = 16.0
     private let mapHeight: CGFloat = 150
 
-    init(viewModel: ShopDetailViewModel) {
-        self.viewModel = viewModel
-
+    init() {
         detailSubView = UIView(frame: .zero)
         containerStackView = UIStackView(arrangedSubviews: [mapView, detailSubView])
 
@@ -52,7 +48,6 @@ class ShopHeadView: UIView {
         containerStackView.spacing = spacing
 
         setupLayout()
-        updateContent()
     }
 
     required init?(coder: NSCoder) {
@@ -79,23 +74,6 @@ class ShopHeadView: UIView {
             detailStackView.bottomAnchor.constraint(equalTo: detailSubView.bottomAnchor),
             mapView.heightAnchor.constraint(equalToConstant: mapHeight)
         ])
-    }
-
-    private func updateContent() {
-        addressButton.setAttributedTitle(viewModel.attributedAddress, for: .normal)
-        addressButton.addAction(viewModel.openMapAction, for: .touchUpInside)
-
-        instagramButton.setAttributedTitle(viewModel.attributedInstagram, for: .normal)
-        instagramButton.addAction(viewModel.instagramAction, for: .touchUpInside)
-
-        roasterButton.setAttributedTitle(viewModel.attributedRoaster, for: .normal)
-        roasterButton.addAction(viewModel.roastersAction, for: .touchUpInside)
-
-        mapView.setRegion(viewModel.mapRegion, animated: false)
-
-        let pin = MKPointAnnotation() // map pin
-        pin.coordinate = viewModel.shop.coordinates.locationCoordinate
-        mapView.addAnnotation(pin)
     }
 
     static func detailButton() -> UIButton {

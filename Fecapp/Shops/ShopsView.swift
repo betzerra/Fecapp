@@ -26,14 +26,7 @@ class ShopsView: UIView {
         super.init(frame: .zero)
 
         collectionView.addSubview(refreshControl)
-        addSubview(collectionView)
-
-        NSLayoutConstraint.activate([
-            collectionView.leftAnchor.constraint(equalTo: self.leftAnchor),
-            collectionView.topAnchor.constraint(equalTo: self.topAnchor),
-            collectionView.rightAnchor.constraint(equalTo: self.rightAnchor),
-            collectionView.bottomAnchor.constraint(equalTo: self.bottomAnchor)
-        ])
+        collectionView.loadInto(containerView: self)
     }
 
     required init?(coder: NSCoder) {

@@ -22,7 +22,8 @@ class ShopsViewController: UIViewController {
         return UITabBarItem(
             title: "Cafeterías",
             image: UIImage(systemName: "cup.and.saucer"),
-            selectedImage: nil)
+            selectedImage: UIImage(systemName: "cup.and.saucer.fill")
+        )
     }()
 
     var menuItems: [UIAction] {

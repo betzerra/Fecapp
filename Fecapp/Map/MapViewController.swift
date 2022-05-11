@@ -20,7 +20,8 @@ class MapViewController: UIViewController {
         return UITabBarItem(
             title: "Mapa",
             image: UIImage(systemName: "map"),
-            selectedImage: nil)
+            selectedImage: UIImage(systemName: "map.fill")
+        )
     }()
 
     init(dataSource: ShopsDataSource) {

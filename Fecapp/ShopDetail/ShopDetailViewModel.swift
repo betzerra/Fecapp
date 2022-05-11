@@ -18,6 +18,7 @@ enum ShopDetailViewModelEvents {
 
 class ShopDetailViewModel {
     let shop: Shop
+    let view: ShopDetailView
 
     let events: AnyPublisher<ShopDetailViewModelEvents, Never>
     private let _events = PassthroughSubject<ShopDetailViewModelEvents, Never>()
@@ -100,8 +101,28 @@ class ShopDetailViewModel {
         }
     }
 
-    init(shop: Shop) {
+    init(shop: Shop, view: ShopDetailView) {
         self.shop = shop
         self.events = _events.eraseToAnyPublisher()
+        self.view = view
+
+        updateContent()
+    }
+
+    func updateContent() {
+        view.headView.addressButton.setAttributedTitle(attributedAddress, for: .normal)
+        view.headView.addressButton.addAction(openMapAction, for: .touchUpInside)
+
+        view.headView.instagramButton.setAttributedTitle(attributedInstagram, for: .normal)
+        view.headView.instagramButton.addAction(instagramAction, for: .touchUpInside)
+
+        view.headView.roasterButton.setAttributedTitle(attributedRoaster, for: .normal)
+        view.headView.roasterButton.addAction(roastersAction, for: .touchUpInside)
+
+        view.headView.mapView.setRegion(mapRegion, animated: false)
+
+        let pin = MKPointAnnotation() // map pin
+        pin.coordinate = shop.coordinates.locationCoordinate
+        view.headView.mapView.addAnnotation(pin)
     }
 }

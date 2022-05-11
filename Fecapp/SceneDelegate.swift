@@ -43,6 +43,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window.rootViewController = tabBarController
         self.window = window
         window.makeKeyAndVisible()
+
+        // Fixes issue where translucent bar glitched after going
+        // back in MapView (iOS 15)
+        let appearance = UITabBarAppearance()
+        appearance.configureWithDefaultBackground()
+
+        tabBarController.tabBar.standardAppearance = appearance
+        tabBarController.tabBar.scrollEdgeAppearance = appearance
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
