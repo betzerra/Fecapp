@@ -34,8 +34,11 @@ class MapViewController: UIViewController {
             .sink { [weak self] event in
                 switch event {
                 case.selected(let shop):
-                    let controller = ShopDetailViewController(shop: shop)
-                    self?.navigationController?.pushViewController(controller, animated: true)
+                    let controller = ShopDetailViewController(shop: shop, style: .sheet)
+                    if let sheet = controller.sheetPresentationController {
+                        sheet.detents = [.medium()]
+                    }
+                    self?.present(controller, animated: true)
                 }
             }
             .store(in: &cancellables)

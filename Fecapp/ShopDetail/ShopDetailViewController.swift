@@ -11,19 +11,23 @@ import MapKit
 import UIKit
 
 class ShopDetailViewController: UIViewController {
+
+    enum Style {
+        case fullscreen
+        case sheet
+    }
+
     let viewModel: ShopDetailViewModel
 
     // Subviews
     private let _view = ShopDetailView()
-    
+
     private var cancellables = [AnyCancellable]()
 
-    init(shop: Shop) {
-        self.viewModel = ShopDetailViewModel(shop: shop, view: _view)
+    init(shop: Shop, style: Style) {
+        self.viewModel = ShopDetailViewModel(shop: shop, view: _view, style: style)
 
         super.init(nibName: nil, bundle: nil)
-
-        title = viewModel.title
 
         viewModel.events
             .receive(on: RunLoop.main)
