@@ -10,14 +10,13 @@ import CoreLocation
 import UIKit
 
 class ShopsViewController: UIViewController {
-    @IBOutlet weak var collectionView: UICollectionView!
+    private let locationManager = LocationManager()
+    private let dataSource = ShopsDataSource()
 
-    let locationManager = LocationManager()
-    let dataSource = ShopsDataSource()
+    private let _view = ShopsView()
+    private var viewModel: ShopsViewModel
 
-    var viewModel: ShopsViewModel!
-
-    var cancellables = [AnyCancellable]()
+    private var cancellables = [AnyCancellable]()
 
     var menuItems: [UIAction] {
         [defaultSortAction, sortByLocationAction, filterNeighborhoodsAction]
@@ -71,12 +70,25 @@ class ShopsViewController: UIViewController {
             }
     }()
 
+    init() {
+        viewModel = ShopsViewModel(view: _view, dataSource: dataSource)
+        super.init(nibName: nil, bundle: nil)
+
+        self.title = "Cafeterías"
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
+    override func loadView() {
+        super.loadView()
+        view = _view
+        setupNavigationItem()
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        setupNavigationItem()
-
-        viewModel = ShopsViewModel(collectionView: collectionView, dataSource: dataSource)
 
         viewModel.events
             .receive(on: RunLoop.main)
