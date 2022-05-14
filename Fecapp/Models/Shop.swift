@@ -23,6 +23,8 @@ struct Shop: Decodable {
     let instagram: String
     let hasDelivery: Bool
 
+    let message: String?
+
     let thumbnail: ShopThumbnail?
 
     var webURL: URL? {
@@ -41,6 +43,7 @@ struct Shop: Decodable {
         case neighborhood
         case instagram
         case hasDelivery
+        case message
         case thumbnail
     }
 
@@ -61,6 +64,7 @@ struct Shop: Decodable {
         neighborhood = try? values.decode(Neighborhood.self, forKey: .neighborhood)
         instagram = try values.decode(String.self, forKey: .instagram)
         hasDelivery = try values.decode(Bool.self, forKey: .hasDelivery)
+        message = try? values.decodeIfPresent(String.self, forKey: .message)
         thumbnail = try? values.decode(ShopThumbnail.self, forKey: .thumbnail)
     }
 

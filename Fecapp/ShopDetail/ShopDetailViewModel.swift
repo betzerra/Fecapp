@@ -14,7 +14,6 @@ import SDWebImage
 enum ShopDetailViewModelEvents {
     case openMap(shop: Shop)
     case openInstagram(username: String)
-    case openRoasters
 }
 
 class ShopDetailViewModel {
@@ -97,12 +96,6 @@ class ShopDetailViewModel {
         }
     }
 
-    var roastersAction: UIAction {
-        UIAction { [weak self] _ in
-            self?._events.send(.openRoasters)
-        }
-    }
-
     init(shop: Shop, view: ShopDetailView, style: ShopDetailViewController.Style) {
         self.shop = shop
         self.style = style
@@ -121,12 +114,11 @@ class ShopDetailViewModel {
         view.headView.instagramButton.setAttributedTitle(attributedInstagram, for: .normal)
         view.headView.instagramButton.addAction(instagramAction, for: .touchUpInside)
 
-        view.headView.roasterButton.setAttributedTitle(attributedRoaster, for: .normal)
-        view.headView.roasterButton.addAction(roastersAction, for: .touchUpInside)
         view.headView.mapView.setRegion(mapRegion, animated: false)
 
         updateThumbnail()
         updateMap()
+        updateMessage()
     }
 
     func updateThumbnail() {
@@ -147,5 +139,16 @@ class ShopDetailViewModel {
         case .sheet:
             view.headView.mapView.isHidden = true
         }
+    }
+
+    func updateMessage() {
+        guard let message = shop.message else {
+            view.messageTitleLabel.isHidden = true
+            view.messageBodyLabel.isHidden = true
+            return
+        }
+
+        view.messageTitleLabel.text = "Mensaje de '\(shop.title)':"
+        view.messageBodyLabel.text = message
     }
 }

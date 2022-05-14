@@ -22,10 +22,6 @@ class ShopHeadView: UIView {
         return ShopHeadView.detailButton()
     }()
 
-    let roasterButton: UIButton = {
-        return ShopHeadView.detailButton()
-    }()
-
     let mapView: MKMapView = {
         let view = MKMapView(frame: .zero)
         return view
@@ -73,7 +69,7 @@ class ShopHeadView: UIView {
         titleStackView.alignment = .center
         titleStackView.translatesAutoresizingMaskIntoConstraints = false
 
-        let detailStackView = UIStackView(arrangedSubviews: [titleStackView, addressButton, instagramButton, roasterButton])
+        let detailStackView = UIStackView(arrangedSubviews: [titleStackView, addressButton, instagramButton])
         detailStackView.translatesAutoresizingMaskIntoConstraints = false
         detailStackView.spacing = spacing
         detailStackView.axis = .vertical
@@ -84,6 +80,7 @@ class ShopHeadView: UIView {
             containerStackView.leftAnchor.constraint(equalTo: self.leftAnchor),
             containerStackView.topAnchor.constraint(equalTo: self.topAnchor),
             containerStackView.rightAnchor.constraint(equalTo: self.rightAnchor),
+            containerStackView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
             detailStackView.leftAnchor.constraint(equalTo: detailSubView.leftAnchor, constant: horizontalPadding),
             detailStackView.topAnchor.constraint(equalTo: detailSubView.topAnchor, constant: spacing),
             detailStackView.rightAnchor.constraint(equalTo: detailSubView.rightAnchor, constant: -horizontalPadding),

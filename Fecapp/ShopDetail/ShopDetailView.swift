@@ -10,13 +10,44 @@ import UIKit
 
 class ShopDetailView: UIView {
     let headView: ShopHeadView
+
+    let scrollView: UIScrollView = {
+        let view = UIScrollView(frame: .zero)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+
+    let messageTitleLabel: UILabel = {
+        let label = UILabel(frame: .zero)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.numberOfLines = 0
+        label.font = UIFont.preferredFont(forTextStyle: .headline)
+        label.textColor = .label
+        return label
+    }()
+
+    let messageBodyLabel: UILabel = {
+        let label = UILabel(frame: .zero)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.numberOfLines = 0
+        label.font = UIFont.preferredFont(forTextStyle: .body)
+        label.textColor = .label
+        return label
+    }()
+
     private let stackView: UIStackView
 
     init() {
         self.headView = ShopHeadView()
-        self.stackView = UIStackView(arrangedSubviews: [headView])
+        self.stackView = UIStackView(
+            arrangedSubviews: [headView, messageTitleLabel, messageBodyLabel]
+        )
+        self.stackView.axis = .vertical
+        self.stackView.distribution = .fill
 
         super.init(frame: .zero)
+
+        scrollView.loadInto(containerView: self)
 
         addSubviews()
         setupLayout()
@@ -29,16 +60,22 @@ class ShopDetailView: UIView {
     }
 
     private func addSubviews() {
+        addSubview(scrollView)
+
         stackView.translatesAutoresizingMaskIntoConstraints = false
-        addSubview(stackView)
+        scrollView.addSubview(stackView)
+    }
+
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        scrollView.contentSize = stackView.bounds.size
     }
 
     private func setupLayout() {
         NSLayoutConstraint.activate([
             stackView.leftAnchor.constraint(equalTo: self.leftAnchor),
-            stackView.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor),
+            stackView.topAnchor.constraint(equalTo: scrollView.topAnchor),
             stackView.rightAnchor.constraint(equalTo: self.rightAnchor),
-            stackView.bottomAnchor.constraint(equalTo: self.bottomAnchor)
         ])
     }
 }
