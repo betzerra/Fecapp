@@ -15,6 +15,7 @@ class MapView: UIView {
     init() {
         super.init(frame: .zero)
         mapView.loadInto(containerView: self)
+        mapView.showsUserLocation = true
     }
 
     required init?(coder: NSCoder) {
