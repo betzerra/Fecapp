@@ -53,7 +53,15 @@ class ShopsViewModel: NSObject, UICollectionViewDelegate {
             .compactMap { $0 }
             .receive(on: RunLoop.main)
             .sink { [weak self] shops in
-                self?.refreshDatasource(shops: shops)
+                guard let self = self else {
+                    return
+                }
+
+                // Hide / Show empty view
+                self.view.emptyView.isHidden = shops.count > 0
+
+                // Update collection view
+                self.refreshDatasource(shops: shops)
             }
             .store(in: &cancellables)
 

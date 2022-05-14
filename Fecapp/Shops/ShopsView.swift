@@ -14,6 +14,8 @@ private let cellHorizontalPadding: CGFloat = 16.0
 private let cellHeight: CGFloat = 110.0
 
 class ShopsView: UIView {
+    let emptyView = EmptyView()
+
     let collectionView: UICollectionView = {
         let view = UICollectionView(frame: .zero, collectionViewLayout: collectionViewLayout())
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -24,9 +26,15 @@ class ShopsView: UIView {
 
     init() {
         super.init(frame: .zero)
-
         collectionView.addSubview(refreshControl)
         collectionView.loadInto(containerView: self)
+
+        emptyView.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(emptyView)
+        NSLayoutConstraint.activate([
+            emptyView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+            emptyView.centerYAnchor.constraint(equalTo: self.centerYAnchor),
+        ])
     }
 
     required init?(coder: NSCoder) {
