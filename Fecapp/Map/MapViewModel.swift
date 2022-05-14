@@ -49,6 +49,18 @@ class MapViewModel: NSObject, MKMapViewDelegate {
         }
 
         LogService.info("Annotation selected: \(annotation.shop.title)")
+
+        // Horrible hack to put the annotation a little bit above of the
+        // shop detail card
+        annotation.coordinate.latitude -= 0.0015
+
+        let region = MKCoordinateRegion(
+            center: annotation.coordinate,
+            latitudinalMeters: 600,
+            longitudinalMeters: 600
+        )
+        mapView.setRegion(region, animated: true)
+
         _events.send(.selected(shop: annotation.shop))
     }
 }
