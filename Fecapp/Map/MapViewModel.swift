@@ -14,6 +14,8 @@ enum MapViewModelEvent {
 }
 
 class MapViewModel: NSObject, MKMapViewDelegate {
+    private let view: MapView
+
     private var cancellables = [AnyCancellable]()
     private let _events = PassthroughSubject<MapViewModelEvent, Never>()
     let events: AnyPublisher<MapViewModelEvent, Never>
@@ -38,8 +40,22 @@ class MapViewModel: NSObject, MKMapViewDelegate {
             }
             .store(in: &cancellables)
 
+        self.view = view
+
         super.init()
         view.mapView.delegate = self
+
+        view.centerButton.addTarget(
+            self,
+            action: #selector(centerButtonPressed(_:)),
+            for: .touchUpInside
+        )
+    }
+
+    // MARK: - Actions
+    @objc private func centerButtonPressed(_ sender: Any) {
+        LogService.info("Center Button pressed")
+        view.mapView.setCenter(view.mapView.userLocation.coordinate, animated: true)
     }
 
     // MARK: - MKMapViewDelegate

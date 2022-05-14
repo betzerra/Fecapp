@@ -9,13 +9,31 @@ import Foundation
 import MapKit
 import UIKit
 
+private let centerButtonHorizontalMargin: CGFloat = 20
+
 class MapView: UIView {
     let mapView: MKMapView = MKMapView()
+
+    let centerButton: UIButton = {
+        let image = UIImage(systemName: "location.fill")
+
+        let button = RoundedButton(configuration: .filled())
+        button.tintColor = .systemFill
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setImage(image, for: .normal)
+        return button
+    }()
 
     init() {
         super.init(frame: .zero)
         mapView.loadInto(containerView: self)
         mapView.showsUserLocation = true
+
+        addSubview(centerButton)
+        NSLayoutConstraint.activate([
+            centerButton.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor),
+            centerButton.rightAnchor.constraint(equalTo: self.safeAreaLayoutGuide.rightAnchor, constant: -centerButtonHorizontalMargin)
+        ])
     }
 
     required init?(coder: NSCoder) {

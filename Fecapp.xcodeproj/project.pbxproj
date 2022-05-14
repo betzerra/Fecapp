@@ -42,6 +42,7 @@
 		67A9FABA2818C9EE00CEF1E2 /* ShopCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67A9FAB92818C9EE00CEF1E2 /* ShopCellViewModel.swift */; };
 		67C713CE283024DE0024C175 /* EmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67C713CD283024DE0024C175 /* EmptyView.swift */; };
 		67C713D028302A630024C175 /* DummyQuotes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67C713CF28302A630024C175 /* DummyQuotes.swift */; };
+		67C713D2283036B80024C175 /* RoundedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67C713D1283036B80024C175 /* RoundedButton.swift */; };
 		67CD60E9281DA59E000BEEC4 /* ShopsFilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67CD60E8281DA59E000BEEC4 /* ShopsFilterViewController.swift */; };
 		67CD60EB281DB828000BEEC4 /* ShopsFilterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67CD60EA281DB828000BEEC4 /* ShopsFilterViewModel.swift */; };
 		67CD60ED281DBB0D000BEEC4 /* ShopsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67CD60EC281DBB0D000BEEC4 /* ShopsViewModel.swift */; };
@@ -109,6 +110,7 @@
 		67A9FAB92818C9EE00CEF1E2 /* ShopCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopCellViewModel.swift; sourceTree = "<group>"; };
 		67C713CD283024DE0024C175 /* EmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyView.swift; sourceTree = "<group>"; };
 		67C713CF28302A630024C175 /* DummyQuotes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DummyQuotes.swift; sourceTree = "<group>"; };
+		67C713D1283036B80024C175 /* RoundedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedButton.swift; sourceTree = "<group>"; };
 		67CD60E8281DA59E000BEEC4 /* ShopsFilterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopsFilterViewController.swift; sourceTree = "<group>"; };
 		67CD60EA281DB828000BEEC4 /* ShopsFilterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopsFilterViewModel.swift; sourceTree = "<group>"; };
 		67CD60EC281DBB0D000BEEC4 /* ShopsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopsViewModel.swift; sourceTree = "<group>"; };
@@ -193,6 +195,7 @@
 			isa = PBXGroup;
 			children = (
 				67529102282B6DE5005E2A4E /* RoundedImageView.swift */,
+				67C713D1283036B80024C175 /* RoundedButton.swift */,
 				67C713CD283024DE0024C175 /* EmptyView.swift */,
 			);
 			path = UI;
@@ -481,6 +484,7 @@
 				67177C802828624C001677E2 /* LocationOnboardingView.swift in Sources */,
 				6700F65328298D4400AB90BA /* MessageLoggeable.swift in Sources */,
 				679AEC47281509CD00180CEF /* UIImageView+Lazy.swift in Sources */,
+				67C713D2283036B80024C175 /* RoundedButton.swift in Sources */,
 				67A9FABA2818C9EE00CEF1E2 /* ShopCellViewModel.swift in Sources */,
 				67CD60E9281DA59E000BEEC4 /* ShopsFilterViewController.swift in Sources */,
 				67A0228D281E2B09007987BE /* UIFont+Styles.swift in Sources */,
