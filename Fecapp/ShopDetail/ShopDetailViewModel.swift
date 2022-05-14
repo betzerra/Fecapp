@@ -9,6 +9,7 @@ import Combine
 import Foundation
 import MapKit
 import UIKit
+import SDWebImage
 
 enum ShopDetailViewModelEvents {
     case openMap(shop: Shop)
@@ -134,7 +135,7 @@ class ShopDetailViewModel {
             return
         }
 
-        view.headView.thumbnailImageView.load(url: url)
+        view.headView.thumbnailImageView.sd_setImage(with: url)
     }
 
     func updateMap() {
