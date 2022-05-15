@@ -12,18 +12,10 @@ import UIKit
 class ShopHeadView: UIView {
     // Subviews
     private let containerStackView: UIStackView
-    private let detailSubView: UIView
-
-    let addressButton: UIButton = {
-        return ShopHeadView.detailButton()
-    }()
-
-    let instagramButton: UIButton = {
-        return ShopHeadView.detailButton()
-    }()
 
     let mapView: MKMapView = {
         let view = MKMapView(frame: .zero)
+        view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
 
@@ -39,21 +31,31 @@ class ShopHeadView: UIView {
     }()
 
     // UI Constants
-    private let horizontalPadding: CGFloat = 24.0
-    private let spacing: CGFloat = 16.0
     private let mapHeight: CGFloat = 150
     private let thumbnailSize: CGFloat = 60
+    private let stackViewTopMargin: CGFloat = 16
+    private let horizontalSpacing: CGFloat = 16
 
     init() {
-        detailSubView = UIView(frame: .zero)
-        containerStackView = UIStackView(arrangedSubviews: [mapView, detailSubView])
+        let titleStackView = UIStackView(arrangedSubviews: [thumbnailImageView, titleLabel])
+        titleStackView.spacing = horizontalSpacing
+        titleStackView.alignment = .center
+        titleStackView.isLayoutMarginsRelativeArrangement = true
+        titleStackView.layoutMargins = UIEdgeInsets(
+            top: stackViewTopMargin,
+            left: horizontalSpacing,
+            bottom: 0,
+            right: horizontalSpacing
+        )
+        containerStackView = UIStackView(arrangedSubviews: [mapView, titleStackView])
 
         super.init(frame: .zero)
-
-        addSubview(containerStackView)
         containerStackView.translatesAutoresizingMaskIntoConstraints = false
         containerStackView.axis = .vertical
+        containerStackView.distribution = .equalCentering
+        containerStackView.isLayoutMarginsRelativeArrangement = true
 
+        addSubviews()
         setupLayout()
     }
 
@@ -61,42 +63,19 @@ class ShopHeadView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
+    private func addSubviews() {
+        addSubview(containerStackView)
+    }
+
     private func setupLayout() {
-        detailSubView.translatesAutoresizingMaskIntoConstraints = false
-
-        let titleStackView = UIStackView(arrangedSubviews: [thumbnailImageView, titleLabel])
-        titleStackView.spacing = spacing
-        titleStackView.alignment = .center
-        titleStackView.translatesAutoresizingMaskIntoConstraints = false
-
-        let detailStackView = UIStackView(arrangedSubviews: [titleStackView, addressButton, instagramButton])
-        detailStackView.translatesAutoresizingMaskIntoConstraints = false
-        detailStackView.spacing = spacing
-        detailStackView.axis = .vertical
-
-        detailSubView.addSubview(detailStackView)
-
         NSLayoutConstraint.activate([
+            mapView.heightAnchor.constraint(equalToConstant: mapHeight),
             containerStackView.leftAnchor.constraint(equalTo: self.leftAnchor),
-            containerStackView.topAnchor.constraint(equalTo: self.topAnchor),
+            containerStackView.topAnchor.constraint(equalTo: self.layoutMarginsGuide.topAnchor),
             containerStackView.rightAnchor.constraint(equalTo: self.rightAnchor),
             containerStackView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
-            detailStackView.leftAnchor.constraint(equalTo: detailSubView.leftAnchor, constant: horizontalPadding),
-            detailStackView.topAnchor.constraint(equalTo: detailSubView.topAnchor, constant: spacing),
-            detailStackView.rightAnchor.constraint(equalTo: detailSubView.rightAnchor, constant: -horizontalPadding),
-            detailStackView.bottomAnchor.constraint(equalTo: detailSubView.bottomAnchor),
-            mapView.heightAnchor.constraint(equalToConstant: mapHeight),
             thumbnailImageView.heightAnchor.constraint(equalToConstant: thumbnailSize),
             thumbnailImageView.widthAnchor.constraint(equalTo: thumbnailImageView.heightAnchor)
         ])
-    }
-
-    static func detailButton() -> UIButton {
-        let button = UIButton(type: .system)
-        button.titleLabel?.font = UIFont.preferredFont(forTextStyle: .body)
-        button.contentHorizontalAlignment = .left
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.tintColor = .label
-        return button
     }
 }

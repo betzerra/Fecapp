@@ -64,7 +64,9 @@ struct Shop: Decodable {
         neighborhood = try? values.decode(Neighborhood.self, forKey: .neighborhood)
         instagram = try values.decode(String.self, forKey: .instagram)
         hasDelivery = try values.decode(Bool.self, forKey: .hasDelivery)
-        message = try? values.decodeIfPresent(String.self, forKey: .message)
+
+        let shopMessage = try? values.decodeIfPresent(String.self, forKey: .message)
+        message = (shopMessage != "") ? shopMessage : nil
         thumbnail = try? values.decode(ShopThumbnail.self, forKey: .thumbnail)
     }
 

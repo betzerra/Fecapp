@@ -17,6 +17,14 @@ class ShopDetailView: UIView {
         return view
     }()
 
+    let addressButton: UIButton = {
+        return ShopDetailView.detailButton()
+    }()
+
+    let instagramButton: UIButton = {
+        return ShopDetailView.detailButton()
+    }()
+
     let messageTitleLabel: UILabel = {
         let label = UILabel(frame: .zero)
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -30,20 +38,40 @@ class ShopDetailView: UIView {
         let label = UILabel(frame: .zero)
         label.translatesAutoresizingMaskIntoConstraints = false
         label.numberOfLines = 0
-        label.font = UIFont.preferredFont(forTextStyle: .body)
+        label.font = UIFont.preferredFont(forTextStyle: .caption1)
         label.textColor = .label
         return label
     }()
 
     private let stackView: UIStackView
+    private let detailStackView: UIStackView
+
+    private let padding: CGFloat = 16
 
     init() {
+        self.detailStackView = UIStackView(
+            arrangedSubviews: [
+                addressButton,
+                instagramButton,
+                messageTitleLabel,
+                messageBodyLabel
+            ]
+        )
+        self.detailStackView.axis = .vertical
+        self.detailStackView.spacing = 8
+        self.detailStackView.layoutMargins = UIEdgeInsets(
+            top: padding,
+            left: padding,
+            bottom: padding,
+            right: padding
+        )
+        self.detailStackView.isLayoutMarginsRelativeArrangement = true
+
         self.headView = ShopHeadView()
         self.stackView = UIStackView(
-            arrangedSubviews: [headView, messageTitleLabel, messageBodyLabel]
+            arrangedSubviews: [headView, detailStackView]
         )
         self.stackView.axis = .vertical
-        self.stackView.distribution = .fill
 
         super.init(frame: .zero)
 
@@ -77,5 +105,14 @@ class ShopDetailView: UIView {
             stackView.topAnchor.constraint(equalTo: scrollView.topAnchor),
             stackView.rightAnchor.constraint(equalTo: self.rightAnchor),
         ])
+    }
+
+    static func detailButton() -> UIButton {
+        let button = UIButton(type: .system)
+        button.titleLabel?.font = UIFont.preferredFont(forTextStyle: .body)
+        button.contentHorizontalAlignment = .left
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.tintColor = .label
+        return button
     }
 }

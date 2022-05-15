@@ -108,11 +108,11 @@ class ShopDetailViewModel {
     func updateContent() {
         view.headView.titleLabel.text = shop.title
 
-        view.headView.addressButton.setAttributedTitle(attributedAddress, for: .normal)
-        view.headView.addressButton.addAction(openMapAction, for: .touchUpInside)
+        view.addressButton.setAttributedTitle(attributedAddress, for: .normal)
+        view.addressButton.addAction(openMapAction, for: .touchUpInside)
 
-        view.headView.instagramButton.setAttributedTitle(attributedInstagram, for: .normal)
-        view.headView.instagramButton.addAction(instagramAction, for: .touchUpInside)
+        view.instagramButton.setAttributedTitle(attributedInstagram, for: .normal)
+        view.instagramButton.addAction(instagramAction, for: .touchUpInside)
 
         view.headView.mapView.setRegion(mapRegion, animated: false)
 
@@ -148,7 +148,7 @@ class ShopDetailViewModel {
             return
         }
 
-        view.messageTitleLabel.text = "Mensaje de '\(shop.title)':"
+        view.messageTitleLabel.text = "Mensaje de '\(shop.title)'"
         view.messageBodyLabel.text = message
     }
 }
