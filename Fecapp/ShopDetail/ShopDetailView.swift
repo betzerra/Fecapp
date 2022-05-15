@@ -10,13 +10,51 @@ import UIKit
 
 class ShopDetailView: UIView {
     let headView: ShopHeadView
+
+    let scrollView: UIScrollView = {
+        let view = UIScrollView(frame: .zero)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+
+    let addressButton: UIButton = {
+        return ShopDetailView.detailButton()
+    }()
+
+    let instagramButton: UIButton = {
+        return ShopDetailView.detailButton()
+    }()
+
     private let stackView: UIStackView
 
+    private let padding: CGFloat = 16
+
     init() {
+        let detailStackView = UIStackView(
+            arrangedSubviews: [
+                addressButton,
+                instagramButton,
+            ]
+        )
+        detailStackView.axis = .vertical
+        detailStackView.spacing = 8
+        detailStackView.layoutMargins = UIEdgeInsets(
+            top: padding,
+            left: padding,
+            bottom: padding,
+            right: padding
+        )
+        detailStackView.isLayoutMarginsRelativeArrangement = true
+
         self.headView = ShopHeadView()
-        self.stackView = UIStackView(arrangedSubviews: [headView])
+        self.stackView = UIStackView(
+            arrangedSubviews: [headView, detailStackView]
+        )
+        self.stackView.axis = .vertical
 
         super.init(frame: .zero)
+
+        scrollView.loadInto(containerView: self)
 
         addSubviews()
         setupLayout()
@@ -29,16 +67,31 @@ class ShopDetailView: UIView {
     }
 
     private func addSubviews() {
+        addSubview(scrollView)
+
         stackView.translatesAutoresizingMaskIntoConstraints = false
-        addSubview(stackView)
+        scrollView.addSubview(stackView)
+    }
+
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        scrollView.contentSize = stackView.bounds.size
     }
 
     private func setupLayout() {
         NSLayoutConstraint.activate([
             stackView.leftAnchor.constraint(equalTo: self.leftAnchor),
-            stackView.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor),
+            stackView.topAnchor.constraint(equalTo: scrollView.topAnchor),
             stackView.rightAnchor.constraint(equalTo: self.rightAnchor),
-            stackView.bottomAnchor.constraint(equalTo: self.bottomAnchor)
         ])
+    }
+
+    static func detailButton() -> UIButton {
+        let button = UIButton(type: .system)
+        button.titleLabel?.font = UIFont.preferredFont(forTextStyle: .body)
+        button.contentHorizontalAlignment = .left
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.tintColor = .label
+        return button
     }
 }

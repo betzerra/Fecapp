@@ -9,11 +9,11 @@ import Combine
 import Foundation
 import MapKit
 import UIKit
+import SDWebImage
 
 enum ShopDetailViewModelEvents {
     case openMap(shop: Shop)
     case openInstagram(username: String)
-    case openRoasters
 }
 
 class ShopDetailViewModel {
@@ -96,12 +96,6 @@ class ShopDetailViewModel {
         }
     }
 
-    var roastersAction: UIAction {
-        UIAction { [weak self] _ in
-            self?._events.send(.openRoasters)
-        }
-    }
-
     init(shop: Shop, view: ShopDetailView, style: ShopDetailViewController.Style) {
         self.shop = shop
         self.style = style
@@ -114,14 +108,12 @@ class ShopDetailViewModel {
     func updateContent() {
         view.headView.titleLabel.text = shop.title
 
-        view.headView.addressButton.setAttributedTitle(attributedAddress, for: .normal)
-        view.headView.addressButton.addAction(openMapAction, for: .touchUpInside)
+        view.addressButton.setAttributedTitle(attributedAddress, for: .normal)
+        view.addressButton.addAction(openMapAction, for: .touchUpInside)
 
-        view.headView.instagramButton.setAttributedTitle(attributedInstagram, for: .normal)
-        view.headView.instagramButton.addAction(instagramAction, for: .touchUpInside)
+        view.instagramButton.setAttributedTitle(attributedInstagram, for: .normal)
+        view.instagramButton.addAction(instagramAction, for: .touchUpInside)
 
-        view.headView.roasterButton.setAttributedTitle(attributedRoaster, for: .normal)
-        view.headView.roasterButton.addAction(roastersAction, for: .touchUpInside)
         view.headView.mapView.setRegion(mapRegion, animated: false)
 
         updateThumbnail()
@@ -134,7 +126,7 @@ class ShopDetailViewModel {
             return
         }
 
-        view.headView.thumbnailImageView.load(url: url)
+        view.headView.thumbnailImageView.sd_setImage(with: url)
     }
 
     func updateMap() {

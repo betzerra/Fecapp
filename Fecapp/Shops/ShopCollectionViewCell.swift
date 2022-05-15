@@ -5,9 +5,10 @@
 //  Created by Ezequiel Becerra on 24/04/2022.
 //
 
+import CoreLocation
 import Foundation
 import UIKit
-import CoreLocation
+import SDWebImage
 
 class ShopCollectionViewCell: UICollectionViewCell {
 
@@ -80,7 +81,7 @@ class ShopCollectionViewCell: UICollectionViewCell {
         subtitleLabel.attributedText = viewModel.attributedSubtitle(location: location)
 
         if let thumbnail = viewModel.shop.thumbnail?.small {
-            imageView.load(url: thumbnail)
+            imageView.sd_setImage(with: thumbnail)
         }
     }
 
