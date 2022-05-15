@@ -15,6 +15,7 @@ class ShopHeadView: UIView {
 
     let mapView: MKMapView = {
         let view = MKMapView(frame: .zero)
+        view.isUserInteractionEnabled = false
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
