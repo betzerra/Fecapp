@@ -16,6 +16,10 @@ class MapViewController: UIViewController {
     private let _view = MapView()
     private var cancellables = [AnyCancellable]()
 
+    override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+        .all
+    }
+
     static let tabBarItem: UITabBarItem = {
         return UITabBarItem(
             title: "Mapa",

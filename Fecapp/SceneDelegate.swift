@@ -7,7 +7,7 @@
 
 import UIKit
 
-class SceneDelegate: UIResponder, UIWindowSceneDelegate {
+class SceneDelegate: UIResponder, UIWindowSceneDelegate, UITabBarControllerDelegate {
 
     var window: UIWindow?
 
@@ -34,6 +34,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         // Putting all screens toghether into a UITabBar
         let tabBarController = UITabBarController()
+        tabBarController.delegate = self
         tabBarController.setViewControllers(
             [firstNavigationController, secondNavigationController],
             animated: false
@@ -81,6 +82,41 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // to restore the scene back to its current state.
     }
 
+    func tabBarControllerSupportedInterfaceOrientations(_ tabBarController: UITabBarController) -> UIInterfaceOrientationMask {
 
+        return tabBarController.inferredSupportedInterfaceOrientations ?? .portrait
+    }
+}
+
+protocol InferredSupportedInterfaceOrientations {
+    var inferredSupportedInterfaceOrientations: UIInterfaceOrientationMask? { get }
+}
+
+extension UINavigationController: InferredSupportedInterfaceOrientations {
+    var inferredSupportedInterfaceOrientations: UIInterfaceOrientationMask? {
+        guard let topViewController = topViewController else {
+            return .portrait
+        }
+
+        guard let presentedViewController = topViewController.presentedViewController else {
+            return topViewController.supportedInterfaceOrientations
+        }
+
+        if let presentedViewController = topViewController.presentedViewController as? InferredSupportedInterfaceOrientations {
+            return presentedViewController.inferredSupportedInterfaceOrientations
+        } else {
+            return presentedViewController.supportedInterfaceOrientations
+        }
+    }
+}
+
+extension UITabBarController: InferredSupportedInterfaceOrientations {
+    var inferredSupportedInterfaceOrientations: UIInterfaceOrientationMask? {
+        guard let controller = selectedViewController as? InferredSupportedInterfaceOrientations else {
+            return .portrait
+        }
+
+        return controller.inferredSupportedInterfaceOrientations
+    }
 }
 
