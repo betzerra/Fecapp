@@ -21,7 +21,7 @@ class ShopHeadView: UIView {
 
     let titleLabel: UILabel = {
         let label = UILabel(frame: .zero)
-        label.font = UIFont.preferredFont(forTextStyle: .title1)
+        label.font = UIFont.preferredFont(forTextStyle: .title1).bold()
         label.numberOfLines = 0
         return label
     }()
