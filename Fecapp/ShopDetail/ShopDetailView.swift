@@ -25,47 +25,26 @@ class ShopDetailView: UIView {
         return ShopDetailView.detailButton()
     }()
 
-    let messageTitleLabel: UILabel = {
-        let label = UILabel(frame: .zero)
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.numberOfLines = 0
-        label.font = UIFont.preferredFont(forTextStyle: .headline)
-        label.textColor = .label
-        return label
-    }()
-
-    let messageBodyLabel: UILabel = {
-        let label = UILabel(frame: .zero)
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.numberOfLines = 0
-        label.font = UIFont.preferredFont(forTextStyle: .caption1)
-        label.textColor = .label
-        return label
-    }()
-
     private let stackView: UIStackView
-    private let detailStackView: UIStackView
 
     private let padding: CGFloat = 16
 
     init() {
-        self.detailStackView = UIStackView(
+        let detailStackView = UIStackView(
             arrangedSubviews: [
                 addressButton,
                 instagramButton,
-                messageTitleLabel,
-                messageBodyLabel
             ]
         )
-        self.detailStackView.axis = .vertical
-        self.detailStackView.spacing = 8
-        self.detailStackView.layoutMargins = UIEdgeInsets(
+        detailStackView.axis = .vertical
+        detailStackView.spacing = 8
+        detailStackView.layoutMargins = UIEdgeInsets(
             top: padding,
             left: padding,
             bottom: padding,
             right: padding
         )
-        self.detailStackView.isLayoutMarginsRelativeArrangement = true
+        detailStackView.isLayoutMarginsRelativeArrangement = true
 
         self.headView = ShopHeadView()
         self.stackView = UIStackView(

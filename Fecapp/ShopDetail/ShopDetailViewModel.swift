@@ -118,7 +118,6 @@ class ShopDetailViewModel {
 
         updateThumbnail()
         updateMap()
-        updateMessage()
     }
 
     func updateThumbnail() {
@@ -139,16 +138,5 @@ class ShopDetailViewModel {
         case .sheet:
             view.headView.mapView.isHidden = true
         }
-    }
-
-    func updateMessage() {
-        guard let message = shop.message else {
-            view.messageTitleLabel.isHidden = true
-            view.messageBodyLabel.isHidden = true
-            return
-        }
-
-        view.messageTitleLabel.text = "Mensaje de '\(shop.title)'"
-        view.messageBodyLabel.text = message
     }
 }
