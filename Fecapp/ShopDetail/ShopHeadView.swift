@@ -32,7 +32,7 @@ class ShopHeadView: UIView {
     }()
 
     // UI Constants
-    private let mapHeight: CGFloat = 150
+    private let mapHeight: CGFloat = 350
     private let thumbnailSize: CGFloat = 60
     private let stackViewTopMargin: CGFloat = 16
     private let horizontalSpacing: CGFloat = 16
