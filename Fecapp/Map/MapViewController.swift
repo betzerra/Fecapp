@@ -36,7 +36,7 @@ class MapViewController: UIViewController {
                 case.selected(let shop):
                     let controller = ShopDetailViewController(shop: shop, style: .sheet)
                     if let sheet = controller.sheetPresentationController {
-                        sheet.detents = [.medium(), .large()]
+                        sheet.detents = [.medium()]
                         sheet.prefersGrabberVisible = true
                     }
                     self?.present(controller, animated: true)
