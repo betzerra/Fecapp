@@ -41,6 +41,10 @@ class ShopsView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
+    func refreshLayout() {
+        collectionView.collectionViewLayout = ShopsView.collectionViewLayout()
+    }
+
     static func collectionViewLayout() -> UICollectionViewCompositionalLayout {
         let itemSize = NSCollectionLayoutSize(
             widthDimension: .fractionalWidth(1.0),
@@ -73,6 +77,13 @@ class ShopsView: UIView {
     }
 
     static var layoutColumns: Int {
-        UIScreen.main.traitCollection.horizontalSizeClass == .regular ? 2 : 1
+        let scenes = UIApplication.shared.connectedScenes
+
+        guard let windowScene = scenes.first as? UIWindowScene,
+              let window = windowScene.windows.first else {
+            return UIScreen.main.traitCollection.horizontalSizeClass == .regular ? 2 : 1
+        }
+
+        return window.bounds.width >= 450 ? 2 : 1
     }
 }
