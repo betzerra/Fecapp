@@ -19,6 +19,10 @@ class ShopDetailViewController: UIViewController {
 
     let viewModel: ShopDetailViewModel
 
+    override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+        .portrait
+    }
+
     // Subviews
     private let _view = ShopDetailView()
 

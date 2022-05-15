@@ -21,6 +21,10 @@ class LocationOnboardingViewController: UIViewController {
         super.init(nibName: nil, bundle: nil)
     }
 
+    override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+        .portrait
+    }
+
     override func loadView() {
         super.loadView()
         view = LocationOnboardingView(viewModel: viewModel)

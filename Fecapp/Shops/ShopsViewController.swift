@@ -28,6 +28,10 @@ class ShopsViewController: UIViewController {
         )
     }()
 
+    override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+        .allButUpsideDown
+    }
+
     var menuItems: [UIAction] {
         [defaultSortAction, sortByLocationAction, filterNeighborhoodsAction]
     }
