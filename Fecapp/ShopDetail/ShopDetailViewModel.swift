@@ -134,6 +134,7 @@ class ShopDetailViewModel {
         case .fullscreen:
             let pin = MKPointAnnotation() // map pin
             pin.coordinate = shop.coordinates.locationCoordinate
+            pin.title = shop.title
             view.headView.mapView.addAnnotation(pin)
         case .sheet:
             view.headView.mapView.isHidden = true

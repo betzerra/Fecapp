@@ -21,9 +21,10 @@ class ShopCollectionViewCell: UICollectionViewCell {
         let label = UILabel(frame: .zero)
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.preferredFont(forTextStyle: .headline)
+        label.setContentCompressionResistancePriority(.defaultLow, for: .vertical)
         label.textColor = .label
         label.numberOfLines = 0
-        label.setContentHuggingPriority(.defaultHigh, for: .vertical)
+        label.adjustsFontSizeToFitWidth = true
         return label
     }()
 
@@ -31,6 +32,7 @@ class ShopCollectionViewCell: UICollectionViewCell {
         let label = UILabel(frame: .zero)
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.preferredFont(forTextStyle: .subheadline)
+        label.setContentCompressionResistancePriority(.required, for: .vertical)
         label.textColor = .secondaryLabel
         return label
     }()

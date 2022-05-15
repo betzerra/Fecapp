@@ -61,6 +61,52 @@ class ShopDetailViewController: UIViewController {
             longitudinalMeters: 300
         )
 
+        search(shop: shop, in: region) { [weak self] response, error in
+            guard let self = self else {
+                return
+            }
+
+            if let error = error {
+                LogService.logError(error)
+            }
+
+            guard let response = response, let item = response.mapItems.first else {
+                let customMapItem = self.mapItem(from: shop)
+                self.openMapItem(customMapItem, in: region)
+                return
+            }
+
+            self.openMapItem(item, in: region)
+        }
+    }
+
+    private func openMapItem(_ mapItem: MKMapItem, in region: MKCoordinateRegion) {
+        let mapItemName = mapItem.name ?? "N/A"
+        LogService.debug("Opening mapItem: \(mapItemName)")
+
+        let options = [
+            MKLaunchOptionsMapCenterKey: NSValue(mkCoordinate: region.center),
+            MKLaunchOptionsMapSpanKey: NSValue(mkCoordinateSpan: region.span),
+        ]
+
+        mapItem.openInMaps(launchOptions: options)
+    }
+
+    private func search(
+        shop: Shop,
+        in region: MKCoordinateRegion,
+        completion: @escaping ((MKLocalSearch.Response?, Error?) -> ())
+    ) {
+        let request = MKLocalSearch.Request()
+        request.naturalLanguageQuery = shop.title
+        request.pointOfInterestFilter = MKPointOfInterestFilter(including: [.cafe, .restaurant])
+        request.region = region
+
+        let search = MKLocalSearch(request: request)
+        search.start(completionHandler: completion)
+    }
+
+    private func mapItem(from shop: Shop) -> MKMapItem {
         let addressDictionary = [
             "CNPostalAddressStreetKey": shop.address
         ]
@@ -75,12 +121,7 @@ class ShopDetailViewController: UIViewController {
         mapItem.url = shop.webURL
         mapItem.pointOfInterestCategory = .cafe
 
-        let options = [
-            MKLaunchOptionsMapCenterKey: NSValue(mkCoordinate: region.center),
-            MKLaunchOptionsMapSpanKey: NSValue(mkCoordinateSpan: region.span),
-        ]
-
-        mapItem.openInMaps(launchOptions: options)
+        return mapItem
     }
 
     private func openInstagram(username: String) {

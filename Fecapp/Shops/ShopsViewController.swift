@@ -13,6 +13,8 @@ class ShopsViewController: UIViewController {
     private let locationManager = LocationManager()
     private let dataSource: ShopsDataSource
 
+    private var previousWindowBounds: CGRect?
+
     private let _view = ShopsView()
     private var viewModel: ShopsViewModel
 
@@ -120,6 +122,18 @@ class ShopsViewController: UIViewController {
                 self?.viewModel.sortByNearestLocation(location)
             }
             .store(in: &cancellables)
+    }
+
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+
+        if let currentBounds = view.window?.bounds,
+           let previousWindowBounds = previousWindowBounds, currentBounds != previousWindowBounds {
+
+            _view.refreshLayout()
+        }
+
+        previousWindowBounds = view.window?.bounds
     }
 
     private func setupNavigationItem() {
