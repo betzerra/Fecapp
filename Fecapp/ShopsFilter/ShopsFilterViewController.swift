@@ -12,6 +12,10 @@ class ShopsFilterViewController: UIViewController {
     private let _view = ShopsFilterView()
     let viewModel: ShopsFilterViewModel
 
+    override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+        .portrait
+    }
+
     init(dataSource: ShopsDataSource) {
         viewModel = ShopsFilterViewModel(view: _view, dataSource: dataSource)
 
