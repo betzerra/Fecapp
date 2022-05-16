@@ -16,9 +16,7 @@ struct ShopCellViewModel {
         shop.title
     }
 
-    func formattedDistance(from location: CLLocation) -> String {
-        let distance = shop.distance(to: location)
-
+    private func formattedDistance(_ distance: CLLocationDistance) -> String {
         switch distance {
         case 0..<1000:
             return String(format: "%.0fm", distance)
@@ -28,15 +26,15 @@ struct ShopCellViewModel {
         }
     }
 
-    func attributedSubtitle(location: CLLocation?) -> NSAttributedString {
+    var attributedSubtitle: NSAttributedString {
         let neighborhood = shop.neighborhood?.title ?? ""
         let subtitle = NSMutableAttributedString(string: neighborhood)
 
-        if let location = location {
+        if let distance = shop.distanceFromUser {
             subtitle.append(NSAttributedString(string: " "))
 
             let distanceString = NSAttributedString(
-                string: formattedDistance(from: location),
+                string: formattedDistance(distance),
                 attributes: [.foregroundColor: UIColor.tertiaryLabel.cgColor]
             )
 
@@ -44,13 +42,5 @@ struct ShopCellViewModel {
         }
 
         return subtitle
-    }
-
-    func secondarySubtitle(location: CLLocation?) -> String? {
-        guard let location = location else {
-            return nil
-        }
-
-        return formattedDistance(from: location)
     }
 }

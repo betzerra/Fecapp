@@ -19,7 +19,6 @@ enum ShopsViewModelEvents {
 class ShopsViewModel: NSObject, UICollectionViewDelegate {
     let view: ShopsView
 
-    private var lastUserLocation: CLLocation?
     private var shops: [Shop]?
     let shopsDataSource: ShopsDataSource
 
@@ -91,11 +90,6 @@ class ShopsViewModel: NSObject, UICollectionViewDelegate {
             .store(in: &cancellables)
     }
 
-    func sortByNearestLocation(_ location: CLLocation) {
-        lastUserLocation = location
-        shopsDataSource.sortByNearestLocation(location)
-    }
-
     @objc private func fetchShops() {
         Task {
             do {
@@ -133,7 +127,7 @@ class ShopsViewModel: NSObject, UICollectionViewDelegate {
                     }
 
                 let viewModel = ShopCellViewModel(shop: shop)
-                cell.setViewModel(viewModel, location: self.lastUserLocation)
+                cell.setViewModel(viewModel)
                 return cell
           })
           return dataSource

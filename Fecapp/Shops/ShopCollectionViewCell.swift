@@ -78,9 +78,9 @@ class ShopCollectionViewCell: UICollectionViewCell {
         ])
     }
 
-    func setViewModel(_ viewModel: ShopCellViewModel, location: CLLocation?) {
+    func setViewModel(_ viewModel: ShopCellViewModel) {
         titleLabel.text = viewModel.title
-        subtitleLabel.attributedText = viewModel.attributedSubtitle(location: location)
+        subtitleLabel.attributedText = viewModel.attributedSubtitle
 
         if let thumbnail = viewModel.shop.thumbnail?.small {
             imageView.sd_setImage(with: thumbnail)
