@@ -17,8 +17,14 @@ class ShopDetailView: UIView {
         return view
     }()
 
-    let addressButton: UIButton = {
-        return ShopDetailView.detailButton()
+    let addressLabel: UILabel = {
+        let label = UILabel(frame: .zero)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.numberOfLines = 0
+        label.font = UIFont.preferredFont(forTextStyle: .body)
+        label.textColor = .label
+        label.isUserInteractionEnabled = true
+        return label
     }()
 
     let instagramButton: UIButton = {
@@ -32,7 +38,7 @@ class ShopDetailView: UIView {
     init() {
         let detailStackView = UIStackView(
             arrangedSubviews: [
-                addressButton,
+                addressLabel,
                 instagramButton,
             ]
         )
