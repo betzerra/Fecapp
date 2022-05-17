@@ -76,16 +76,6 @@ class ShopDetailViewModel {
         )
     }
 
-    var openMapAction: UIAction {
-        UIAction { [weak self] _ in
-            guard let shop = self?.shop else {
-                return
-            }
-
-            self?._events.send(.openMap(shop: shop))
-        }
-    }
-
     var instagramAction: UIAction {
         UIAction { [weak self] _ in
             guard let username = self?.shop.instagram else {
@@ -102,14 +92,15 @@ class ShopDetailViewModel {
         self.events = _events.eraseToAnyPublisher()
         self.view = view
 
+        setMapAction()
+        setAddressLabelAction()
         updateContent()
     }
 
     func updateContent() {
         view.headView.titleLabel.text = shop.title
 
-        view.addressButton.setAttributedTitle(attributedAddress, for: .normal)
-        view.addressButton.addAction(openMapAction, for: .touchUpInside)
+        view.addressLabel.attributedText = attributedAddress
 
         view.instagramButton.setAttributedTitle(attributedInstagram, for: .normal)
         view.instagramButton.addAction(instagramAction, for: .touchUpInside)
@@ -118,6 +109,16 @@ class ShopDetailViewModel {
 
         updateThumbnail()
         updateMap()
+    }
+
+    private func setAddressLabelAction() {
+        let gesture = UITapGestureRecognizer(target: self, action: #selector(addressTapped))
+        view.addressLabel.addGestureRecognizer(gesture)
+    }
+
+    private func setMapAction() {
+        let gesture = UITapGestureRecognizer(target: self, action: #selector(mapTapped))
+        view.headView.mapView.addGestureRecognizer(gesture)
     }
 
     func updateThumbnail() {
@@ -139,5 +140,13 @@ class ShopDetailViewModel {
         case .sheet:
             view.headView.mapView.isHidden = true
         }
+    }
+
+    @objc func addressTapped() {
+        _events.send(.openMap(shop: shop))
+    }
+
+    @objc func mapTapped() {
+        _events.send(.openMap(shop: shop))
     }
 }
