@@ -18,8 +18,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, UITabBarControllerDeleg
     ) {
         guard let windowScene = (scene as? UIWindowScene) else { return }
 
+        // Location Manager
+        let locationManager = LocationManager()
+
         // Creating ShopsDataSource so it can be used by 1st and 2nd screen
-        let dataSource = ShopsDataSource()
+        let dataSource = ShopsDataSource(locationManager: locationManager)
 
         // Setting first screen programmatically
         // 1st screen - Coffee shops

@@ -10,7 +10,6 @@ import CoreLocation
 import UIKit
 
 class ShopsViewController: UIViewController {
-    private let locationManager = LocationManager()
     private let dataSource: ShopsDataSource
 
     private var previousWindowBounds: CGRect?
@@ -41,7 +40,7 @@ class ShopsViewController: UIViewController {
             title: "Ordenar por default",
             image: UIImage(systemName: "arrow.up.arrow.down")) { [weak self] action in
                 LogService.info("Tapped 'sort by default'")
-                self?.dataSource.reset()
+                self?.dataSource.sort = .rank
             }
     }()
 
@@ -50,7 +49,7 @@ class ShopsViewController: UIViewController {
             title: "Ordenar por proximidad",
             image: UIImage(systemName: "location")) { [weak self] action in
                 LogService.info("Tapped 'sort by location'")
-                guard let locationManager = self?.locationManager else {
+                guard let locationManager = self?.dataSource.locationManager else {
                     return
                 }
 
@@ -64,6 +63,8 @@ class ShopsViewController: UIViewController {
                 @unknown default:
                     assertionFailure("@unknown default")
                 }
+
+                self?.dataSource.sort = .location
             }
     }()
 
@@ -115,17 +116,6 @@ class ShopsViewController: UIViewController {
                 }
             }
             .store(in: &cancellables)
-
-        locationManager.$lastLocation
-            .receive(on: RunLoop.main)
-            .sink { [weak self] location in
-                guard let location = location else {
-                    return
-                }
-
-                self?.viewModel.sortByNearestLocation(location)
-            }
-            .store(in: &cancellables)
     }
 
     override func viewWillLayoutSubviews() {
@@ -163,7 +153,7 @@ class ShopsViewController: UIViewController {
     }
 
     private func showLocationOnboarding() {
-        let controller = LocationOnboardingViewController(locationManager: locationManager)
+        let controller = LocationOnboardingViewController(locationManager: dataSource.locationManager)
         let navigationController = UINavigationController(rootViewController: controller)
         present(navigationController, animated: true)
     }

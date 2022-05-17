@@ -8,7 +8,7 @@
 import CoreLocation
 import Foundation
 
-struct Shop: Decodable {
+class Shop: Decodable {
     let id: Int
     let slug: String
 
@@ -18,10 +18,12 @@ struct Shop: Decodable {
 
     let address: String
     let coordinates: ShopCoordinates
+    var distanceFromUser: CLLocationDistance?
     let neighborhood: Neighborhood?
 
     let instagram: String
     let hasDelivery: Bool
+    let rank: Int
 
     let message: String?
 
@@ -43,11 +45,12 @@ struct Shop: Decodable {
         case neighborhood
         case instagram
         case hasDelivery
+        case rank
         case message
         case thumbnail
     }
 
-    init(from decoder: Decoder) throws {
+    required init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         id = try values.decode(Int.self, forKey: .id)
         slug = try values.decode(String.self, forKey: .slug)
@@ -64,6 +67,7 @@ struct Shop: Decodable {
         neighborhood = try? values.decode(Neighborhood.self, forKey: .neighborhood)
         instagram = try values.decode(String.self, forKey: .instagram)
         hasDelivery = try values.decode(Bool.self, forKey: .hasDelivery)
+        rank = (try? values.decode(Int.self, forKey: .rank)) ?? 0
 
         let shopMessage = try? values.decodeIfPresent(String.self, forKey: .message)
         message = (shopMessage != "") ? shopMessage : nil

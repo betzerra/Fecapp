@@ -16,14 +16,29 @@ enum Section {
 }
 
 class ShopsDataSource {
+
+    enum SortType {
+        case rank
+        case location
+    }
+
     let baseURL = URL(string: "https://www.tomafeca.com")!
     let pluma: Pluma
+
+    let locationManager: LocationManager
+
+    @Published var sort: SortType = .rank
 
     @Published var shops: [Shop]?
     @Published var filteredNeighborhoods =  Set<Neighborhood>()
 
-    init() {
+    var cancellables = [AnyCancellable]()
+
+    init(locationManager: LocationManager) {
         pluma = Pluma(baseURL: baseURL, decoder: nil)
+        self.locationManager = locationManager
+
+        bind()
 
         Task {
             do {
@@ -34,24 +49,88 @@ class ShopsDataSource {
         }
     }
 
+    func bind() {
+        locationManager
+            .$lastLocation
+            .compactMap { $0 }
+            .sink { [weak self] location in
+                guard let self = self, let shops = self.shops else {
+                    return
+                }
+
+                self.shops = self.process(shops: shops, sort: self.sort)
+            }
+            .store(in: &cancellables)
+
+        $sort
+            .sink { [weak self] sort in
+                guard let shops = self?.shops else {
+                    return
+                }
+
+                self?.shops = self?.process(shops: shops, sort: sort)
+            }
+            .store(in: &cancellables)
+    }
+
     func fetchShops() async throws {
         LogService.debug("Shop request started")
-        shops = try await pluma.request(
+
+        guard let shopsFromServer: [Shop] = try await pluma.request(
             method: .GET,
             path: "shops.json",
             params: nil
-        )
+        ) else {
+            LogService.warning("Didn't get any shops after request")
+            return
+        }
+
+        shops = process(shops: shopsFromServer, sort: sort)
 
         LogService.debug("Shop request finished", metadata: shops?.logMetadata)
+    }
+
+    private func process(shops: [Shop], sort: SortType) -> [Shop] {
+        // Update distance from user on all shops so they
+        // can be sorted later
+        if let location = locationManager.lastLocation {
+            shops.forEach { $0.distanceFromUser = $0.distance(to: location) }
+
+            if sort == .location {
+                return sortByNearestLocation(shops)
+            }
+        }
+
+        if sort == .rank {
+            return sortByRank(shops)
+        }
+
+        return shops
     }
 
     func reset() {
         filteredNeighborhoods.removeAll()
     }
 
-    func sortByNearestLocation(_ location: CLLocation) {
-        shops = shops?.sorted(by: {
-            $0.distance(to: location) < $1.distance(to: location)
+    private func sortByNearestLocation(_ shops: [Shop]) -> [Shop] {
+        return shops.sorted(by: { lhs, rhs in
+            guard
+                let lhsDistance = lhs.distanceFromUser,
+                let rhsDistance = rhs.distanceFromUser else {
+                return false
+            }
+
+            return lhsDistance < rhsDistance
+        })
+    }
+
+    private func sortByRank(_ shops: [Shop]) -> [Shop] {
+        return shops.sorted(by: { lhs, rhs in
+            if lhs.rank == rhs.rank {
+                return lhs.title < rhs.title
+            }
+
+            return lhs.rank > rhs.rank
         })
     }
 }
