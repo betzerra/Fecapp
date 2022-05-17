@@ -54,50 +54,66 @@ class ShopsDataSource {
             .$lastLocation
             .compactMap { $0 }
             .sink { [weak self] location in
-                guard let shops = self?.shops else {
+                guard let self = self, let shops = self.shops else {
                     return
                 }
 
-                // Update distance from user on all shops so they
-                // can be sorted later
-                shops.forEach { $0.distanceFromUser = $0.distance(to: location) }
-
-                if self?.sort == .location {
-                    self?.sortByNearestLocation()
-                }
+                self.shops = self.process(shops: shops, sort: self.sort)
             }
             .store(in: &cancellables)
 
         $sort
-            .sink { [weak self] type in
-                switch type {
-                case .rank:
-                    self?.sortByRank()
-
-                case .location:
-                    self?.sortByNearestLocation()
+            .sink { [weak self] sort in
+                guard let shops = self?.shops else {
+                    return
                 }
+
+                self?.shops = self?.process(shops: shops, sort: sort)
             }
             .store(in: &cancellables)
     }
 
     func fetchShops() async throws {
         LogService.debug("Shop request started")
-        shops = try await pluma.request(
+
+        guard let shopsFromServer: [Shop] = try await pluma.request(
             method: .GET,
             path: "shops.json",
             params: nil
-        )
+        ) else {
+            LogService.warning("Didn't get any shops after request")
+            return
+        }
+
+        shops = process(shops: shopsFromServer, sort: sort)
 
         LogService.debug("Shop request finished", metadata: shops?.logMetadata)
+    }
+
+    private func process(shops: [Shop], sort: SortType) -> [Shop] {
+        // Update distance from user on all shops so they
+        // can be sorted later
+        if let location = locationManager.lastLocation {
+            shops.forEach { $0.distanceFromUser = $0.distance(to: location) }
+
+            if sort == .location {
+                return sortByNearestLocation(shops)
+            }
+        }
+
+        if sort == .rank {
+            return sortByRank(shops)
+        }
+
+        return shops
     }
 
     func reset() {
         filteredNeighborhoods.removeAll()
     }
 
-    private func sortByNearestLocation() {
-        shops = shops?.sorted(by: { lhs, rhs in
+    private func sortByNearestLocation(_ shops: [Shop]) -> [Shop] {
+        return shops.sorted(by: { lhs, rhs in
             guard
                 let lhsDistance = lhs.distanceFromUser,
                 let rhsDistance = rhs.distanceFromUser else {
@@ -108,14 +124,13 @@ class ShopsDataSource {
         })
     }
 
-    private func sortByRank() {
-        shops = shops?.sorted(by: { lhs, rhs in
+    private func sortByRank(_ shops: [Shop]) -> [Shop] {
+        return shops.sorted(by: { lhs, rhs in
             if lhs.rank == rhs.rank {
                 return lhs.title < rhs.title
             }
 
             return lhs.rank > rhs.rank
         })
-        shops = shops?.sorted(by: { $0.rank > $1.rank })
     }
 }
