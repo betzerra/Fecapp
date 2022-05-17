@@ -29,6 +29,7 @@ class ShopsDataSource {
 
     @Published var sort: SortType = .rank
 
+    var allShops: [Shop]?
     @Published var shops: [Shop]?
     @Published var filteredNeighborhoods =  Set<Neighborhood>()
 
@@ -49,7 +50,7 @@ class ShopsDataSource {
         }
     }
 
-    func bind() {
+    private func bind() {
         locationManager
             .$lastLocation
             .compactMap { $0 }
@@ -86,8 +87,18 @@ class ShopsDataSource {
         }
 
         shops = process(shops: shopsFromServer, sort: sort)
+        allShops = shops
 
         LogService.debug("Shop request finished", metadata: shops?.logMetadata)
+    }
+
+    func search(with target: String?) {
+        guard let target = target, target != "" else {
+            shops = allShops
+            return
+        }
+
+        shops = allShops?.filter { $0.title.contains(target) }
     }
 
     private func process(shops: [Shop], sort: SortType) -> [Shop] {
@@ -106,10 +117,6 @@ class ShopsDataSource {
         }
 
         return shops
-    }
-
-    func reset() {
-        filteredNeighborhoods.removeAll()
     }
 
     private func sortByNearestLocation(_ shops: [Shop]) -> [Shop] {

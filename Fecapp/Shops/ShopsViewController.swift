@@ -19,6 +19,8 @@ class ShopsViewController: UIViewController {
 
     private var cancellables = [AnyCancellable]()
 
+    private var searchController = UISearchController(searchResultsController: nil)
+
     static let tabBarItem: UITabBarItem = {
         return UITabBarItem(
             title: "Cafeterías",
@@ -106,6 +108,8 @@ class ShopsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        configureSearchController()
+
         viewModel.events
             .receive(on: RunLoop.main)
             .sink { [weak self] event in
@@ -156,6 +160,19 @@ class ShopsViewController: UIViewController {
         let controller = LocationOnboardingViewController(locationManager: dataSource.locationManager)
         let navigationController = UINavigationController(rootViewController: controller)
         present(navigationController, animated: true)
+    }
+}
+
+extension ShopsViewController: UISearchResultsUpdating {
+    func updateSearchResults(for searchController: UISearchController) {
+        dataSource.search(with: searchController.searchBar.text)
+    }
+
+    private func configureSearchController() {
+        searchController.searchResultsUpdater = self
+        searchController.searchBar.placeholder = "Buscar"
+        navigationItem.searchController = searchController
+        definesPresentationContext = true
     }
 }
 
