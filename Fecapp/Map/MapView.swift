@@ -27,7 +27,7 @@ class MapView: UIView {
     }()
 
     let showAllButton: UIButton = {
-        let image = UIImage(systemName: "map.fill")
+        let image = UIImage(systemName: "minus.magnifyingglass")
         let button = UIButton(type: .system)
         button.tintColor = .tertiaryLabel
         button.translatesAutoresizingMaskIntoConstraints = false
