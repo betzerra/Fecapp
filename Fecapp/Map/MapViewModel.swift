@@ -23,10 +23,13 @@ class MapViewModel: NSObject, MKMapViewDelegate {
     init(dataSource: ShopsDataSource, view: MapView) {
         events = _events.eraseToAnyPublisher()
 
+        self.view = view
+        super.init()
+
         dataSource.$shops
             .compactMap { $0 }
             .receive(on: RunLoop.main)
-            .sink { shops in
+            .sink { [weak self] shops in
                 // Remove all annotations before adding them back
                 view.mapView.removeAnnotations(view.mapView.annotations)
 
@@ -35,27 +38,43 @@ class MapViewModel: NSObject, MKMapViewDelegate {
                     view.mapView.addAnnotation(pin)
                 }
 
-                // Center map and zoom out to fit all the pins
-                view.mapView.showAnnotations(view.mapView.annotations, animated: true)
+                self?.showAllAnnotations()
             }
             .store(in: &cancellables)
 
-        self.view = view
-
-        super.init()
         view.mapView.delegate = self
 
+        // When the centerButton is pressed, it centers the map
+        // on the user's location
         view.centerButton.addTarget(
             self,
             action: #selector(centerButtonPressed(_:)),
             for: .touchUpInside
         )
+
+        // When the showAllButton is pressed, it zooms out to fit all the
+        // coffee pins
+        view.showAllButton.addTarget(
+            self,
+            action: #selector(showAllButtonPressed(_:)),
+            for: .touchUpInside
+        )
+    }
+
+    /// Center map and zoom out to fit all the pins
+    private func showAllAnnotations() {
+        view.mapView.showAnnotations(view.mapView.annotations, animated: true)
     }
 
     // MARK: - Actions
     @objc private func centerButtonPressed(_ sender: Any) {
         LogService.info("Center Button pressed")
         view.mapView.setCenter(view.mapView.userLocation.coordinate, animated: true)
+    }
+
+    @objc private func showAllButtonPressed(_ sender: Any) {
+        LogService.info("Show All Button pressed")
+        showAllAnnotations()
     }
 
     // MARK: - MKMapViewDelegate

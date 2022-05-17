@@ -9,16 +9,27 @@ import Foundation
 import MapKit
 import UIKit
 
-private let centerButtonHorizontalMargin: CGFloat = 20
+private let buttonsStackViewPadding = UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)
+private let buttonsStackViewCornerRadius: CGFloat = 8.0
+private let buttonsStackViewSpacing: CGFloat = 16.0
+private let centerButtonHorizontalMargin: CGFloat = 16.0
 
 class MapView: UIView {
     let mapView: MKMapView = MKMapView()
 
     let centerButton: UIButton = {
         let image = UIImage(systemName: "location.fill")
+        let button = UIButton(type: .system)
+        button.tintColor = .tertiaryLabel
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setImage(image, for: .normal)
+        return button
+    }()
 
-        let button = RoundedButton(configuration: .filled())
-        button.tintColor = .systemFill
+    let showAllButton: UIButton = {
+        let image = UIImage(systemName: "map.fill")
+        let button = UIButton(type: .system)
+        button.tintColor = .tertiaryLabel
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setImage(image, for: .normal)
         return button
@@ -26,13 +37,24 @@ class MapView: UIView {
 
     init() {
         super.init(frame: .zero)
+
+        let stackView = UIStackView(arrangedSubviews: [centerButton, showAllButton])
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis = .vertical
+        stackView.backgroundColor = UIColor.tertiarySystemBackground.withAlphaComponent(0.8)
+        stackView.layoutMargins = buttonsStackViewPadding
+        stackView.isLayoutMarginsRelativeArrangement = true
+        stackView.layer.cornerRadius = buttonsStackViewCornerRadius
+        stackView.spacing = buttonsStackViewSpacing
+
         mapView.loadInto(containerView: self)
         mapView.showsUserLocation = true
+        mapView.showsCompass = false
 
-        addSubview(centerButton)
+        addSubview(stackView)
         NSLayoutConstraint.activate([
-            centerButton.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor),
-            centerButton.rightAnchor.constraint(equalTo: self.safeAreaLayoutGuide.rightAnchor, constant: -centerButtonHorizontalMargin)
+            stackView.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor),
+            stackView.rightAnchor.constraint(equalTo: self.safeAreaLayoutGuide.rightAnchor, constant: -centerButtonHorizontalMargin)
         ])
     }
 
