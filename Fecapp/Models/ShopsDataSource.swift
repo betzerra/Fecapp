@@ -59,7 +59,7 @@ class ShopsDataSource {
                     return
                 }
 
-                self.shops = self.process(shops: shops, sort: self.sort)
+                self.shops = self.process(shops: shops, sort: self.sort, location: location)
             }
             .store(in: &cancellables)
 
@@ -69,7 +69,11 @@ class ShopsDataSource {
                     return
                 }
 
-                self?.shops = self?.process(shops: shops, sort: sort)
+                self?.shops = self?.process(
+                    shops: shops,
+                    sort: sort,
+                    location: self?.locationManager.lastLocation
+                )
             }
             .store(in: &cancellables)
     }
@@ -86,7 +90,12 @@ class ShopsDataSource {
             return
         }
 
-        shops = process(shops: shopsFromServer, sort: sort)
+        shops = process(
+            shops: shopsFromServer,
+            sort: sort,
+            location: locationManager.lastLocation
+        )
+
         allShops = shops
 
         LogService.debug("Shop list request finished", metadata: shops?.logMetadata)
@@ -116,10 +125,10 @@ class ShopsDataSource {
         shops = allShops?.filter { $0.title.contains(target) }
     }
 
-    private func process(shops: [Shop], sort: SortType) -> [Shop] {
+    private func process(shops: [Shop], sort: SortType, location: CLLocation?) -> [Shop] {
         // Update distance from user on all shops so they
         // can be sorted later
-        if let location = locationManager.lastLocation {
+        if let location = location {
             shops.forEach { $0.distanceFromUser = $0.distance(to: location) }
 
             if sort == .location {

@@ -42,7 +42,7 @@ class LocationManager: NSObject, CLLocationManagerDelegate {
         _ manager: CLLocationManager,
         didUpdateLocations locations: [CLLocation]
     ) {
-        LogService.info("Location changed")
+        LogService.debug("Location changed")
         lastLocation = locations.first
     }
 
@@ -51,6 +51,7 @@ class LocationManager: NSObject, CLLocationManagerDelegate {
     }
 
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        LogService.debug("Location authorization changed")
 
         authorizationStatus = status
 
