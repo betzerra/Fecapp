@@ -36,14 +36,29 @@ class MapViewController: UIViewController {
         viewModel.events
             .receive(on: RunLoop.main)
             .sink { [weak self] event in
+                guard let self = self else {
+                    return
+                }
+
                 switch event {
                 case.selected(let shop):
-                    let controller = ShopDetailViewController(shop: shop, style: .sheet)
-                    if let sheet = controller.sheetPresentationController {
-                        sheet.detents = [.medium()]
+                    let controller = ShopDetailViewController(
+                        shop: shop,
+                        style: .sheet,
+                        dataSource: self.dataSource
+                    )
+
+                    // Avoid showing empty space on navigation bar for card
+                    let navigationController = UINavigationController(rootViewController: controller)
+                    navigationController.navigationBar.isHidden = true
+
+                    // Set "card" properties
+                    if let sheet = navigationController.sheetPresentationController {
+                        sheet.detents = [.medium(), .large()]
                         sheet.prefersGrabberVisible = true
                     }
-                    self?.present(controller, animated: true)
+
+                    self.present(navigationController, animated: true)
                 }
             }
             .store(in: &cancellables)

@@ -31,6 +31,15 @@ class ShopDetailView: UIView {
         return ShopDetailView.detailButton()
     }()
 
+    let menuButton: UIButton = {
+        let image = UIImage(systemName: "menucard")
+        let button = UIButton(configuration: .standardFill())
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setTitle("Ver Menú", for: .normal)
+        button.setImage(image, for: .normal)
+        return button
+    }()
+
     private let stackView: UIStackView
 
     private let padding: CGFloat = 16
@@ -40,6 +49,7 @@ class ShopDetailView: UIView {
             arrangedSubviews: [
                 addressLabel,
                 instagramButton,
+                menuButton
             ]
         )
         detailStackView.axis = .vertical

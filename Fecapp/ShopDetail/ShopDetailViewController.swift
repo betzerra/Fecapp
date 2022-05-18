@@ -18,6 +18,7 @@ class ShopDetailViewController: UIViewController {
     }
 
     let viewModel: ShopDetailViewModel
+    let dataSource: ShopsDataSource
 
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
         .portrait
@@ -28,8 +29,9 @@ class ShopDetailViewController: UIViewController {
 
     private var cancellables = [AnyCancellable]()
 
-    init(shop: Shop, style: Style) {
+    init(shop: Shop, style: Style, dataSource: ShopsDataSource) {
         self.viewModel = ShopDetailViewModel(shop: shop, view: _view, style: style)
+        self.dataSource = dataSource
 
         super.init(nibName: nil, bundle: nil)
 
@@ -40,6 +42,9 @@ class ShopDetailViewController: UIViewController {
                 case .openMap(let shop):
                     LogService.info("Opened map: \(shop.title)")
                     self?.openMap(shop: shop)
+
+                case .openMenu(let shop):
+                    self?.openMenu(shop: shop)
 
                 case .openInstagram(let username):
                     LogService.info("Opened instagram: \(username)")
@@ -85,6 +90,23 @@ class ShopDetailViewController: UIViewController {
         ]
 
         mapItem.openInMaps(launchOptions: options)
+    }
+
+    private func openMenu(shop: Shop) {
+        LogService.info("Opening Menu: \(shop.title)")
+
+        Task {
+            do {
+                guard let shopDetail = try await dataSource.fetchShopDetail(slug: shop.slug) else {
+                    return
+                }
+
+                let vc = ShopMenuViewController(menu: shopDetail.menu)
+                navigationController?.pushViewController(vc, animated: true)
+            } catch {
+                LogService.logError(error)
+            }
+        }
     }
 
     private func openInstagram(username: String) {

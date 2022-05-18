@@ -27,6 +27,14 @@
 		6741B689282B557000EF6415 /* ShopsFilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6741B688282B557000EF6415 /* ShopsFilterView.swift */; };
 		67529103282B6DE5005E2A4E /* RoundedImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67529102282B6DE5005E2A4E /* RoundedImageView.swift */; };
 		676E29B528355F0000A94E07 /* MapItemSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 676E29B428355F0000A94E07 /* MapItemSearch.swift */; };
+		676E29BA2835706500A94E07 /* UIButton+Configurations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 676E29B92835706500A94E07 /* UIButton+Configurations.swift */; };
+		676E29BC2835733A00A94E07 /* ShopMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 676E29BB2835733A00A94E07 /* ShopMenuViewController.swift */; };
+		676E29BF2835764800A94E07 /* ShopMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 676E29BE2835764800A94E07 /* ShopMenuView.swift */; };
+		676E29C12835784300A94E07 /* ShopMenuViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 676E29C02835784300A94E07 /* ShopMenuViewModel.swift */; };
+		676E29C328357B7C00A94E07 /* ShopDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 676E29C228357B7C00A94E07 /* ShopDetail.swift */; };
+		676E29C528357BAA00A94E07 /* ShopMenuCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 676E29C428357BAA00A94E07 /* ShopMenuCategory.swift */; };
+		676E29C728357C3800A94E07 /* ShopMenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 676E29C628357C3800A94E07 /* ShopMenuItem.swift */; };
+		676E29C9283587E900A94E07 /* SectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 676E29C8283587E900A94E07 /* SectionReusableView.swift */; };
 		679AEC3A2814BE4700180CEF /* Pluma in Frameworks */ = {isa = PBXBuildFile; productRef = 679AEC392814BE4700180CEF /* Pluma */; };
 		679AEC3C2814C06100180CEF /* shop_mock.json in Resources */ = {isa = PBXBuildFile; fileRef = 679AEC3B2814C06100180CEF /* shop_mock.json */; };
 		679AEC3E2814C07200180CEF /* ShopTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 679AEC3D2814C07200180CEF /* ShopTests.swift */; };
@@ -97,6 +105,14 @@
 		6741B688282B557000EF6415 /* ShopsFilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopsFilterView.swift; sourceTree = "<group>"; };
 		67529102282B6DE5005E2A4E /* RoundedImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedImageView.swift; sourceTree = "<group>"; };
 		676E29B428355F0000A94E07 /* MapItemSearch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapItemSearch.swift; sourceTree = "<group>"; };
+		676E29B92835706500A94E07 /* UIButton+Configurations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Configurations.swift"; sourceTree = "<group>"; };
+		676E29BB2835733A00A94E07 /* ShopMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopMenuViewController.swift; sourceTree = "<group>"; };
+		676E29BE2835764800A94E07 /* ShopMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopMenuView.swift; sourceTree = "<group>"; };
+		676E29C02835784300A94E07 /* ShopMenuViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopMenuViewModel.swift; sourceTree = "<group>"; };
+		676E29C228357B7C00A94E07 /* ShopDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopDetail.swift; sourceTree = "<group>"; };
+		676E29C428357BAA00A94E07 /* ShopMenuCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopMenuCategory.swift; sourceTree = "<group>"; };
+		676E29C628357C3800A94E07 /* ShopMenuItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopMenuItem.swift; sourceTree = "<group>"; };
+		676E29C8283587E900A94E07 /* SectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionReusableView.swift; sourceTree = "<group>"; };
 		679AEC3B2814C06100180CEF /* shop_mock.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = shop_mock.json; sourceTree = "<group>"; };
 		679AEC3D2814C07200180CEF /* ShopTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopTests.swift; sourceTree = "<group>"; };
 		679AEC422814C6AF00180CEF /* ShopsDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopsDataSource.swift; sourceTree = "<group>"; };
@@ -199,6 +215,7 @@
 				67529102282B6DE5005E2A4E /* RoundedImageView.swift */,
 				67C713D1283036B80024C175 /* RoundedButton.swift */,
 				67C713CD283024DE0024C175 /* EmptyView.swift */,
+				676E29C8283587E900A94E07 /* SectionReusableView.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -209,6 +226,16 @@
 				676E29B428355F0000A94E07 /* MapItemSearch.swift */,
 			);
 			path = Helpers;
+			sourceTree = "<group>";
+		};
+		676E29BD2835762C00A94E07 /* ShopMenu */ = {
+			isa = PBXGroup;
+			children = (
+				676E29BB2835733A00A94E07 /* ShopMenuViewController.swift */,
+				676E29BE2835764800A94E07 /* ShopMenuView.swift */,
+				676E29C02835784300A94E07 /* ShopMenuViewModel.swift */,
+			);
+			path = ShopMenu;
 			sourceTree = "<group>";
 		};
 		67A02283281DF906007987BE /* ShopDetail */ = {
@@ -226,6 +253,9 @@
 			isa = PBXGroup;
 			children = (
 				67A9FAB72818C84200CEF1E2 /* Neighborhood.swift */,
+				676E29C228357B7C00A94E07 /* ShopDetail.swift */,
+				676E29C428357BAA00A94E07 /* ShopMenuCategory.swift */,
+				676E29C628357C3800A94E07 /* ShopMenuItem.swift */,
 				67C713CF28302A630024C175 /* DummyQuotes.swift */,
 				67E2284828147E550083D9EF /* Shop.swift */,
 				679AEC422814C6AF00180CEF /* ShopsDataSource.swift */,
@@ -239,6 +269,7 @@
 			isa = PBXGroup;
 			children = (
 				67CD60F0281DD5C3000BEEC4 /* UIColor+Utils.swift */,
+				676E29B92835706500A94E07 /* UIButton+Configurations.swift */,
 				67A0228C281E2B09007987BE /* UIFont+Styles.swift */,
 				6741B680282B3EA100EF6415 /* UIView+Layout.swift */,
 			);
@@ -292,21 +323,22 @@
 			isa = PBXGroup;
 			children = (
 				67E2281828147E1F0083D9EF /* AppDelegate.swift */,
-				67E2281A28147E1F0083D9EF /* SceneDelegate.swift */,
-				67177C832828853B001677E2 /* LocationManager.swift */,
-				676E29B62835649200A94E07 /* Helpers */,
-				67529104282B6E06005E2A4E /* UI */,
-				6741B67D282B3C1C00EF6415 /* Map */,
-				6700F64F282986EB00AB90BA /* Logger */,
-				67177C7C28286110001677E2 /* LocationOnboarding */,
-				67A02283281DF906007987BE /* ShopDetail */,
-				67CD60E7281DA587000BEEC4 /* ShopsFilter */,
-				67A9FAB62818BD3B00CEF1E2 /* Shops */,
-				67A9FAB52818B3ED00CEF1E2 /* Extensions */,
-				67A9FAB42818B3E200CEF1E2 /* Models */,
 				67E2282128147E1F0083D9EF /* Assets.xcassets */,
-				67E2282328147E1F0083D9EF /* LaunchScreen.storyboard */,
+				67A9FAB52818B3ED00CEF1E2 /* Extensions */,
+				676E29B62835649200A94E07 /* Helpers */,
 				67E2282628147E1F0083D9EF /* Info.plist */,
+				67E2282328147E1F0083D9EF /* LaunchScreen.storyboard */,
+				67177C832828853B001677E2 /* LocationManager.swift */,
+				67177C7C28286110001677E2 /* LocationOnboarding */,
+				6700F64F282986EB00AB90BA /* Logger */,
+				6741B67D282B3C1C00EF6415 /* Map */,
+				67A9FAB42818B3E200CEF1E2 /* Models */,
+				67E2281A28147E1F0083D9EF /* SceneDelegate.swift */,
+				67A02283281DF906007987BE /* ShopDetail */,
+				676E29BD2835762C00A94E07 /* ShopMenu */,
+				67A9FAB62818BD3B00CEF1E2 /* Shops */,
+				67CD60E7281DA587000BEEC4 /* ShopsFilter */,
+				67529104282B6E06005E2A4E /* UI */,
 			);
 			path = Fecapp;
 			sourceTree = "<group>";
@@ -474,14 +506,19 @@
 				6741B67C282B3C1700EF6415 /* MapViewController.swift in Sources */,
 				67C713CE283024DE0024C175 /* EmptyView.swift in Sources */,
 				6741B67F282B3D2800EF6415 /* MapView.swift in Sources */,
+				676E29BF2835764800A94E07 /* ShopMenuView.swift in Sources */,
+				676E29C328357B7C00A94E07 /* ShopDetail.swift in Sources */,
 				6741B67A282B31F700EF6415 /* ShopsView.swift in Sources */,
 				67CD60F1281DD5C3000BEEC4 /* UIColor+Utils.swift in Sources */,
 				67CD60ED281DBB0D000BEEC4 /* ShopsViewModel.swift in Sources */,
 				6700F64E282986CE00AB90BA /* LogServiceProtocol.swift in Sources */,
 				67177C822828743C001677E2 /* LocationOnboardingViewModel.swift in Sources */,
 				679AEC452814FB7400180CEF /* ShopCollectionViewCell.swift in Sources */,
+				676E29C728357C3800A94E07 /* ShopMenuItem.swift in Sources */,
 				67C713D028302A630024C175 /* DummyQuotes.swift in Sources */,
+				676E29C528357BAA00A94E07 /* ShopMenuCategory.swift in Sources */,
 				67E2281D28147E1F0083D9EF /* ShopsViewController.swift in Sources */,
+				676E29C9283587E900A94E07 /* SectionReusableView.swift in Sources */,
 				67177C7E2828616D001677E2 /* LocationOnboardingViewController.swift in Sources */,
 				67A02287281DF9CE007987BE /* ShopDetailViewModel.swift in Sources */,
 				6700F65128298BBC00AB90BA /* LogFormatter.swift in Sources */,
@@ -495,6 +532,8 @@
 				6741B681282B3EA100EF6415 /* UIView+Layout.swift in Sources */,
 				67E2281B28147E1F0083D9EF /* SceneDelegate.swift in Sources */,
 				67177C802828624C001677E2 /* LocationOnboardingView.swift in Sources */,
+				676E29BA2835706500A94E07 /* UIButton+Configurations.swift in Sources */,
+				676E29BC2835733A00A94E07 /* ShopMenuViewController.swift in Sources */,
 				6700F65328298D4400AB90BA /* MessageLoggeable.swift in Sources */,
 				67C713D2283036B80024C175 /* RoundedButton.swift in Sources */,
 				67A9FABA2818C9EE00CEF1E2 /* ShopCellViewModel.swift in Sources */,
@@ -510,6 +549,7 @@
 				67E2284928147E550083D9EF /* Shop.swift in Sources */,
 				67529103282B6DE5005E2A4E /* RoundedImageView.swift in Sources */,
 				679AEC432814C6AF00180CEF /* ShopsDataSource.swift in Sources */,
+				676E29C12835784300A94E07 /* ShopMenuViewModel.swift in Sources */,
 				679AEC4928161EA700180CEF /* ShopImage.swift in Sources */,
 				6741B689282B557000EF6415 /* ShopsFilterView.swift in Sources */,
 			);
