@@ -24,10 +24,23 @@ class ShopHeadView: UIView {
         return view
     }()
 
+    let shareButton: UIButton = {
+        let symbolConfiguration = UIImage.SymbolConfiguration(pointSize: 28, weight: .medium)
+        let image = UIImage(systemName: "square.and.arrow.up.circle.fill")?
+            .applyingSymbolConfiguration(symbolConfiguration)
+
+        let button = UIButton(configuration: .plain())
+        button.setImage(image, for: .normal)
+        button.setContentCompressionResistancePriority(.required, for: .horizontal)
+        button.setContentHuggingPriority(.required, for: .horizontal)
+        return button
+    }()
+
     let titleLabel: UILabel = {
         let label = UILabel(frame: .zero)
         label.font = UIFont.preferredFont(forTextStyle: .title1).bold()
-        label.numberOfLines = 0
+        label.numberOfLines = 2
+        label.adjustsFontSizeToFitWidth = true
         return label
     }()
 
@@ -42,7 +55,9 @@ class ShopHeadView: UIView {
     private let horizontalSpacing: CGFloat = 16
 
     init() {
-        let titleStackView = UIStackView(arrangedSubviews: [thumbnailImageView, titleLabel])
+        let titleStackView = UIStackView(
+            arrangedSubviews: [thumbnailImageView, titleLabel, shareButton]
+        )
         titleStackView.spacing = horizontalSpacing
         titleStackView.alignment = .center
         titleStackView.isLayoutMarginsRelativeArrangement = true

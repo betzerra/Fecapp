@@ -14,6 +14,7 @@ import SDWebImage
 enum ShopDetailViewModelEvents {
     case openMap(shop: Shop)
     case openInstagram(username: String)
+    case share(shop: Shop)
 }
 
 class ShopDetailViewModel {
@@ -86,6 +87,16 @@ class ShopDetailViewModel {
         }
     }
 
+    var shareButtonAction: UIAction {
+        UIAction { [weak self] _ in
+            guard let shop = self?.shop else {
+                return
+            }
+
+            self?._events.send(.share(shop: shop))
+        }
+    }
+
     init(shop: Shop, view: ShopDetailView, style: ShopDetailViewController.Style) {
         self.shop = shop
         self.style = style
@@ -94,6 +105,7 @@ class ShopDetailViewModel {
 
         setMapAction()
         setAddressLabelAction()
+        setShareButtonAction()
         updateContent()
     }
 
@@ -119,6 +131,10 @@ class ShopDetailViewModel {
     private func setMapAction() {
         let gesture = UITapGestureRecognizer(target: self, action: #selector(mapTapped))
         view.headView.mapView.addGestureRecognizer(gesture)
+    }
+
+    private func setShareButtonAction() {
+        view.headView.shareButton.addAction(shareButtonAction, for: .touchUpInside)
     }
 
     func updateThumbnail() {
