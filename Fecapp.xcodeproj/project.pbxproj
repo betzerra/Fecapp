@@ -26,6 +26,7 @@
 		6741B687282B4C4000EF6415 /* ShopDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6741B686282B4C4000EF6415 /* ShopDetailView.swift */; };
 		6741B689282B557000EF6415 /* ShopsFilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6741B688282B557000EF6415 /* ShopsFilterView.swift */; };
 		67529103282B6DE5005E2A4E /* RoundedImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67529102282B6DE5005E2A4E /* RoundedImageView.swift */; };
+		676E29B528355F0000A94E07 /* MapItemSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 676E29B428355F0000A94E07 /* MapItemSearch.swift */; };
 		679AEC3A2814BE4700180CEF /* Pluma in Frameworks */ = {isa = PBXBuildFile; productRef = 679AEC392814BE4700180CEF /* Pluma */; };
 		679AEC3C2814C06100180CEF /* shop_mock.json in Resources */ = {isa = PBXBuildFile; fileRef = 679AEC3B2814C06100180CEF /* shop_mock.json */; };
 		679AEC3E2814C07200180CEF /* ShopTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 679AEC3D2814C07200180CEF /* ShopTests.swift */; };
@@ -95,6 +96,7 @@
 		6741B686282B4C4000EF6415 /* ShopDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopDetailView.swift; sourceTree = "<group>"; };
 		6741B688282B557000EF6415 /* ShopsFilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopsFilterView.swift; sourceTree = "<group>"; };
 		67529102282B6DE5005E2A4E /* RoundedImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedImageView.swift; sourceTree = "<group>"; };
+		676E29B428355F0000A94E07 /* MapItemSearch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapItemSearch.swift; sourceTree = "<group>"; };
 		679AEC3B2814C06100180CEF /* shop_mock.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = shop_mock.json; sourceTree = "<group>"; };
 		679AEC3D2814C07200180CEF /* ShopTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopTests.swift; sourceTree = "<group>"; };
 		679AEC422814C6AF00180CEF /* ShopsDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopsDataSource.swift; sourceTree = "<group>"; };
@@ -201,6 +203,14 @@
 			path = UI;
 			sourceTree = "<group>";
 		};
+		676E29B62835649200A94E07 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				676E29B428355F0000A94E07 /* MapItemSearch.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
 		67A02283281DF906007987BE /* ShopDetail */ = {
 			isa = PBXGroup;
 			children = (
@@ -284,6 +294,7 @@
 				67E2281828147E1F0083D9EF /* AppDelegate.swift */,
 				67E2281A28147E1F0083D9EF /* SceneDelegate.swift */,
 				67177C832828853B001677E2 /* LocationManager.swift */,
+				676E29B62835649200A94E07 /* Helpers */,
 				67529104282B6E06005E2A4E /* UI */,
 				6741B67D282B3C1C00EF6415 /* Map */,
 				6700F64F282986EB00AB90BA /* Logger */,
@@ -476,6 +487,7 @@
 				6700F65128298BBC00AB90BA /* LogFormatter.swift in Sources */,
 				67E2281928147E1F0083D9EF /* AppDelegate.swift in Sources */,
 				6741B683282B3F3800EF6415 /* MapViewModel.swift in Sources */,
+				676E29B528355F0000A94E07 /* MapItemSearch.swift in Sources */,
 				67A02285281DF912007987BE /* ShopDetailViewController.swift in Sources */,
 				67A0228B281E201B007987BE /* ShopCoordinates.swift in Sources */,
 				67A9FAB82818C84200CEF1E2 /* Neighborhood.swift in Sources */,
