@@ -36,7 +36,9 @@ class ShopDetailView: UIView {
         let button = UIButton(configuration: .standardFill())
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle("Ver Menú", for: .normal)
+        button.setTitle("Menu no disponible", for: .disabled)
         button.setImage(image, for: .normal)
+        button.isEnabled = false // disabled by default (viewcontroller will update it later)
         return button
     }()
 

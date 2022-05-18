@@ -17,6 +17,9 @@ class ShopDetailViewController: UIViewController {
         case sheet
     }
 
+    let shop: Shop
+    var shopDetail: ShopDetail?
+
     let viewModel: ShopDetailViewModel
     let dataSource: ShopsDataSource
 
@@ -30,6 +33,7 @@ class ShopDetailViewController: UIViewController {
     private var cancellables = [AnyCancellable]()
 
     init(shop: Shop, style: Style, dataSource: ShopsDataSource) {
+        self.shop = shop
         self.viewModel = ShopDetailViewModel(shop: shop, view: _view, style: style)
         self.dataSource = dataSource
 
@@ -66,6 +70,31 @@ class ShopDetailViewController: UIViewController {
         view = _view
     }
 
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        Task {
+            await requestMenu()
+        }
+    }
+
+    private func requestMenu() async {
+        do {
+
+            guard let detail = try await dataSource.fetchShopDetail(slug: shop.slug) else {
+                _view.menuButton.isEnabled = false
+                return
+            }
+
+            shopDetail = detail
+
+            _view.menuButton.isEnabled = detail.menu.count > 0
+        } catch {
+            _view.menuButton.isEnabled = false
+            LogService.logError(error)
+        }
+    }
+
     private func openMap(shop: Shop) {
         Task {
             let item = await MapItemSearch.search(shop: shop)
@@ -95,18 +124,13 @@ class ShopDetailViewController: UIViewController {
     private func openMenu(shop: Shop) {
         LogService.info("Opening Menu: \(shop.title)")
 
-        Task {
-            do {
-                guard let shopDetail = try await dataSource.fetchShopDetail(slug: shop.slug) else {
-                    return
-                }
-
-                let vc = ShopMenuViewController(menu: shopDetail.menu)
-                navigationController?.pushViewController(vc, animated: true)
-            } catch {
-                LogService.logError(error)
-            }
+        guard let shopDetail = shopDetail else {
+            LogService.warning("Tried to open menu but menu wasnt available")
+            return
         }
+
+        let vc = ShopMenuViewController(menu: shopDetail.menu)
+        navigationController?.pushViewController(vc, animated: true)
     }
 
     private func openInstagram(username: String) {
