@@ -14,7 +14,7 @@ enum LocationOnboardingViewModelEvents {
     case cancel
 }
 
-fileprivate let symbolPointSize: CGFloat = 64
+private let symbolPointSize: CGFloat = 64
 
 class LocationOnboardingViewModel {
     let events: AnyPublisher<LocationOnboardingViewModelEvents, Never>

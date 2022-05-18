@@ -8,10 +8,20 @@
 import Foundation
 import Puppy
 
+// swiftlint:disable function_parameter_count
 class LogFormatter: LogFormattable {
-    func formatMessage(_ level: LogLevel, message: String, tag: String, function: String,
-                       file: String, line: UInt, swiftLogInfo: [String : String],
-                       label: String, date: Date, threadID: UInt64) -> String {
+    func formatMessage(
+        _ level: LogLevel,
+        message: String,
+        tag: String,
+        function: String,
+        file: String,
+        line: UInt,
+        swiftLogInfo: [String: String],
+        label: String,
+        date: Date,
+        threadID: UInt64
+    ) -> String {
         let date = dateFormatter(date)
         let file = shortFileName(file)
         return "\(date) [\(level.emoji) \(level)] \(message) -- \(file) #\(line)"

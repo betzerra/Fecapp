@@ -16,7 +16,6 @@ enum Section {
 }
 
 class ShopsDataSource {
-
     enum SortType {
         case rank
         case location

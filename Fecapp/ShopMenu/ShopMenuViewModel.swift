@@ -14,6 +14,7 @@ class ShopMenuViewModel {
     let view: ShopMenuView
 
     private lazy var dataSource: ShopMenuDiffableDataSource = {
+        // swiftlint:disable:next line_length
         let cellRegistration = UICollectionView.CellRegistration<UICollectionViewListCell, ShopMenuItem> { (cell, _, item) in
             var content = UIListContentConfiguration.valueCell()
             content.text = item.title
@@ -21,8 +22,13 @@ class ShopMenuViewModel {
             cell.contentConfiguration = content
         }
 
+        // swiftlint:disable:next line_length
         let dataSource = ShopMenuDiffableDataSource(collectionView: view.collectionView) { collectionView, indexPath, itemIdentifier in
-            return collectionView.dequeueConfiguredReusableCell(using: cellRegistration, for: indexPath, item: itemIdentifier)
+            return collectionView.dequeueConfiguredReusableCell(
+                using: cellRegistration,
+                for: indexPath,
+                item: itemIdentifier
+            )
         }
 
         dataSource.supplementaryViewProvider = {[weak self](collectionView, kind, indexPath) in

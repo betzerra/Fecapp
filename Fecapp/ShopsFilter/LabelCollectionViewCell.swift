@@ -9,7 +9,6 @@ import Foundation
 import UIKit
 
 class LabelCollectionViewCell: UICollectionViewCell {
-
     // UI Constants
     private let verticalPadding: CGFloat = 6.0
     private let horizontalPadding: CGFloat = 12.0

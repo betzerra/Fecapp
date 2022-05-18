@@ -90,7 +90,7 @@ class LocationOnboardingView: UIView {
         NSLayoutConstraint.activate([
             contentStackView.leftAnchor.constraint(equalTo: self.leftAnchor, constant: horizontalPadding),
             contentStackView.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -horizontalPadding),
-            contentStackView.centerYAnchor.constraint(equalTo: self.centerYAnchor),
+            contentStackView.centerYAnchor.constraint(equalTo: self.centerYAnchor)
         ])
     }
 
@@ -102,7 +102,7 @@ class LocationOnboardingView: UIView {
         acceptButton.setTitle(viewModel.acceptText, for: .normal)
         cancelButton.setTitle(viewModel.cancelText, for: .normal)
     }
-    
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

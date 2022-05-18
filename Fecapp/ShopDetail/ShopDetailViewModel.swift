@@ -169,6 +169,7 @@ class ShopDetailViewModel {
             pin.coordinate = shop.coordinates.locationCoordinate
             pin.title = shop.title
             view.headView.mapView.addAnnotation(pin)
+
         case .sheet:
             view.headView.mapView.isHidden = true
         }

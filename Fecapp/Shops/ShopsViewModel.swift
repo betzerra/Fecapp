@@ -115,7 +115,6 @@ class ShopsViewModel: NSObject, UICollectionViewDelegate {
         let dataSource = UICollectionViewDiffableDataSource<Section, Shop>(
             collectionView: view.collectionView,
             cellProvider: { [weak self](collectionView, indexPath, shop) -> UICollectionViewCell? in
-
                 guard let self = self else {
                     return UICollectionViewCell()
                 }
@@ -129,7 +128,7 @@ class ShopsViewModel: NSObject, UICollectionViewDelegate {
                 let viewModel = ShopCellViewModel(shop: shop)
                 cell.setViewModel(viewModel)
                 return cell
-          })
+            })
           return dataSource
     }()
 
