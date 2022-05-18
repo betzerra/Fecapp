@@ -155,6 +155,7 @@ class ShopDetailViewController: UIViewController {
             activityItems: [url],
             applicationActivities: nil
         )
+        activityViewController.popoverPresentationController?.sourceView = _view.headView.shareButton
 
         present(activityViewController, animated: true)
     }
