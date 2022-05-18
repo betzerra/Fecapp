@@ -156,6 +156,9 @@ class ShopDetailViewController: UIViewController {
             applicationActivities: nil
         )
 
+        // Fixes crash on iPad
+        activityViewController.popoverPresentationController?.sourceView = _view.headView.shareButton
+
         present(activityViewController, animated: true)
     }
 }
