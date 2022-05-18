@@ -34,7 +34,7 @@ class MapItemSearch {
 
         let request = MKLocalSearch.Request()
         request.naturalLanguageQuery = shop.title
-        request.pointOfInterestFilter = MKPointOfInterestFilter(including: [.cafe])
+        request.pointOfInterestFilter = MKPointOfInterestFilter(including: [.cafe, .restaurant, .bakery])
         request.region = region
 
         let search = MKLocalSearch(request: request)
