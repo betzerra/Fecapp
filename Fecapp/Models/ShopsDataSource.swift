@@ -75,7 +75,7 @@ class ShopsDataSource {
     }
 
     func fetchShops() async throws {
-        LogService.debug("Shop request started")
+        LogService.debug("Shop list request started")
 
         guard let shopsFromServer: [Shop] = try await pluma.request(
             method: .GET,
@@ -89,7 +89,22 @@ class ShopsDataSource {
         shops = process(shops: shopsFromServer, sort: sort)
         allShops = shops
 
-        LogService.debug("Shop request finished", metadata: shops?.logMetadata)
+        LogService.debug("Shop list request finished", metadata: shops?.logMetadata)
+    }
+
+    func fetchShopDetail(slug: String) async throws -> ShopDetail? {
+        LogService.debug("Shop '\(slug)' request started")
+
+        guard let shop: ShopDetail = try await pluma.request(
+            method: .GET,
+            path: "/d/\(slug).json",
+            params: nil
+        ) else {
+            return nil
+        }
+
+        LogService.debug("Shop '\(slug)' request finished")
+        return shop
     }
 
     func search(with target: String?) {

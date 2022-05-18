@@ -51,6 +51,10 @@ class LogService {
             metadata["recovery_suggestion"] = .array(recoveryMetadata)
         }
 
+        let underlyingErrors = (error as NSError).underlyingErrors
+        let errorsMetadata = underlyingErrors.map { Logger.MetadataValue.string($0.localizedDescription) }
+        metadata["underlying_errors"] = .array(errorsMetadata)
+
         metadata["domain"] = .string((error as NSError).domain)
         metadata["code"] = .stringConvertible((error as NSError).code)
 

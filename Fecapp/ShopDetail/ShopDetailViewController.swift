@@ -17,7 +17,11 @@ class ShopDetailViewController: UIViewController {
         case sheet
     }
 
+    let shop: Shop
+    var shopDetail: ShopDetail?
+
     let viewModel: ShopDetailViewModel
+    let dataSource: ShopsDataSource
 
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
         .portrait
@@ -28,8 +32,10 @@ class ShopDetailViewController: UIViewController {
 
     private var cancellables = [AnyCancellable]()
 
-    init(shop: Shop, style: Style) {
+    init(shop: Shop, style: Style, dataSource: ShopsDataSource) {
+        self.shop = shop
         self.viewModel = ShopDetailViewModel(shop: shop, view: _view, style: style)
+        self.dataSource = dataSource
 
         super.init(nibName: nil, bundle: nil)
 
@@ -40,6 +46,9 @@ class ShopDetailViewController: UIViewController {
                 case .openMap(let shop):
                     LogService.info("Opened map: \(shop.title)")
                     self?.openMap(shop: shop)
+
+                case .openMenu(let shop):
+                    self?.openMenu(shop: shop)
 
                 case .openInstagram(let username):
                     LogService.info("Opened instagram: \(username)")
@@ -59,6 +68,31 @@ class ShopDetailViewController: UIViewController {
     override func loadView() {
         super.loadView()
         view = _view
+    }
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        Task {
+            await requestMenu()
+        }
+    }
+
+    private func requestMenu() async {
+        do {
+
+            guard let detail = try await dataSource.fetchShopDetail(slug: shop.slug) else {
+                _view.menuButton.isEnabled = false
+                return
+            }
+
+            shopDetail = detail
+
+            _view.menuButton.isEnabled = detail.menu.count > 0
+        } catch {
+            _view.menuButton.isEnabled = false
+            LogService.logError(error)
+        }
     }
 
     private func openMap(shop: Shop) {
@@ -85,6 +119,18 @@ class ShopDetailViewController: UIViewController {
         ]
 
         mapItem.openInMaps(launchOptions: options)
+    }
+
+    private func openMenu(shop: Shop) {
+        LogService.info("Opening Menu: \(shop.title)")
+
+        guard let shopDetail = shopDetail else {
+            LogService.warning("Tried to open menu but menu wasnt available")
+            return
+        }
+
+        let vc = ShopMenuViewController(menu: shopDetail.menu)
+        navigationController?.pushViewController(vc, animated: true)
     }
 
     private func openInstagram(username: String) {
