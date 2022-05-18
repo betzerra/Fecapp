@@ -40,16 +40,16 @@ class ShopsViewController: UIViewController {
     lazy var defaultSortAction: UIAction = {
         UIAction(
             title: "Ordenar por default",
-            image: UIImage(systemName: "arrow.up.arrow.down")) { [weak self] action in
+            image: UIImage(systemName: "arrow.up.arrow.down")) { [weak self] _ in
                 LogService.info("Tapped 'sort by default'")
                 self?.dataSource.sort = .rank
-            }
+        }
     }()
 
     lazy var sortByLocationAction: UIAction = {
         UIAction(
             title: "Ordenar por proximidad",
-            image: UIImage(systemName: "location")) { [weak self] action in
+            image: UIImage(systemName: "location")) { [weak self] _ in
                 LogService.info("Tapped 'sort by location'")
                 guard let locationManager = self?.dataSource.locationManager else {
                     return
@@ -67,13 +67,13 @@ class ShopsViewController: UIViewController {
                 }
 
                 self?.dataSource.sort = .location
-            }
+        }
     }()
 
     lazy var filterNeighborhoodsAction: UIAction = {
         UIAction(
             title: "Filtrar por barrios",
-            image: UIImage(systemName: "building.2")) { [weak self] action in
+            image: UIImage(systemName: "building.2")) { [weak self] _ in
                 LogService.info("Tapped 'neighborhood filter'")
 
                 guard let dataSource = self?.dataSource else {
@@ -84,7 +84,7 @@ class ShopsViewController: UIViewController {
                 let navigationController = UINavigationController(rootViewController: filterController)
 
                 self?.present(navigationController, animated: true)
-            }
+        }
     }()
 
     init(dataSource: ShopsDataSource) {
@@ -127,7 +127,6 @@ class ShopsViewController: UIViewController {
 
         if let currentBounds = view.window?.bounds,
            let previousWindowBounds = previousWindowBounds, currentBounds != previousWindowBounds {
-
             _view.refreshLayout()
         }
 
@@ -179,4 +178,3 @@ extension ShopsViewController: UISearchResultsUpdating {
         definesPresentationContext = true
     }
 }
-

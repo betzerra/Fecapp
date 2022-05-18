@@ -54,7 +54,10 @@ class MapView: UIView {
         addSubview(stackView)
         NSLayoutConstraint.activate([
             stackView.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor),
-            stackView.rightAnchor.constraint(equalTo: self.safeAreaLayoutGuide.rightAnchor, constant: -centerButtonHorizontalMargin)
+            stackView.rightAnchor.constraint(
+                equalTo: self.safeAreaLayoutGuide.rightAnchor,
+                constant: -centerButtonHorizontalMargin
+            )
         ])
     }
 

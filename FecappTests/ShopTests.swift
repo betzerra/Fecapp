@@ -9,6 +9,7 @@ import XCTest
 @testable import Pluma
 @testable import Fecapp
 
+// swiftlint:disable all
 class ShopTests: XCTestCase {
 
     func testDecode() throws {

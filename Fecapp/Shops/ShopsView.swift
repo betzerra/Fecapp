@@ -33,7 +33,7 @@ class ShopsView: UIView {
         addSubview(emptyView)
         NSLayoutConstraint.activate([
             emptyView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-            emptyView.centerYAnchor.constraint(equalTo: self.centerYAnchor),
+            emptyView.centerYAnchor.constraint(equalTo: self.centerYAnchor)
         ])
     }
 

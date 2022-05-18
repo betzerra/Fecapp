@@ -73,8 +73,8 @@ class ShopsFilterViewModel: NSObject, UICollectionViewDelegate {
 
                 cell.setTitle(neighborhood.title)
                 return cell
-          })
-          return dataSource
+            })
+        return dataSource
     }()
 
     // MARK: - UICollectionViewDelegate

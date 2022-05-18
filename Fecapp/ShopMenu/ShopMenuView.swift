@@ -26,7 +26,7 @@ class ShopMenuView: UIView {
            withReuseIdentifier: "section"
         )
     }
-    
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

@@ -8,7 +8,6 @@
 import UIKit
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate, UITabBarControllerDelegate {
-
     var window: UIWindow?
 
     func scene(
@@ -57,12 +56,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, UITabBarControllerDeleg
         tabBarController.tabBar.scrollEdgeAppearance = appearance
     }
 
-    func sceneDidDisconnect(_ scene: UIScene) {
-        // Called as the scene is being released by the system.
-        // This occurs shortly after the scene enters the background, or when its session is discarded.
-        // Release any resources associated with this scene that can be re-created the next time the scene connects.
-        // The scene may re-connect later, as its session was not necessarily discarded (see `application:didDiscardSceneSessions` instead).
-    }
+    func sceneDidDisconnect(_ scene: UIScene) {}
 
     func sceneDidBecomeActive(_ scene: UIScene) {
         // Called when the scene has moved from an inactive state to an active state.
@@ -85,8 +79,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, UITabBarControllerDeleg
         // to restore the scene back to its current state.
     }
 
-    func tabBarControllerSupportedInterfaceOrientations(_ tabBarController: UITabBarController) -> UIInterfaceOrientationMask {
-
+    func tabBarControllerSupportedInterfaceOrientations(
+        _ tabBarController: UITabBarController
+    ) -> UIInterfaceOrientationMask {
         return tabBarController.inferredSupportedInterfaceOrientations ?? .portrait
     }
 }
@@ -105,6 +100,7 @@ extension UINavigationController: InferredSupportedInterfaceOrientations {
             return topViewController.supportedInterfaceOrientations
         }
 
+        // swiftlint:disable:next line_length
         if let presentedViewController = topViewController.presentedViewController as? InferredSupportedInterfaceOrientations {
             return presentedViewController.inferredSupportedInterfaceOrientations
         } else {
@@ -122,4 +118,3 @@ extension UITabBarController: InferredSupportedInterfaceOrientations {
         return controller.inferredSupportedInterfaceOrientations
     }
 }
-

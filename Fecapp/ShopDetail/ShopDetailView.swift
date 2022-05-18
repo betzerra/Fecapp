@@ -79,7 +79,7 @@ class ShopDetailView: UIView {
 
         backgroundColor = .systemBackground
     }
-    
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -100,7 +100,7 @@ class ShopDetailView: UIView {
         NSLayoutConstraint.activate([
             stackView.leftAnchor.constraint(equalTo: self.leftAnchor),
             stackView.topAnchor.constraint(equalTo: scrollView.topAnchor),
-            stackView.rightAnchor.constraint(equalTo: self.rightAnchor),
+            stackView.rightAnchor.constraint(equalTo: self.rightAnchor)
         ])
     }
 

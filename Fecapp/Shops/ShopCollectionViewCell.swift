@@ -11,7 +11,6 @@ import UIKit
 import SDWebImage
 
 class ShopCollectionViewCell: UICollectionViewCell {
-
     // UI constants
     private let thumbnailVerticalMargin: CGFloat = 8.0
     private let horizontalSpacing: CGFloat = 16.0

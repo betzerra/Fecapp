@@ -12,6 +12,6 @@ class DummyQuotes {
         "¿No hay cafeterías? Qué raro",
         "Cargando cafeterías",
         "Calentando el agua",
-        "Moliendo café",
+        "Moliendo café"
     ]
 }

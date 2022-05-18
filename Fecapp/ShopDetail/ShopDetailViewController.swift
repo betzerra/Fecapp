@@ -11,7 +11,6 @@ import MapKit
 import UIKit
 
 class ShopDetailViewController: UIViewController {
-
     enum Style {
         case fullscreen
         case sheet
@@ -80,7 +79,6 @@ class ShopDetailViewController: UIViewController {
 
     private func requestMenu() async {
         do {
-
             guard let detail = try await dataSource.fetchShopDetail(slug: shop.slug) else {
                 _view.menuButton.isEnabled = false
                 return
@@ -115,7 +113,7 @@ class ShopDetailViewController: UIViewController {
 
         let options = [
             MKLaunchOptionsMapCenterKey: NSValue(mkCoordinate: region.center),
-            MKLaunchOptionsMapSpanKey: NSValue(mkCoordinateSpan: region.span),
+            MKLaunchOptionsMapSpanKey: NSValue(mkCoordinateSpan: region.span)
         ]
 
         mapItem.openInMaps(launchOptions: options)
