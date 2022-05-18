@@ -44,6 +44,9 @@ class ShopDetailViewController: UIViewController {
                 case .openInstagram(let username):
                     LogService.info("Opened instagram: \(username)")
                     self?.openInstagram(username: username)
+
+                case .share(let shop):
+                    self?.share(shop: shop)
                 }
             }
             .store(in: &cancellables)
@@ -95,5 +98,18 @@ class ShopDetailViewController: UIViewController {
             let webURL = URL(string: "https://instagram.com/\(username)")!
             application.open(webURL)
         }
+    }
+
+    private func share(shop: Shop) {
+        guard let url = shop.webURL else {
+            return
+        }
+
+        let activityViewController = UIActivityViewController(
+            activityItems: [url],
+            applicationActivities: nil
+        )
+
+        present(activityViewController, animated: true)
     }
 }
