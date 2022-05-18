@@ -59,28 +59,16 @@ class ShopDetailViewController: UIViewController {
     }
 
     private func openMap(shop: Shop) {
-        let region = MKCoordinateRegion(
-            center: shop.coordinates.locationCoordinate,
-            latitudinalMeters: 300,
-            longitudinalMeters: 300
-        )
+        Task {
+            let item = await MapItemSearch.search(shop: shop)
 
-        search(shop: shop, in: region) { [weak self] response, error in
-            guard let self = self else {
-                return
-            }
+            let region = MKCoordinateRegion(
+                center: shop.coordinates.locationCoordinate,
+                latitudinalMeters: 300,
+                longitudinalMeters: 300
+            )
 
-            if let error = error {
-                LogService.logError(error)
-            }
-
-            guard let response = response, let item = response.mapItems.first else {
-                let customMapItem = self.mapItem(from: shop)
-                self.openMapItem(customMapItem, in: region)
-                return
-            }
-
-            self.openMapItem(item, in: region)
+            openMapItem(item, in: region)
         }
     }
 
@@ -94,38 +82,6 @@ class ShopDetailViewController: UIViewController {
         ]
 
         mapItem.openInMaps(launchOptions: options)
-    }
-
-    private func search(
-        shop: Shop,
-        in region: MKCoordinateRegion,
-        completion: @escaping ((MKLocalSearch.Response?, Error?) -> ())
-    ) {
-        let request = MKLocalSearch.Request()
-        request.naturalLanguageQuery = shop.title
-        request.pointOfInterestFilter = MKPointOfInterestFilter(including: [.cafe, .restaurant])
-        request.region = region
-
-        let search = MKLocalSearch(request: request)
-        search.start(completionHandler: completion)
-    }
-
-    private func mapItem(from shop: Shop) -> MKMapItem {
-        let addressDictionary = [
-            "CNPostalAddressStreetKey": shop.address
-        ]
-
-        let placemark = MKPlacemark(
-            coordinate: shop.coordinates.locationCoordinate,
-            addressDictionary: addressDictionary
-        )
-
-        let mapItem = MKMapItem(placemark: placemark)
-        mapItem.name = shop.title
-        mapItem.url = shop.webURL
-        mapItem.pointOfInterestCategory = .cafe
-
-        return mapItem
     }
 
     private func openInstagram(username: String) {
