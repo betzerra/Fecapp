@@ -53,6 +53,10 @@ class ShopDetailViewController: UIViewController {
                     LogService.info("Opened instagram: \(username)")
                     self?.openInstagram(username: username)
 
+                case .openRoaster(let roaster):
+                    LogService.info("Opened roaster: \(roaster.title)")
+                    self?.openRoaster(roaster)
+
                 case .share(let shop):
                     self?.share(shop: shop)
                 }
@@ -142,6 +146,12 @@ class ShopDetailViewController: UIViewController {
             let webURL = URL(string: "https://instagram.com/\(username)")!
             application.open(webURL)
         }
+    }
+
+    private func openRoaster(_ roaster: Roaster) {
+        let roasterShops = dataSource.shops?.filter { $0.roaster == roaster } ?? []
+        let vc = RoasterDetailViewController(roaster: roaster, shops: roasterShops)
+        navigationController?.pushViewController(vc, animated: true)
     }
 
     private func share(shop: Shop) {

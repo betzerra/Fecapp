@@ -29,6 +29,8 @@ class Shop: Decodable {
 
     let thumbnail: ShopThumbnail?
 
+    let roaster: Roaster?
+
     var webURL: URL? {
         URL(string: "https://www.tomafeca.com/d/\(slug)")
     }
@@ -46,6 +48,7 @@ class Shop: Decodable {
         case instagram
         case hasDelivery
         case rank
+        case roaster
         case message
         case thumbnail
     }
@@ -72,6 +75,8 @@ class Shop: Decodable {
         let shopMessage = try? values.decodeIfPresent(String.self, forKey: .message)
         message = (shopMessage != "") ? shopMessage : nil
         thumbnail = try? values.decode(ShopThumbnail.self, forKey: .thumbnail)
+
+        roaster = try? values.decodeIfPresent(Roaster.self, forKey: .roaster)
     }
 
     func distance(to location: CLLocation) -> CLLocationDistance {
