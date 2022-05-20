@@ -12,9 +12,10 @@ import UIKit
 import SDWebImage
 
 enum ShopDetailViewModelEvents {
+    case openInstagram(username: String)
     case openMap(shop: Shop)
     case openMenu(shop: Shop)
-    case openInstagram(username: String)
+    case openRoaster(_ roaster: Roaster)
     case share(shop: Shop)
 }
 
@@ -47,7 +48,7 @@ class ShopDetailViewModel {
     }
 
     var attributedInstagram: NSAttributedString {
-        guard let linkImage = UIImage(systemName: "link") else {
+        guard let linkImage = UIImage(named: "instagram", in: Bundle.main, with: nil) else {
             return NSAttributedString(string: shop.instagram)
         }
 
@@ -66,7 +67,8 @@ class ShopDetailViewModel {
             range: NSRange.init(location: 0, length: roasterString.utf16.count)
         )
 
-        string.append(NSAttributedString(string: "N/A"))
+        let roasterName = shop.roaster?.title ?? "N/A"
+        string.append(NSAttributedString(string: roasterName))
         return string
     }
 
@@ -88,7 +90,7 @@ class ShopDetailViewModel {
         }
     }
 
-    var shareButtonAction: UIAction {
+    var shareAction: UIAction {
         UIAction { [weak self] _ in
             guard let shop = self?.shop else {
                 return
@@ -98,7 +100,7 @@ class ShopDetailViewModel {
         }
     }
 
-    var menuButtonAction: UIAction {
+    var menuAction: UIAction {
         UIAction { [weak self] _ in
             guard let shop = self?.shop else {
                 return
@@ -108,49 +110,77 @@ class ShopDetailViewModel {
         }
     }
 
+    var roasterAction: UIAction {
+        UIAction { [weak self] _ in
+            guard let roaster = self?.shop.roaster else {
+                return
+            }
+
+            self?._events.send(.openRoaster(roaster))
+        }
+    }
+
     init(shop: Shop, view: ShopDetailView, style: ShopDetailViewController.Style) {
         self.shop = shop
         self.style = style
         self.events = _events.eraseToAnyPublisher()
         self.view = view
-
-        setMapAction()
-        setAddressLabelAction()
-        setShareButtonAction()
-        setMenuButtonAction()
         updateContent()
     }
 
     func updateContent() {
+        // Map
+        setupMap()
+
+        // Thumbnail
+        updateThumbnail()
+
+        // Title
         view.headView.titleLabel.text = shop.title
 
-        view.addressLabel.attributedText = attributedAddress
+        // Share button
+        view.headView.shareButton.addAction(shareAction, for: .touchUpInside)
 
+        // Address: setup text and action
+        setupAddressLabel()
+
+        // Instagram: setup text and action
         view.instagramButton.setAttributedTitle(attributedInstagram, for: .normal)
         view.instagramButton.addAction(instagramAction, for: .touchUpInside)
 
-        view.headView.mapView.setRegion(mapRegion, animated: false)
+        // Roaster: setup text and action
+        view.roasterButton.setAttributedTitle(attributedRoaster, for: .normal)
+        view.roasterButton.addAction(roasterAction, for: .touchUpInside)
 
-        updateThumbnail()
-        updateMap()
+        // Menu button
+        view.menuButton.addAction(menuAction, for: .touchUpInside)
     }
 
-    private func setAddressLabelAction() {
+    private func setupAddressLabel() {
+        view.addressLabel.attributedText = attributedAddress
+
         let gesture = UITapGestureRecognizer(target: self, action: #selector(addressTapped))
         view.addressLabel.addGestureRecognizer(gesture)
     }
 
-    private func setMapAction() {
+    private func setupMap() {
+        // Setup gesture
         let gesture = UITapGestureRecognizer(target: self, action: #selector(mapTapped))
         view.headView.mapView.addGestureRecognizer(gesture)
-    }
 
-    private func setShareButtonAction() {
-        view.headView.shareButton.addAction(shareButtonAction, for: .touchUpInside)
-    }
+        // Setup looks
+        switch style {
+        case .fullscreen:
+            view.headView.mapView.setRegion(mapRegion, animated: false)
 
-    private func setMenuButtonAction() {
-        view.menuButton.addAction(menuButtonAction, for: .touchUpInside)
+            let pin = MKPointAnnotation() // map pin
+            pin.coordinate = shop.coordinates.locationCoordinate
+            pin.title = shop.title
+            view.headView.mapView.addAnnotation(pin)
+
+        case .sheet:
+            view.headView.mapView.isHidden = true
+        }
     }
 
     func updateThumbnail() {
@@ -160,19 +190,6 @@ class ShopDetailViewModel {
         }
 
         view.headView.thumbnailImageView.sd_setImage(with: url)
-    }
-
-    func updateMap() {
-        switch style {
-        case .fullscreen:
-            let pin = MKPointAnnotation() // map pin
-            pin.coordinate = shop.coordinates.locationCoordinate
-            pin.title = shop.title
-            view.headView.mapView.addAnnotation(pin)
-
-        case .sheet:
-            view.headView.mapView.isHidden = true
-        }
     }
 
     @objc func addressTapped() {

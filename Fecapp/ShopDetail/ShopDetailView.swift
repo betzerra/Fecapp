@@ -31,6 +31,10 @@ class ShopDetailView: UIView {
         return ShopDetailView.detailButton()
     }()
 
+    let roasterButton: UIButton = {
+        return ShopDetailView.detailButton()
+    }()
+
     let menuButton: UIButton = {
         let image = UIImage(systemName: "menucard")
         let button = UIButton(configuration: .standardFill())
@@ -51,6 +55,7 @@ class ShopDetailView: UIView {
             arrangedSubviews: [
                 addressLabel,
                 instagramButton,
+                roasterButton,
                 menuButton
             ]
         )
@@ -63,6 +68,7 @@ class ShopDetailView: UIView {
             right: padding
         )
         detailStackView.isLayoutMarginsRelativeArrangement = true
+        detailStackView.setCustomSpacing(0, after: instagramButton)
 
         self.headView = ShopHeadView()
         self.stackView = UIStackView(
