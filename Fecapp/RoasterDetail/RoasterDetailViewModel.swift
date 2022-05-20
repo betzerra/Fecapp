@@ -36,11 +36,7 @@ class RoasterDetailViewModel {
             return NSAttributedString(string: roaster.instagram)
         }
 
-        let attachment = NSTextAttachment(image: linkImage)
-        let string = NSMutableAttributedString(attachment: attachment)
-        string.append(NSAttributedString(string: " \(roaster.instagram)"))
-
-        return string
+        return NSAttributedString(string: roaster.instagram, leadingImage: linkImage)
     }
 
     let view: RoasterDetailView
