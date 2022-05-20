@@ -28,11 +28,11 @@ class ShopDetailView: UIView {
     }()
 
     let instagramButton: UIButton = {
-        return ShopDetailView.detailButton()
+        return UIButton.detailButton()
     }()
 
     let roasterButton: UIButton = {
-        return ShopDetailView.detailButton()
+        return UIButton.detailButton()
     }()
 
     let menuButton: UIButton = {
@@ -108,14 +108,5 @@ class ShopDetailView: UIView {
             stackView.topAnchor.constraint(equalTo: scrollView.topAnchor),
             stackView.rightAnchor.constraint(equalTo: self.rightAnchor)
         ])
-    }
-
-    static func detailButton() -> UIButton {
-        let button = UIButton(type: .system)
-        button.titleLabel?.font = UIFont.preferredFont(forTextStyle: .body)
-        button.contentHorizontalAlignment = .left
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.tintColor = .label
-        return button
     }
 }

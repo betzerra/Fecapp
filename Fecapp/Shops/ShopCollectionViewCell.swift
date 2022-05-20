@@ -12,7 +12,6 @@ import SDWebImage
 
 class ShopCollectionViewCell: UICollectionViewCell {
     // UI constants
-    private let thumbnailVerticalMargin: CGFloat = 8.0
     private let horizontalSpacing: CGFloat = 16.0
     private let verticalSpacing: CGFloat = 4.0
 
@@ -21,6 +20,7 @@ class ShopCollectionViewCell: UICollectionViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.preferredFont(forTextStyle: .headline)
         label.setContentCompressionResistancePriority(.defaultLow, for: .vertical)
+        label.setContentHuggingPriority(.defaultHigh, for: .vertical)
         label.textColor = .label
         label.numberOfLines = 0
         label.adjustsFontSizeToFitWidth = true
@@ -32,6 +32,7 @@ class ShopCollectionViewCell: UICollectionViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.preferredFont(forTextStyle: .subheadline)
         label.setContentCompressionResistancePriority(.required, for: .vertical)
+        label.setContentHuggingPriority(.defaultHigh, for: .vertical)
         label.textColor = .secondaryLabel
         return label
     }()
@@ -56,8 +57,7 @@ class ShopCollectionViewCell: UICollectionViewCell {
 
         let stackView = UIStackView(arrangedSubviews: [
             titleLabel,
-            subtitleLabel,
-            UIView()
+            subtitleLabel
         ])
 
         stackView.translatesAutoresizingMaskIntoConstraints = false
@@ -65,15 +65,22 @@ class ShopCollectionViewCell: UICollectionViewCell {
         stackView.spacing = verticalSpacing
         addSubview(stackView)
 
+        let stackViewTop = stackView.topAnchor.constraint(equalTo: self.topAnchor)
+        stackViewTop.priority = .defaultLow
+
+        let stackViewBottom = stackView.bottomAnchor.constraint(equalTo: self.bottomAnchor)
+        stackViewBottom.priority = .defaultLow
+
         NSLayoutConstraint.activate([
             imageView.leftAnchor.constraint(equalTo: self.leftAnchor),
             imageView.widthAnchor.constraint(equalTo: imageView.heightAnchor),
-            imageView.topAnchor.constraint(equalTo: self.topAnchor, constant: thumbnailVerticalMargin),
+            imageView.topAnchor.constraint(equalTo: self.topAnchor),
             imageView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
             stackView.leftAnchor.constraint(equalTo: imageView.rightAnchor, constant: horizontalSpacing),
-            stackView.topAnchor.constraint(equalTo: self.imageView.topAnchor, constant: verticalSpacing),
+            stackView.centerYAnchor.constraint(equalTo: self.imageView.centerYAnchor),
             stackView.rightAnchor.constraint(equalTo: self.rightAnchor),
-            stackView.bottomAnchor.constraint(equalTo: self.imageView.bottomAnchor)
+            stackViewTop,
+            stackViewBottom
         ])
     }
 

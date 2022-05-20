@@ -23,8 +23,13 @@ class RoasterDetailViewModel {
                     return UICollectionViewCell()
                 }
 
-                let viewModel = ShopCellViewModel(shop: shop)
-                cell.setViewModel(viewModel)
+                cell.titleLabel.text = shop.title
+                cell.subtitleLabel.isHidden = true
+
+                if let thumbnail = shop.thumbnail?.small {
+                    cell.imageView.sd_setImage(with: thumbnail)
+                }
+
                 return cell
             })
 
@@ -36,11 +41,7 @@ class RoasterDetailViewModel {
             return NSAttributedString(string: roaster.instagram)
         }
 
-        let attachment = NSTextAttachment(image: linkImage)
-        let string = NSMutableAttributedString(attachment: attachment)
-        string.append(NSAttributedString(string: " \(roaster.instagram)"))
-
-        return string
+        return NSAttributedString(string: roaster.instagram, leadingImage: linkImage)
     }
 
     let view: RoasterDetailView

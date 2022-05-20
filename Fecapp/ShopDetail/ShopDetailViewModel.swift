@@ -52,24 +52,11 @@ class ShopDetailViewModel {
             return NSAttributedString(string: shop.instagram)
         }
 
-        let attachment = NSTextAttachment(image: linkImage)
-        let string = NSMutableAttributedString(attachment: attachment)
-        string.append(NSAttributedString(string: " \(shop.instagram)"))
-
-        return string
+        return NSAttributedString(string: shop.instagram, leadingImage: linkImage)
     }
 
     var attributedRoaster: NSAttributedString {
-        let roasterString = "Tostador: "
-        let string = NSMutableAttributedString(string: roasterString)
-        string.addAttribute(
-            .font, value: UIFont.preferredFont(forTextStyle: .body).bold(),
-            range: NSRange.init(location: 0, length: roasterString.utf16.count)
-        )
-
-        let roasterName = shop.roaster?.title ?? "N/A"
-        string.append(NSAttributedString(string: roasterName))
-        return string
+        NSAttributedString(leadingBold: "Tostador: ", string: shop.roaster?.title ?? "N/A")
     }
 
     var mapRegion: MKCoordinateRegion {
