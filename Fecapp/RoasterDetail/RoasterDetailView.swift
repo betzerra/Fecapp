@@ -12,9 +12,10 @@ class RoasterDetailView: UIView {
     let collectionView: UICollectionView
 
     init() {
+        let shopLayout = ShopCollectionViewLayout(size: .small)
         collectionView = UICollectionView(
             frame: .zero,
-            collectionViewLayout: ShopsView.collectionViewLayout()
+            collectionViewLayout: shopLayout.layout()
         )
 
         super.init(frame: .zero)
