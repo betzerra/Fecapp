@@ -11,6 +11,12 @@ import UIKit
 class RoasterDetailViewController: UIViewController {
     private let viewModel: RoasterDetailViewModel
 
+    private var navigationBarWasHidden: Bool?
+
+    override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+        .portrait
+    }
+
     // Subviews
     private let _view = RoasterDetailView()
 
@@ -28,5 +34,19 @@ class RoasterDetailViewController: UIViewController {
     override func loadView() {
         super.loadView()
         view = _view
+    }
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        navigationBarWasHidden = navigationController?.navigationBar.isHidden
+        navigationController?.navigationBar.isHidden = false
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+
+        if let navigationBarWasHidden = navigationBarWasHidden {
+            navigationController?.navigationBar.isHidden = navigationBarWasHidden
+        }
     }
 }
