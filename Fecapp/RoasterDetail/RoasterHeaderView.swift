@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 class RoasterHeaderView: UICollectionReusableView {
-    let padding = UIEdgeInsets(top: 4, left: 8, bottom: 4, right: 8)
+    let padding = UIEdgeInsets(top: 16, left: 16, bottom: 8, right: 16)
     let spacing: CGFloat = 8
 
     let instagramButton: UIButton = {
@@ -51,7 +51,7 @@ class RoasterHeaderView: UICollectionReusableView {
         )
         stackView.spacing = spacing
         stackView.axis = .vertical
-        stackView.setCustomSpacing(32, after: shippingLabel)
+        stackView.setCustomSpacing(24, after: shippingLabel)
         stackView.loadInto(containerView: self, insets: padding, priority: .required)
     }
 
