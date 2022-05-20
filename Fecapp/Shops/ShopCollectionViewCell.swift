@@ -15,6 +15,8 @@ class ShopCollectionViewCell: UICollectionViewCell {
     private let horizontalSpacing: CGFloat = 16.0
     private let verticalSpacing: CGFloat = 4.0
 
+    var horizontalSpacingConstraint: NSLayoutConstraint?
+
     let titleLabel: UILabel = {
         let label = UILabel(frame: .zero)
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -71,17 +73,22 @@ class ShopCollectionViewCell: UICollectionViewCell {
         let stackViewBottom = stackView.bottomAnchor.constraint(equalTo: self.bottomAnchor)
         stackViewBottom.priority = .defaultLow
 
+        horizontalSpacingConstraint = stackView.leftAnchor.constraint(
+            equalTo: imageView.rightAnchor,
+            constant: horizontalSpacing
+        )
+
         NSLayoutConstraint.activate([
             imageView.leftAnchor.constraint(equalTo: self.leftAnchor),
             imageView.widthAnchor.constraint(equalTo: imageView.heightAnchor),
             imageView.topAnchor.constraint(equalTo: self.topAnchor),
             imageView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
-            stackView.leftAnchor.constraint(equalTo: imageView.rightAnchor, constant: horizontalSpacing),
             stackView.centerYAnchor.constraint(equalTo: self.imageView.centerYAnchor),
             stackView.rightAnchor.constraint(equalTo: self.rightAnchor),
+            horizontalSpacingConstraint,
             stackViewTop,
             stackViewBottom
-        ])
+        ].compactMap { $0 })
     }
 
     func setViewModel(_ viewModel: ShopCellViewModel) {

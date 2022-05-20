@@ -24,7 +24,12 @@ class RoasterDetailViewModel {
                 }
 
                 cell.titleLabel.text = shop.title
+                cell.titleLabel.font = UIFont.preferredFont(forTextStyle: .caption1)
                 cell.subtitleLabel.isHidden = true
+
+                if let constraint = cell.horizontalSpacingConstraint {
+                    constraint.constant = 8
+                }
 
                 if let thumbnail = shop.thumbnail?.small {
                     cell.imageView.sd_setImage(with: thumbnail)
