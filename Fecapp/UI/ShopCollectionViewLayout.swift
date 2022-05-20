@@ -32,9 +32,11 @@ class ShopCollectionViewLayout {
     }
 
     let size: Size
+    let supplementaryItems: [NSCollectionLayoutBoundarySupplementaryItem]
 
-    init(size: Size) {
+    init(size: Size, supplementaryItems: [NSCollectionLayoutBoundarySupplementaryItem] = []) {
         self.size = size
+        self.supplementaryItems = supplementaryItems
     }
 
     func layout() -> UICollectionViewCompositionalLayout {
@@ -63,8 +65,9 @@ class ShopCollectionViewLayout {
         )
 
         let sectionLayout = NSCollectionLayoutSection(group: groupLayout)
-        let layout = UICollectionViewCompositionalLayout(section: sectionLayout)
+        sectionLayout.boundarySupplementaryItems = supplementaryItems
 
+        let layout = UICollectionViewCompositionalLayout(section: sectionLayout)
         return layout
     }
 
