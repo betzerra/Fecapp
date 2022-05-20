@@ -33,6 +33,24 @@ class RoasterDetailViewModel {
                 return cell
             })
 
+        dataSource.supplementaryViewProvider = { [weak self](collectionView, kind, indexPath) in
+            guard let self = self else { return nil }
+
+            let section = self.dataSource.snapshot().sectionIdentifiers[indexPath.section]
+
+            guard let headerView = collectionView.dequeueReusableSupplementaryView(
+                ofKind: kind,
+                withReuseIdentifier: "header",
+                for: indexPath) as? RoasterHeaderView else {
+                return nil
+            }
+
+            headerView.instagramButton.setAttributedTitle(self.attributedInstagram, for: .normal)
+            headerView.shippingLabel.isHidden = !self.roaster.shipsOutsideCABA
+            headerView.coffeeShopsLabel.text = self.coffeeShopsTitle
+            return headerView
+        }
+
         return dataSource
     }()
 
@@ -44,12 +62,27 @@ class RoasterDetailViewModel {
         return NSAttributedString(string: roaster.instagram, leadingImage: linkImage)
     }
 
+    var coffeeShopsTitle: String {
+        switch shops.count {
+        case 0:
+            return "Ninguna cafetería que conozcamos usa el café de \(roaster.title)"
+
+        case 1:
+            return "Una cafetería usa el café de \(roaster.title)"
+
+        default:
+            return "\(shops.count) cafeterías usan el café de \(roaster.title)"
+        }
+    }
+
     let view: RoasterDetailView
 
     let roaster: Roaster
+    let shops: [Shop]
 
     init(roaster: Roaster, shops: [Shop], view: RoasterDetailView) {
         self.roaster = roaster
+        self.shops = shops
         self.view = view
 
         view.collectionView.register(
