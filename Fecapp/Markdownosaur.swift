@@ -27,7 +27,13 @@ struct Markdownosaur: MarkupVisitor {
     }
 
     mutating func visitText(_ text: Text) -> NSAttributedString {
-        return NSAttributedString(string: text.plainText, attributes: [.font: UIFont.systemFont(ofSize: baseFontSize, weight: .regular)])
+        return NSAttributedString(
+            string: text.plainText,
+            attributes: [
+                .font: UIFont.systemFont(ofSize: baseFontSize, weight: .regular),
+                .foregroundColor: UIColor.label
+            ]
+        )
     }
 
     mutating func visitEmphasis(_ emphasis: Emphasis) -> NSAttributedString {
@@ -151,6 +157,7 @@ struct Markdownosaur: MarkupVisitor {
             listItemAttributes[.paragraphStyle] = listItemParagraphStyle
             listItemAttributes[.font] = UIFont.systemFont(ofSize: baseFontSize, weight: .regular)
             listItemAttributes[.listDepth] = unorderedList.listDepth
+            listItemAttributes[.foregroundColor] = UIColor.label
 
             let listItemAttributedString = visit(listItem).mutableCopy() as! NSMutableAttributedString
             listItemAttributedString.insert(NSAttributedString(string: "\t•\t", attributes: listItemAttributes), at: 0)
