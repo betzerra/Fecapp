@@ -51,9 +51,9 @@ class LabelCollectionViewCell: UICollectionViewCell {
         layer.cornerRadius = 8.0
 
         if isSelected {
-            titleLabel.textColor = .white
-            backgroundColor = .primary
-            layer.borderColor = UIColor.primary.cgColor
+            titleLabel.textColor = .buttonTitle
+            backgroundColor = .accent
+            layer.borderColor = UIColor.accent.cgColor
         } else {
             titleLabel.textColor = .label
             backgroundColor = .systemBackground

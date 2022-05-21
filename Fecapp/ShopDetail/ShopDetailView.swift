@@ -36,12 +36,21 @@ class ShopDetailView: UIView {
     }()
 
     let menuButton: UIButton = {
-        let image = UIImage(systemName: "menucard")
         let button = UIButton(configuration: .standardFill())
         button.translatesAutoresizingMaskIntoConstraints = false
+
+        // Normal state
+        let normalImage = UIImage(systemName: "menucard")?
+            .withTintColor(.buttonTitle, renderingMode: .alwaysOriginal)
         button.setTitle("Ver Menú", for: .normal)
+        button.setTitleColor(.buttonTitle, for: .normal)
+        button.setImage(normalImage, for: .normal)
+
+        // Disabled state
+        let disabledImage = UIImage(systemName: "menucard")
         button.setTitle("Menu no disponible", for: .disabled)
-        button.setImage(image, for: .normal)
+        button.setImage(disabledImage, for: .disabled)
+
         button.isEnabled = false // disabled by default (viewcontroller will update it later)
         return button
     }()
