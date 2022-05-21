@@ -39,7 +39,8 @@
 		67741D0428386E070066D320 /* InitialScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67741D0328386E070066D320 /* InitialScreen.swift */; };
 		67741D06283873850066D320 /* NewsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67741D05283873850066D320 /* NewsView.swift */; };
 		67741D08283874C50066D320 /* NewsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67741D07283874C50066D320 /* NewsViewModel.swift */; };
-		67741D0A283875990066D320 /* NewsPost.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67741D09283875990066D320 /* NewsPost.swift */; };
+		67741D0E28389F110066D320 /* NewsDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67741D0D28389F110066D320 /* NewsDataSource.swift */; };
+		67741D1028389F680066D320 /* NewsSummary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67741D0F28389F680066D320 /* NewsSummary.swift */; };
 		679AEC3A2814BE4700180CEF /* Pluma in Frameworks */ = {isa = PBXBuildFile; productRef = 679AEC392814BE4700180CEF /* Pluma */; };
 		679AEC3C2814C06100180CEF /* shop_mock.json in Resources */ = {isa = PBXBuildFile; fileRef = 679AEC3B2814C06100180CEF /* shop_mock.json */; };
 		679AEC3E2814C07200180CEF /* ShopTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 679AEC3D2814C07200180CEF /* ShopTests.swift */; };
@@ -131,7 +132,8 @@
 		67741D0328386E070066D320 /* InitialScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialScreen.swift; sourceTree = "<group>"; };
 		67741D05283873850066D320 /* NewsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsView.swift; sourceTree = "<group>"; };
 		67741D07283874C50066D320 /* NewsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsViewModel.swift; sourceTree = "<group>"; };
-		67741D09283875990066D320 /* NewsPost.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsPost.swift; sourceTree = "<group>"; };
+		67741D0D28389F110066D320 /* NewsDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsDataSource.swift; sourceTree = "<group>"; };
+		67741D0F28389F680066D320 /* NewsSummary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsSummary.swift; sourceTree = "<group>"; };
 		679AEC3B2814C06100180CEF /* shop_mock.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = shop_mock.json; sourceTree = "<group>"; };
 		679AEC3D2814C07200180CEF /* ShopTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopTests.swift; sourceTree = "<group>"; };
 		679AEC422814C6AF00180CEF /* ShopsDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopsDataSource.swift; sourceTree = "<group>"; };
@@ -274,6 +276,7 @@
 				67741CFF28386B1D0066D320 /* NewsViewController.swift */,
 				67741D05283873850066D320 /* NewsView.swift */,
 				67741D07283874C50066D320 /* NewsViewModel.swift */,
+				67741D0D28389F110066D320 /* NewsDataSource.swift */,
 			);
 			path = News;
 			sourceTree = "<group>";
@@ -302,7 +305,7 @@
 			children = (
 				67C713CF28302A630024C175 /* DummyQuotes.swift */,
 				67A9FAB72818C84200CEF1E2 /* Neighborhood.swift */,
-				67741D09283875990066D320 /* NewsPost.swift */,
+				67741D0F28389F680066D320 /* NewsSummary.swift */,
 				67DA2DAF2836FC3F008886CC /* Roaster.swift */,
 				67E2284828147E550083D9EF /* Shop.swift */,
 				67A0228A281E201B007987BE /* ShopCoordinates.swift */,
@@ -616,7 +619,6 @@
 				6700F65128298BBC00AB90BA /* LogFormatter.swift in Sources */,
 				67DA2DB22836FEF5008886CC /* SymbolsHelper.swift in Sources */,
 				67E2281928147E1F0083D9EF /* AppDelegate.swift in Sources */,
-				67741D0A283875990066D320 /* NewsPost.swift in Sources */,
 				6741B683282B3F3800EF6415 /* MapViewModel.swift in Sources */,
 				676E29B528355F0000A94E07 /* MapItemSearch.swift in Sources */,
 				67A02285281DF912007987BE /* ShopDetailViewController.swift in Sources */,
@@ -628,6 +630,7 @@
 				67177C802828624C001677E2 /* LocationOnboardingView.swift in Sources */,
 				676E29BA2835706500A94E07 /* UIButton+Configurations.swift in Sources */,
 				67DA2DB02836FC3F008886CC /* Roaster.swift in Sources */,
+				67741D1028389F680066D320 /* NewsSummary.swift in Sources */,
 				676E29BC2835733A00A94E07 /* ShopMenuViewController.swift in Sources */,
 				6700F65328298D4400AB90BA /* MessageLoggeable.swift in Sources */,
 				67C713D2283036B80024C175 /* RoundedButton.swift in Sources */,
@@ -645,6 +648,7 @@
 				6700F6552829A88800AB90BA /* MetadataLoggeable.swift in Sources */,
 				67177C842828853B001677E2 /* LocationManager.swift in Sources */,
 				67E2284928147E550083D9EF /* Shop.swift in Sources */,
+				67741D0E28389F110066D320 /* NewsDataSource.swift in Sources */,
 				67529103282B6DE5005E2A4E /* RoundedImageView.swift in Sources */,
 				67741D06283873850066D320 /* NewsView.swift in Sources */,
 				679AEC432814C6AF00180CEF /* ShopsDataSource.swift in Sources */,

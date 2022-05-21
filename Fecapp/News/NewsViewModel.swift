@@ -5,18 +5,24 @@
 //  Created by Ezequiel Becerra on 20/05/2022.
 //
 
+import Combine
 import Foundation
 import UIKit
 
-typealias NewsDiffableDataSource = UICollectionViewDiffableDataSource<Section, NewsPost>
+typealias NewsDiffableDataSource = UICollectionViewDiffableDataSource<Section, NewsSummary>
 
-class NewsViewModel {
+class NewsViewModel: NSObject {
     let view: NewsView
+    let newsDataSource = NewsDataSource()
+
+    private var cancellables = [AnyCancellable]()
 
     private lazy var dataSource: NewsDiffableDataSource = {
         // swiftlint:disable:next line_length
-        let cellRegistration = UICollectionView.CellRegistration<UICollectionViewListCell, NewsPost> { (cell, _, item) in
+        let cellRegistration = UICollectionView.CellRegistration<UICollectionViewListCell, NewsSummary> { (cell, _, item) in
             var config = UIListContentConfiguration.subtitleCell()
+            config.directionalLayoutMargins = NSDirectionalEdgeInsets(top: 16, leading: 8, bottom: 8, trailing: 8)
+            config.textToSecondaryTextVerticalPadding = 8
             config.text = item.title
             config.secondaryText = item.subtitle
             config.secondaryTextProperties.color = .secondaryLabel
@@ -35,8 +41,8 @@ class NewsViewModel {
         return dataSource
     }()
 
-    private func refreshDatasource(posts: [NewsPost]) {
-        var snapshot = NSDiffableDataSourceSnapshot<Section, NewsPost>()
+    private func refreshDatasource(posts: [NewsSummary]) {
+        var snapshot = NSDiffableDataSourceSnapshot<Section, NewsSummary>()
 
         snapshot.appendSections([.main])
         snapshot.appendItems(posts, toSection: .main)
@@ -44,14 +50,36 @@ class NewsViewModel {
     }
 
     init(view: NewsView) {
-        let posts = [
-            NewsPost(
-                title: "5 V60 Recipes By Rao, Hoffman & Kasuya For Perfect Drip Coffee Everytime",
-                subtitle: "Despite being simple, the pour over is one of the most challenging brewing methods to master. These Hario V60 recipe ideas will help you get great coffee."
-            )
-        ]
-
         self.view = view
-        refreshDatasource(posts: posts)
+
+        super.init()
+
+        newsDataSource
+            .$news
+            .compactMap { $0 }
+            .receive(on: RunLoop.main)
+            .sink { [weak self] posts in
+                self?.refreshDatasource(posts: posts)
+            }
+            .store(in: &cancellables)
+
+        // Bind refresh control to fetch shops if enabled
+        view.refreshControl.addTarget(
+            self,
+            action: #selector(fetchNews),
+            for: .valueChanged
+        )
+    }
+
+    @objc private func fetchNews() {
+        Task {
+            do {
+                await view.refreshControl.beginRefreshing()
+                try await newsDataSource.fetchNews()
+                await view.refreshControl.endRefreshing()
+            } catch {
+                LogService.logError(error)
+            }
+        }
     }
 }
