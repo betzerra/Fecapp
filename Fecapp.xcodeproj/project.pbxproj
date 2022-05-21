@@ -63,6 +63,7 @@
 		67CD60ED281DBB0D000BEEC4 /* ShopsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67CD60EC281DBB0D000BEEC4 /* ShopsViewModel.swift */; };
 		67CD60EF281DC1EB000BEEC4 /* LabelCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67CD60EE281DC1EB000BEEC4 /* LabelCollectionViewCell.swift */; };
 		67CD60F1281DD5C3000BEEC4 /* UIColor+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67CD60F0281DD5C3000BEEC4 /* UIColor+Utils.swift */; };
+		67D98C712839566D006BCC6E /* NewsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67D98C702839566D006BCC6E /* NewsCollectionViewCell.swift */; };
 		67DA2DB02836FC3F008886CC /* Roaster.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67DA2DAF2836FC3F008886CC /* Roaster.swift */; };
 		67DA2DB22836FEF5008886CC /* SymbolsHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67DA2DB12836FEF5008886CC /* SymbolsHelper.swift */; };
 		67DA2DB42837043C008886CC /* RoasterDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67DA2DB32837043C008886CC /* RoasterDetailViewController.swift */; };
@@ -154,6 +155,7 @@
 		67CD60EC281DBB0D000BEEC4 /* ShopsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopsViewModel.swift; sourceTree = "<group>"; };
 		67CD60EE281DC1EB000BEEC4 /* LabelCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelCollectionViewCell.swift; sourceTree = "<group>"; };
 		67CD60F0281DD5C3000BEEC4 /* UIColor+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Utils.swift"; sourceTree = "<group>"; };
+		67D98C702839566D006BCC6E /* NewsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsCollectionViewCell.swift; sourceTree = "<group>"; };
 		67DA2DAF2836FC3F008886CC /* Roaster.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Roaster.swift; sourceTree = "<group>"; };
 		67DA2DB12836FEF5008886CC /* SymbolsHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SymbolsHelper.swift; sourceTree = "<group>"; };
 		67DA2DB32837043C008886CC /* RoasterDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoasterDetailViewController.swift; sourceTree = "<group>"; };
@@ -277,6 +279,7 @@
 				67741D05283873850066D320 /* NewsView.swift */,
 				67741D07283874C50066D320 /* NewsViewModel.swift */,
 				67741D0D28389F110066D320 /* NewsDataSource.swift */,
+				67D98C702839566D006BCC6E /* NewsCollectionViewCell.swift */,
 			);
 			path = News;
 			sourceTree = "<group>";
@@ -622,6 +625,7 @@
 				6741B683282B3F3800EF6415 /* MapViewModel.swift in Sources */,
 				676E29B528355F0000A94E07 /* MapItemSearch.swift in Sources */,
 				67A02285281DF912007987BE /* ShopDetailViewController.swift in Sources */,
+				67D98C712839566D006BCC6E /* NewsCollectionViewCell.swift in Sources */,
 				67A0228B281E201B007987BE /* ShopCoordinates.swift in Sources */,
 				67A9FAB82818C84200CEF1E2 /* Neighborhood.swift in Sources */,
 				67A02289281DFDDD007987BE /* ShopHeadView.swift in Sources */,

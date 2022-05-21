@@ -8,6 +8,7 @@
 import Combine
 import Foundation
 import UIKit
+import SDWebImage
 
 typealias NewsDiffableDataSource = UICollectionViewDiffableDataSource<Section, NewsSummary>
 
@@ -17,25 +18,29 @@ class NewsViewModel: NSObject {
 
     private var cancellables = [AnyCancellable]()
 
+    private static let dateFormatter: DateFormatter = {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .short
+        return dateFormatter
+    }()
+
     private lazy var dataSource: NewsDiffableDataSource = {
         // swiftlint:disable:next line_length
-        let cellRegistration = UICollectionView.CellRegistration<UICollectionViewListCell, NewsSummary> { (cell, _, item) in
-            var config = UIListContentConfiguration.subtitleCell()
-            config.directionalLayoutMargins = NSDirectionalEdgeInsets(top: 16, leading: 8, bottom: 8, trailing: 8)
-            config.textToSecondaryTextVerticalPadding = 8
-            config.text = item.title
-            config.secondaryText = item.subtitle
-            config.secondaryTextProperties.color = .secondaryLabel
-            cell.contentConfiguration = config
-        }
+        let dataSource = NewsDiffableDataSource(collectionView: view.collectionView) { collectionView, indexPath, post in
+            guard let cell = collectionView.dequeueReusableCell(
+                withReuseIdentifier: "cell",
+                for: indexPath
+            ) as? NewsCollectionViewCell else {
+                return UICollectionViewCell()
+            }
 
-        // swiftlint:disable:next line_length
-        let dataSource = NewsDiffableDataSource(collectionView: view.collectionView) { collectionView, indexPath, itemIdentifier in
-            return collectionView.dequeueConfiguredReusableCell(
-                using: cellRegistration,
-                for: indexPath,
-                item: itemIdentifier
-            )
+            cell.dateLabel.text = NewsViewModel.dateFormatter.string(from: post.date)
+            cell.titleLabel.text = post.title
+            cell.subtitleLabel.text = post.subtitle
+            cell.authorLabel.text = post.author
+            cell.authorImageView.sd_setImage(with: post.authorThumbnail)
+
+            return cell
         }
 
         return dataSource

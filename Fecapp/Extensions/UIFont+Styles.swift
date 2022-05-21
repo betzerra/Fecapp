@@ -8,6 +8,7 @@
 import Foundation
 import UIKit
 
+// MARK: bold + italic
 extension UIFont {
     // From https://spin.atomicobject.com/2018/02/02/swift-scaled-font-bold-italic/
     func withTraits(traits: UIFontDescriptor.SymbolicTraits) -> UIFont {
@@ -21,5 +22,16 @@ extension UIFont {
 
     func italic() -> UIFont {
         return withTraits(traits: .traitItalic)
+    }
+}
+
+// MARK: Custom font with preferred styles
+extension UIFont {
+    static func font(name: String, forTextStyle style: UIFont.TextStyle) -> UIFont {
+        guard let font = UIFont(name: name, size: UIFont.labelFontSize) else {
+            return UIFont.preferredFont(forTextStyle: style)
+        }
+
+        return UIFontMetrics(forTextStyle: style).scaledFont(for: font)
     }
 }
