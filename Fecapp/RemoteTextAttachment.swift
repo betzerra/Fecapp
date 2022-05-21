@@ -36,6 +36,12 @@ public class RemoteImageTextAttachment: NSTextAttachment {
         }
 
         if let originalImageSize = image?.size {
+            if let textContainerSize = textContainer?.size {
+                return CGRect(
+                    origin: .zero,
+                    size: fittingSizeFrom(image: originalImageSize, containerSize: textContainerSize)
+                )
+            }
             return CGRect(origin: .zero, size: originalImageSize)
         }
 
@@ -89,6 +95,15 @@ public class RemoteImageTextAttachment: NSTextAttachment {
         }
 
         return nil
+    }
+
+    private func fittingSizeFrom(image imageSize: CGSize, containerSize: CGSize) -> CGSize {
+        if imageSize.width < containerSize.width {
+            return imageSize
+        } else {
+            let calculatedHeight = containerSize.width * imageSize.height / imageSize.width
+            return CGSize(width: containerSize.width, height: calculatedHeight)
+        }
     }
 }
 
