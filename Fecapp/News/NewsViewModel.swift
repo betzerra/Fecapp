@@ -8,10 +8,9 @@
 import Combine
 import Foundation
 import UIKit
+import SDWebImage
 
 typealias NewsDiffableDataSource = UICollectionViewDiffableDataSource<Section, NewsSummary>
-
-private let fontName = "Avenir Next"
 
 class NewsViewModel: NSObject {
     let view: NewsView
@@ -19,33 +18,29 @@ class NewsViewModel: NSObject {
 
     private var cancellables = [AnyCancellable]()
 
+    private static let dateFormatter: DateFormatter = {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .short
+        return dateFormatter
+    }()
+
     private lazy var dataSource: NewsDiffableDataSource = {
         // swiftlint:disable:next line_length
-        let cellRegistration = UICollectionView.CellRegistration<UICollectionViewListCell, NewsSummary> { (cell, _, item) in
-            var config = UIListContentConfiguration.subtitleCell()
+        let dataSource = NewsDiffableDataSource(collectionView: view.collectionView) { collectionView, indexPath, post in
+            guard let cell = collectionView.dequeueReusableCell(
+                withReuseIdentifier: "cell",
+                for: indexPath
+            ) as? NewsCollectionViewCell else {
+                return UICollectionViewCell()
+            }
 
-            // Padding and margins
-            config.directionalLayoutMargins = NSDirectionalEdgeInsets(top: 16, leading: 8, bottom: 8, trailing: 8)
-            config.textToSecondaryTextVerticalPadding = 8
+            cell.dateLabel.text = NewsViewModel.dateFormatter.string(from: post.date)
+            cell.titleLabel.text = post.title
+            cell.subtitleLabel.text = post.subtitle
+            cell.authorLabel.text = post.author
+            cell.authorImageView.sd_setImage(with: post.authorThumbnail)
 
-            // First label
-            config.text = item.title
-            config.textProperties.font = UIFont.font(name: fontName, forTextStyle: .headline).bold()
-
-            // Secondary label
-            config.secondaryText = item.subtitle
-            config.secondaryTextProperties.color = .secondaryLabel
-            config.secondaryTextProperties.font = UIFont.font(name: fontName, forTextStyle: .caption2)
-            cell.contentConfiguration = config
-        }
-
-        // swiftlint:disable:next line_length
-        let dataSource = NewsDiffableDataSource(collectionView: view.collectionView) { collectionView, indexPath, itemIdentifier in
-            return collectionView.dequeueConfiguredReusableCell(
-                using: cellRegistration,
-                for: indexPath,
-                item: itemIdentifier
-            )
+            return cell
         }
 
         return dataSource

@@ -24,6 +24,8 @@ class NewsView: UIView {
         collectionView.loadInto(containerView: self)
         collectionView.addSubview(refreshControl)
 
+        collectionView.register(NewsCollectionViewCell.self, forCellWithReuseIdentifier: "cell")
+
         backgroundColor = .systemBackground
     }
 
