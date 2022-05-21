@@ -11,6 +11,8 @@ import UIKit
 
 typealias NewsDiffableDataSource = UICollectionViewDiffableDataSource<Section, NewsSummary>
 
+private let fontName = "Avenir Next"
+
 class NewsViewModel: NSObject {
     let view: NewsView
     let newsDataSource = NewsDataSource()
@@ -21,11 +23,19 @@ class NewsViewModel: NSObject {
         // swiftlint:disable:next line_length
         let cellRegistration = UICollectionView.CellRegistration<UICollectionViewListCell, NewsSummary> { (cell, _, item) in
             var config = UIListContentConfiguration.subtitleCell()
+
+            // Padding and margins
             config.directionalLayoutMargins = NSDirectionalEdgeInsets(top: 16, leading: 8, bottom: 8, trailing: 8)
             config.textToSecondaryTextVerticalPadding = 8
+
+            // First label
             config.text = item.title
+            config.textProperties.font = UIFont.font(name: fontName, forTextStyle: .headline).bold()
+
+            // Secondary label
             config.secondaryText = item.subtitle
             config.secondaryTextProperties.color = .secondaryLabel
+            config.secondaryTextProperties.font = UIFont.font(name: fontName, forTextStyle: .caption2)
             cell.contentConfiguration = config
         }
 
