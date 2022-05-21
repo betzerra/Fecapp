@@ -44,4 +44,13 @@ class NewsDataSource {
         self.news = news
         LogService.debug("News list request finished")
     }
+
+    func fetchMarkdownPost(url: URL) async throws -> String {
+        LogService.debug("News post request started")
+
+        let data = try await URLSession.shared.data(from: url).0
+
+        LogService.debug("News post request finished")
+        return String(decoding: data, as: UTF8.self)
+    }
 }

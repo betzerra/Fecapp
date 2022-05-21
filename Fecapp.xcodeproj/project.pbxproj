@@ -64,6 +64,12 @@
 		67CD60EF281DC1EB000BEEC4 /* LabelCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67CD60EE281DC1EB000BEEC4 /* LabelCollectionViewCell.swift */; };
 		67CD60F1281DD5C3000BEEC4 /* UIColor+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67CD60F0281DD5C3000BEEC4 /* UIColor+Utils.swift */; };
 		67D98C712839566D006BCC6E /* NewsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67D98C702839566D006BCC6E /* NewsCollectionViewCell.swift */; };
+		67D98C75283968AD006BCC6E /* NewsDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67D98C74283968AD006BCC6E /* NewsDetailViewController.swift */; };
+		67D98C7828396BAF006BCC6E /* NewsDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67D98C7728396BAF006BCC6E /* NewsDetailView.swift */; };
+		67D98CBD28396FDF006BCC6E /* Markdownosaur.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67D98CBC28396FDF006BCC6E /* Markdownosaur.swift */; };
+		67D98CC02839701A006BCC6E /* Markdown in Frameworks */ = {isa = PBXBuildFile; productRef = 67D98CBF2839701A006BCC6E /* Markdown */; };
+		67D98CC228397744006BCC6E /* RemoteTextAttachment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67D98CC128397744006BCC6E /* RemoteTextAttachment.swift */; };
+		67D98CC4283980F1006BCC6E /* NewsDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67D98CC3283980F1006BCC6E /* NewsDetailViewModel.swift */; };
 		67DA2DB02836FC3F008886CC /* Roaster.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67DA2DAF2836FC3F008886CC /* Roaster.swift */; };
 		67DA2DB22836FEF5008886CC /* SymbolsHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67DA2DB12836FEF5008886CC /* SymbolsHelper.swift */; };
 		67DA2DB42837043C008886CC /* RoasterDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67DA2DB32837043C008886CC /* RoasterDetailViewController.swift */; };
@@ -156,6 +162,11 @@
 		67CD60EE281DC1EB000BEEC4 /* LabelCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelCollectionViewCell.swift; sourceTree = "<group>"; };
 		67CD60F0281DD5C3000BEEC4 /* UIColor+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Utils.swift"; sourceTree = "<group>"; };
 		67D98C702839566D006BCC6E /* NewsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsCollectionViewCell.swift; sourceTree = "<group>"; };
+		67D98C74283968AD006BCC6E /* NewsDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsDetailViewController.swift; sourceTree = "<group>"; };
+		67D98C7728396BAF006BCC6E /* NewsDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsDetailView.swift; sourceTree = "<group>"; };
+		67D98CBC28396FDF006BCC6E /* Markdownosaur.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Markdownosaur.swift; sourceTree = "<group>"; };
+		67D98CC128397744006BCC6E /* RemoteTextAttachment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteTextAttachment.swift; sourceTree = "<group>"; };
+		67D98CC3283980F1006BCC6E /* NewsDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsDetailViewModel.swift; sourceTree = "<group>"; };
 		67DA2DAF2836FC3F008886CC /* Roaster.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Roaster.swift; sourceTree = "<group>"; };
 		67DA2DB12836FEF5008886CC /* SymbolsHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SymbolsHelper.swift; sourceTree = "<group>"; };
 		67DA2DB32837043C008886CC /* RoasterDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoasterDetailViewController.swift; sourceTree = "<group>"; };
@@ -188,6 +199,7 @@
 				67C713D5283039520024C175 /* SDWebImage in Frameworks */,
 				679AEC3A2814BE4700180CEF /* Pluma in Frameworks */,
 				6700F64A282983C600AB90BA /* Puppy in Frameworks */,
+				67D98CC02839701A006BCC6E /* Markdown in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -357,6 +369,23 @@
 			path = ShopsFilter;
 			sourceTree = "<group>";
 		};
+		67D98C76283968B2006BCC6E /* NewsDetail */ = {
+			isa = PBXGroup;
+			children = (
+				67D98C74283968AD006BCC6E /* NewsDetailViewController.swift */,
+				67D98C7728396BAF006BCC6E /* NewsDetailView.swift */,
+				67D98CC3283980F1006BCC6E /* NewsDetailViewModel.swift */,
+			);
+			path = NewsDetail;
+			sourceTree = "<group>";
+		};
+		67D98CBE2839701A006BCC6E /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		67DA2DB528370441008886CC /* RoasterDetail */ = {
 			isa = PBXGroup;
 			children = (
@@ -375,6 +404,7 @@
 				67E2282E28147E1F0083D9EF /* FecappTests */,
 				67E2283828147E1F0083D9EF /* FecappUITests */,
 				67E2281628147E1F0083D9EF /* Products */,
+				67D98CBE2839701A006BCC6E /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -395,6 +425,8 @@
 				67E2281A28147E1F0083D9EF /* SceneDelegate.swift */,
 				67E2282128147E1F0083D9EF /* Assets.xcassets */,
 				67741D0328386E070066D320 /* InitialScreen.swift */,
+				67D98CBC28396FDF006BCC6E /* Markdownosaur.swift */,
+				67D98CC128397744006BCC6E /* RemoteTextAttachment.swift */,
 				67A9FAB52818B3ED00CEF1E2 /* Extensions */,
 				676E29B62835649200A94E07 /* Helpers */,
 				67E2282628147E1F0083D9EF /* Info.plist */,
@@ -404,6 +436,7 @@
 				6741B67D282B3C1C00EF6415 /* Map */,
 				67A9FAB42818B3E200CEF1E2 /* Models */,
 				67741D0128386B270066D320 /* News */,
+				67D98C76283968B2006BCC6E /* NewsDetail */,
 				67741D0228386BF10066D320 /* Services */,
 				67DA2DB528370441008886CC /* RoasterDetail */,
 				67A02283281DF906007987BE /* ShopDetail */,
@@ -455,6 +488,7 @@
 				679AEC392814BE4700180CEF /* Pluma */,
 				6700F649282983C600AB90BA /* Puppy */,
 				67C713D4283039520024C175 /* SDWebImage */,
+				67D98CBF2839701A006BCC6E /* Markdown */,
 			);
 			productName = Fecapp;
 			productReference = 67E2281528147E1F0083D9EF /* Fecapp.app */;
@@ -532,6 +566,7 @@
 				679AEC382814BE4700180CEF /* XCRemoteSwiftPackageReference "Pluma" */,
 				6700F648282983C600AB90BA /* XCRemoteSwiftPackageReference "Puppy" */,
 				67C713D3283039520024C175 /* XCRemoteSwiftPackageReference "SDWebImage" */,
+				67D98CBB28396F68006BCC6E /* XCRemoteSwiftPackageReference "swift-markdown" */,
 			);
 			productRefGroup = 67E2281628147E1F0083D9EF /* Products */;
 			projectDirPath = "";
@@ -606,6 +641,7 @@
 				67CD60F1281DD5C3000BEEC4 /* UIColor+Utils.swift in Sources */,
 				67CD60ED281DBB0D000BEEC4 /* ShopsViewModel.swift in Sources */,
 				6700F64E282986CE00AB90BA /* LogServiceProtocol.swift in Sources */,
+				67D98C7828396BAF006BCC6E /* NewsDetailView.swift in Sources */,
 				67177C822828743C001677E2 /* LocationOnboardingViewModel.swift in Sources */,
 				679AEC452814FB7400180CEF /* ShopCollectionViewCell.swift in Sources */,
 				676E29C728357C3800A94E07 /* ShopMenuItem.swift in Sources */,
@@ -622,6 +658,7 @@
 				6700F65128298BBC00AB90BA /* LogFormatter.swift in Sources */,
 				67DA2DB22836FEF5008886CC /* SymbolsHelper.swift in Sources */,
 				67E2281928147E1F0083D9EF /* AppDelegate.swift in Sources */,
+				67D98CC228397744006BCC6E /* RemoteTextAttachment.swift in Sources */,
 				6741B683282B3F3800EF6415 /* MapViewModel.swift in Sources */,
 				676E29B528355F0000A94E07 /* MapItemSearch.swift in Sources */,
 				67A02285281DF912007987BE /* ShopDetailViewController.swift in Sources */,
@@ -632,9 +669,11 @@
 				6741B681282B3EA100EF6415 /* UIView+Layout.swift in Sources */,
 				67E2281B28147E1F0083D9EF /* SceneDelegate.swift in Sources */,
 				67177C802828624C001677E2 /* LocationOnboardingView.swift in Sources */,
+				67D98C75283968AD006BCC6E /* NewsDetailViewController.swift in Sources */,
 				676E29BA2835706500A94E07 /* UIButton+Configurations.swift in Sources */,
 				67DA2DB02836FC3F008886CC /* Roaster.swift in Sources */,
 				67741D1028389F680066D320 /* NewsSummary.swift in Sources */,
+				67D98CC4283980F1006BCC6E /* NewsDetailViewModel.swift in Sources */,
 				676E29BC2835733A00A94E07 /* ShopMenuViewController.swift in Sources */,
 				6700F65328298D4400AB90BA /* MessageLoggeable.swift in Sources */,
 				67C713D2283036B80024C175 /* RoundedButton.swift in Sources */,
@@ -656,6 +695,7 @@
 				67529103282B6DE5005E2A4E /* RoundedImageView.swift in Sources */,
 				67741D06283873850066D320 /* NewsView.swift in Sources */,
 				679AEC432814C6AF00180CEF /* ShopsDataSource.swift in Sources */,
+				67D98CBD28396FDF006BCC6E /* Markdownosaur.swift in Sources */,
 				676E29C12835784300A94E07 /* ShopMenuViewModel.swift in Sources */,
 				679AEC4928161EA700180CEF /* ShopImage.swift in Sources */,
 				67DA2DB42837043C008886CC /* RoasterDetailViewController.swift in Sources */,
@@ -1023,6 +1063,14 @@
 				version = 5.9.5;
 			};
 		};
+		67D98CBB28396F68006BCC6E /* XCRemoteSwiftPackageReference "swift-markdown" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "git@github.com:apple/swift-markdown.git";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -1040,6 +1088,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 67C713D3283039520024C175 /* XCRemoteSwiftPackageReference "SDWebImage" */;
 			productName = SDWebImage;
+		};
+		67D98CBF2839701A006BCC6E /* Markdown */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 67D98CBB28396F68006BCC6E /* XCRemoteSwiftPackageReference "swift-markdown" */;
+			productName = Markdown;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

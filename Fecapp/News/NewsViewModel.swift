@@ -16,6 +16,7 @@ class NewsViewModel: NSObject {
     let view: NewsView
     let newsDataSource = NewsDataSource()
 
+    let events = PassthroughSubject<NewsEvent, Never>()
     private var cancellables = [AnyCancellable]()
 
     private static let dateFormatter: DateFormatter = {
@@ -74,6 +75,8 @@ class NewsViewModel: NSObject {
             action: #selector(fetchNews),
             for: .valueChanged
         )
+
+        setCollectionViewDelegate()
     }
 
     @objc private func fetchNews() {
@@ -82,6 +85,29 @@ class NewsViewModel: NSObject {
                 await view.refreshControl.beginRefreshing()
                 try await newsDataSource.fetchNews()
                 await view.refreshControl.endRefreshing()
+            } catch {
+                LogService.logError(error)
+            }
+        }
+    }
+}
+
+extension NewsViewModel: UICollectionViewDelegate {
+    func setCollectionViewDelegate() {
+        view.collectionView.delegate = self
+    }
+
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let news = newsDataSource.news else {
+            return
+        }
+
+        let item = news[indexPath.row]
+
+        Task {
+            do {
+                let post = try await newsDataSource.fetchMarkdownPost(url: item.url)
+                events.send(.selectedNews(item, body: post))
             } catch {
                 LogService.logError(error)
             }
