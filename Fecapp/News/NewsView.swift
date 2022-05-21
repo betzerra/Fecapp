@@ -10,6 +10,7 @@ import UIKit
 
 class NewsView: UIView {
     let collectionView: UICollectionView
+    let refreshControl = UIRefreshControl()
 
     init() {
         collectionView = UICollectionView(
@@ -21,6 +22,8 @@ class NewsView: UIView {
         super.init(frame: .zero)
 
         collectionView.loadInto(containerView: self)
+        collectionView.addSubview(refreshControl)
+
         backgroundColor = .systemBackground
     }
 
