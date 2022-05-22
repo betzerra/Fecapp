@@ -9,7 +9,11 @@ import Foundation
 import UIKit
 
 extension UIColor {
-    static var primary: UIColor {
-        return UIColor.systemBlue
+    static var accent: UIColor {
+        return UIColor(named: "AccentColor") ?? .systemBlue
+    }
+
+    static var buttonTitle: UIColor {
+        return UIColor(named: "ButtonTitleColor") ?? .white
     }
 }

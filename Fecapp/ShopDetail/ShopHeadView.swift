@@ -25,7 +25,7 @@ class ShopHeadView: UIView {
     }()
 
     let shareButton: UIButton = {
-        let symbolConfiguration = UIImage.SymbolConfiguration(pointSize: 28, weight: .medium)
+        let symbolConfiguration = SymbolsHelper.defaultConfiguration(pointSize: 28)
         let image = UIImage(systemName: "square.and.arrow.up.circle.fill")?
             .applyingSymbolConfiguration(symbolConfiguration)
 

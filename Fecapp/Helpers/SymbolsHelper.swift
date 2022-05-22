@@ -9,6 +9,11 @@ import Foundation
 import UIKit
 
 class SymbolsHelper {
+    static func defaultConfiguration(pointSize: CGFloat) -> UIImage.SymbolConfiguration {
+        return UIImage.SymbolConfiguration(pointSize: pointSize, weight: .medium)
+            .applying(UIImage.SymbolConfiguration(hierarchicalColor: .accent))
+    }
+
     static func image(named name: String) -> UIImage? {
         // Will try to get a symbol from the OS
         guard let image = UIImage(systemName: name, withConfiguration: nil) else {
