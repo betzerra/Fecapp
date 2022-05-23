@@ -29,6 +29,12 @@ struct Markdownosaur: MarkupVisitor {
         ]
     }
 
+    var baseParagraphStyle: NSMutableParagraphStyle {
+        let style = NSMutableParagraphStyle()
+        style.lineSpacing = 4.0
+        return style
+    }
+
     var codeAttributes: [NSAttributedString.Key: Any] {
         [
             .font: monospacedFont,
@@ -89,6 +95,7 @@ struct Markdownosaur: MarkupVisitor {
             result.append(paragraph.isContainedInList ? .singleNewline(withFontSize: baseFontSize) : .doubleNewline(withFontSize: baseFontSize))
         }
 
+        result.addAttribute(.paragraphStyle, value: baseParagraphStyle)
         return result
     }
 
@@ -158,8 +165,7 @@ struct Markdownosaur: MarkupVisitor {
 
         for listItem in unorderedList.listItems {
             var listItemAttributes = baseAttributes
-
-            let listItemParagraphStyle = NSMutableParagraphStyle()
+            let listItemParagraphStyle = baseParagraphStyle
 
             let baseLeftMargin: CGFloat = 15.0
             let leftMarginOffset = baseLeftMargin + (20.0 * CGFloat(unorderedList.listDepth))
@@ -210,8 +216,7 @@ struct Markdownosaur: MarkupVisitor {
 
         for (index, listItem) in orderedList.listItems.enumerated() {
             var listItemAttributes = baseAttributes
-
-            let listItemParagraphStyle = NSMutableParagraphStyle()
+            let listItemParagraphStyle = baseParagraphStyle
 
             // Implement a base amount to be spaced from the left side at all times to better visually differentiate it as a list
             let baseLeftMargin: CGFloat = 15.0
@@ -259,8 +264,7 @@ struct Markdownosaur: MarkupVisitor {
 
         for child in blockQuote.children {
             var quoteAttributes = baseAttributes
-
-            let quoteParagraphStyle = NSMutableParagraphStyle()
+            let quoteParagraphStyle = baseParagraphStyle
 
             let baseLeftMargin: CGFloat = 15.0
             let leftMarginOffset = baseLeftMargin + (20.0 * CGFloat(blockQuote.quoteDepth))
