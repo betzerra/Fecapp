@@ -219,6 +219,7 @@ struct Markdownosaur: MarkupVisitor {
             listItemAttributes[.paragraphStyle] = listItemParagraphStyle
             listItemAttributes[.font] = font
             listItemAttributes[.listDepth] = orderedList.listDepth
+            listItemAttributes[.foregroundColor] = UIColor.label
 
             let listItemAttributedString = visit(listItem).mutableCopy() as! NSMutableAttributedString
 
