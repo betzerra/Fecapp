@@ -30,5 +30,15 @@ class NewsDetailViewController: UIViewController {
     override func loadView() {
         super.loadView()
         view = _view
+
+        scrollToTopHack()
+    }
+
+    /// Horrible hack to scroll to top on UITextView
+    private func scrollToTopHack() {
+        _view.textView.isScrollEnabled = false
+        let rect = CGRect(x: 0, y: 0, width: 1, height: 1)
+        _view.textView.scrollRectToVisible(rect, animated: false)
+        _view.textView.isScrollEnabled = true
     }
 }

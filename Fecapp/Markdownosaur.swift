@@ -8,9 +8,39 @@
 import UIKit
 import Markdown
 
+let baseFontSize: CGFloat = 18.0
+
 // swiftlint:disable all
 struct Markdownosaur: MarkupVisitor {
-    let baseFontSize: CGFloat = 18.0
+    let color: UIColor = .label
+
+    let font: UIFont = {
+        return UIFont.systemFont(ofSize: baseFontSize, weight: .regular)
+    }()
+
+    let monospacedFont: UIFont = {
+        return UIFont.monospacedDigitSystemFont(ofSize: baseFontSize, weight: .regular)
+    }()
+
+    var baseAttributes: [NSAttributedString.Key: Any] {
+        [
+            .font: font,
+            .foregroundColor: color
+        ]
+    }
+
+    var baseParagraphStyle: NSMutableParagraphStyle {
+        let style = NSMutableParagraphStyle()
+        style.lineSpacing = 4.0
+        return style
+    }
+
+    var codeAttributes: [NSAttributedString.Key: Any] {
+        [
+            .font: monospacedFont,
+            .foregroundColor: UIColor.systemGray
+        ]
+    }
 
     mutating func attributedString(from document: Document) -> NSAttributedString {
         return visit(document)
@@ -27,13 +57,7 @@ struct Markdownosaur: MarkupVisitor {
     }
 
     mutating func visitText(_ text: Text) -> NSAttributedString {
-        return NSAttributedString(
-            string: text.plainText,
-            attributes: [
-                .font: UIFont.systemFont(ofSize: baseFontSize, weight: .regular),
-                .foregroundColor: UIColor.label
-            ]
-        )
+        return NSAttributedString(string: text.plainText, attributes: baseAttributes)
     }
 
     mutating func visitEmphasis(_ emphasis: Emphasis) -> NSAttributedString {
@@ -71,6 +95,7 @@ struct Markdownosaur: MarkupVisitor {
             result.append(paragraph.isContainedInList ? .singleNewline(withFontSize: baseFontSize) : .doubleNewline(withFontSize: baseFontSize))
         }
 
+        result.addAttribute(.paragraphStyle, value: baseParagraphStyle)
         return result
     }
 
@@ -105,11 +130,14 @@ struct Markdownosaur: MarkupVisitor {
     }
 
     mutating func visitInlineCode(_ inlineCode: InlineCode) -> NSAttributedString {
-        return NSAttributedString(string: inlineCode.code, attributes: [.font: UIFont.monospacedSystemFont(ofSize: baseFontSize - 1.0, weight: .regular), .foregroundColor: UIColor.systemGray])
+        return NSAttributedString(string: inlineCode.code, attributes: codeAttributes)
     }
 
     func visitCodeBlock(_ codeBlock: CodeBlock) -> NSAttributedString {
-        let result = NSMutableAttributedString(string: codeBlock.code, attributes: [.font: UIFont.monospacedSystemFont(ofSize: baseFontSize - 1.0, weight: .regular), .foregroundColor: UIColor.systemGray])
+        let result = NSMutableAttributedString(
+            string: codeBlock.code,
+            attributes: codeAttributes
+        )
 
         if codeBlock.hasSuccessor {
             result.append(.singleNewline(withFontSize: baseFontSize))
@@ -136,9 +164,8 @@ struct Markdownosaur: MarkupVisitor {
         let font = UIFont.systemFont(ofSize: baseFontSize, weight: .regular)
 
         for listItem in unorderedList.listItems {
-            var listItemAttributes: [NSAttributedString.Key: Any] = [:]
-
-            let listItemParagraphStyle = NSMutableParagraphStyle()
+            var listItemAttributes = baseAttributes
+            let listItemParagraphStyle = baseParagraphStyle
 
             let baseLeftMargin: CGFloat = 15.0
             let leftMarginOffset = baseLeftMargin + (20.0 * CGFloat(unorderedList.listDepth))
@@ -155,9 +182,7 @@ struct Markdownosaur: MarkupVisitor {
             listItemParagraphStyle.headIndent = secondTabLocation
 
             listItemAttributes[.paragraphStyle] = listItemParagraphStyle
-            listItemAttributes[.font] = UIFont.systemFont(ofSize: baseFontSize, weight: .regular)
             listItemAttributes[.listDepth] = unorderedList.listDepth
-            listItemAttributes[.foregroundColor] = UIColor.label
 
             let listItemAttributedString = visit(listItem).mutableCopy() as! NSMutableAttributedString
             listItemAttributedString.insert(NSAttributedString(string: "\t•\t", attributes: listItemAttributes), at: 0)
@@ -190,12 +215,8 @@ struct Markdownosaur: MarkupVisitor {
         let result = NSMutableAttributedString()
 
         for (index, listItem) in orderedList.listItems.enumerated() {
-            var listItemAttributes: [NSAttributedString.Key: Any] = [:]
-
-            let font = UIFont.systemFont(ofSize: baseFontSize, weight: .regular)
-            let numeralFont = UIFont.monospacedDigitSystemFont(ofSize: baseFontSize, weight: .regular)
-
-            let listItemParagraphStyle = NSMutableParagraphStyle()
+            var listItemAttributes = baseAttributes
+            let listItemParagraphStyle = baseParagraphStyle
 
             // Implement a base amount to be spaced from the left side at all times to better visually differentiate it as a list
             let baseLeftMargin: CGFloat = 15.0
@@ -203,7 +224,7 @@ struct Markdownosaur: MarkupVisitor {
 
             // Grab the highest number to be displayed and measure its width (yes normally some digits are wider than others but since we're using the numeral mono font all will be the same width in this case)
             let highestNumberInList = orderedList.childCount
-            let numeralColumnWidth = ceil(NSAttributedString(string: "\(highestNumberInList).", attributes: [.font: numeralFont]).size().width)
+            let numeralColumnWidth = ceil(NSAttributedString(string: "\(highestNumberInList).", attributes: [.font: monospacedFont]).size().width)
 
             let spacingFromIndex: CGFloat = 8.0
             let firstTabLocation = leftMarginOffset + numeralColumnWidth
@@ -217,14 +238,13 @@ struct Markdownosaur: MarkupVisitor {
             listItemParagraphStyle.headIndent = secondTabLocation
 
             listItemAttributes[.paragraphStyle] = listItemParagraphStyle
-            listItemAttributes[.font] = font
             listItemAttributes[.listDepth] = orderedList.listDepth
 
             let listItemAttributedString = visit(listItem).mutableCopy() as! NSMutableAttributedString
 
             // Same as the normal list attributes, but for prettiness in formatting we want to use the cool monospaced numeral font
             var numberAttributes = listItemAttributes
-            numberAttributes[.font] = numeralFont
+            numberAttributes[.font] = monospacedFont
 
             let numberAttributedString = NSAttributedString(string: "\t\(index + 1).\t", attributes: numberAttributes)
             listItemAttributedString.insert(numberAttributedString, at: 0)
@@ -243,9 +263,8 @@ struct Markdownosaur: MarkupVisitor {
         let result = NSMutableAttributedString()
 
         for child in blockQuote.children {
-            var quoteAttributes: [NSAttributedString.Key: Any] = [:]
-
-            let quoteParagraphStyle = NSMutableParagraphStyle()
+            var quoteAttributes = baseAttributes
+            let quoteParagraphStyle = baseParagraphStyle
 
             let baseLeftMargin: CGFloat = 15.0
             let leftMarginOffset = baseLeftMargin + (20.0 * CGFloat(blockQuote.quoteDepth))
@@ -255,7 +274,6 @@ struct Markdownosaur: MarkupVisitor {
             quoteParagraphStyle.headIndent = leftMarginOffset
 
             quoteAttributes[.paragraphStyle] = quoteParagraphStyle
-            quoteAttributes[.font] = UIFont.systemFont(ofSize: baseFontSize, weight: .regular)
             quoteAttributes[.listDepth] = blockQuote.quoteDepth
 
             let quoteAttributedString = visit(child).mutableCopy() as! NSMutableAttributedString
