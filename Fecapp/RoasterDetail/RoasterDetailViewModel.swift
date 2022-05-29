@@ -5,8 +5,13 @@
 //  Created by Ezequiel Becerra on 19/05/2022.
 //
 
+import Combine
 import Foundation
 import UIKit
+
+enum RoasterDetailViewModelEvent {
+    case openInstagram(username: String)
+}
 
 class RoasterDetailViewModel {
     private lazy var dataSource: ShopsDiffableDataSource = {
@@ -53,6 +58,7 @@ class RoasterDetailViewModel {
             headerView.instagramButton.setAttributedTitle(self.attributedInstagram, for: .normal)
             headerView.shippingLabel.isHidden = !self.roaster.shipsOutsideCABA
             headerView.coffeeShopsLabel.text = self.coffeeShopsTitle
+            headerView.instagramButton.addAction(self.instagramAction, for: .touchUpInside)
             return headerView
         }
 
@@ -80,10 +86,21 @@ class RoasterDetailViewModel {
         }
     }
 
+    var instagramAction: UIAction {
+        UIAction { [weak self] _ in
+            guard let username = self?.roaster.instagram else {
+                return
+            }
+
+            self?.events.send(.openInstagram(username: username))
+        }
+    }
+
     let view: RoasterDetailView
 
     let roaster: Roaster
     let shops: [Shop]
+    let events = PassthroughSubject<RoasterDetailViewModelEvent, Never>()
 
     init(roaster: Roaster, shops: [Shop], view: RoasterDetailView) {
         self.roaster = roaster

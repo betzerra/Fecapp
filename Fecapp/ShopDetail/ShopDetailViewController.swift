@@ -51,7 +51,7 @@ class ShopDetailViewController: UIViewController {
 
                 case .openInstagram(let username):
                     LogService.info("Opened instagram: \(username)")
-                    self?.openInstagram(username: username)
+                    InstagramHelper.openInstagram(username: username)
 
                 case .openRoaster(let roaster):
                     LogService.info("Opened roaster: \(roaster.title)")
@@ -133,19 +133,6 @@ class ShopDetailViewController: UIViewController {
 
         let vc = ShopMenuViewController(menu: shopDetail.menu)
         navigationController?.pushViewController(vc, animated: true)
-    }
-
-    private func openInstagram(username: String) {
-        let appURL = URL(string: "instagram://user?username=\(username)")!
-        let application = UIApplication.shared
-
-        if application.canOpenURL(appURL) {
-            application.open(appURL)
-        } else {
-            // if Instagram app is not installed, open URL inside Safari
-            let webURL = URL(string: "https://instagram.com/\(username)")!
-            application.open(webURL)
-        }
     }
 
     private func openRoaster(_ roaster: Roaster) {

@@ -5,6 +5,7 @@
 //  Created by Ezequiel Becerra on 19/05/2022.
 //
 
+import Combine
 import Foundation
 import UIKit
 
@@ -12,6 +13,8 @@ class RoasterDetailViewController: UIViewController {
     private let viewModel: RoasterDetailViewModel
 
     private var navigationBarWasHidden: Bool?
+
+    private var cancellables = [AnyCancellable]()
 
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
         .portrait
@@ -25,6 +28,15 @@ class RoasterDetailViewController: UIViewController {
 
         super.init(nibName: nil, bundle: nil)
         title = roaster.title
+
+        viewModel.events.sink { event in
+            switch event {
+            case .openInstagram(let username):
+                LogService.info("Opened instagram: \(username)")
+                InstagramHelper.openInstagram(username: username)
+            }
+        }
+        .store(in: &cancellables)
     }
 
     required init?(coder: NSCoder) {

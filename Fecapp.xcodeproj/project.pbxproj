@@ -88,6 +88,7 @@
 		67E2283A28147E1F0083D9EF /* FecappUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67E2283928147E1F0083D9EF /* FecappUITests.swift */; };
 		67E2283C28147E1F0083D9EF /* FecappUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67E2283B28147E1F0083D9EF /* FecappUITestsLaunchTests.swift */; };
 		67E2284928147E550083D9EF /* Shop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67E2284828147E550083D9EF /* Shop.swift */; };
+		67FC3DC72843DB1C009CCD05 /* InstagramHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67FC3DC62843DB1C009CCD05 /* InstagramHelper.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -189,6 +190,7 @@
 		67E2283928147E1F0083D9EF /* FecappUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FecappUITests.swift; sourceTree = "<group>"; };
 		67E2283B28147E1F0083D9EF /* FecappUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FecappUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		67E2284828147E550083D9EF /* Shop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shop.swift; sourceTree = "<group>"; };
+		67FC3DC62843DB1C009CCD05 /* InstagramHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstagramHelper.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -268,6 +270,7 @@
 		676E29B62835649200A94E07 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				67FC3DC62843DB1C009CCD05 /* InstagramHelper.swift */,
 				676E29B428355F0000A94E07 /* MapItemSearch.swift */,
 				67DA2DB12836FEF5008886CC /* SymbolsHelper.swift */,
 			);
@@ -694,6 +697,7 @@
 				67741D0E28389F110066D320 /* NewsDataSource.swift in Sources */,
 				67529103282B6DE5005E2A4E /* RoundedImageView.swift in Sources */,
 				67741D06283873850066D320 /* NewsView.swift in Sources */,
+				67FC3DC72843DB1C009CCD05 /* InstagramHelper.swift in Sources */,
 				679AEC432814C6AF00180CEF /* ShopsDataSource.swift in Sources */,
 				67D98CBD28396FDF006BCC6E /* Markdownosaur.swift in Sources */,
 				676E29C12835784300A94E07 /* ShopMenuViewModel.swift in Sources */,
