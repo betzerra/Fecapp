@@ -89,6 +89,7 @@
 		67E2283C28147E1F0083D9EF /* FecappUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67E2283B28147E1F0083D9EF /* FecappUITestsLaunchTests.swift */; };
 		67E2284928147E550083D9EF /* Shop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67E2284828147E550083D9EF /* Shop.swift */; };
 		67FC3DC72843DB1C009CCD05 /* InstagramHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67FC3DC62843DB1C009CCD05 /* InstagramHelper.swift */; };
+		67FC3DC92843DFE5009CCD05 /* ViewControllerStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67FC3DC82843DFE5009CCD05 /* ViewControllerStyle.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -191,6 +192,7 @@
 		67E2283B28147E1F0083D9EF /* FecappUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FecappUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		67E2284828147E550083D9EF /* Shop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shop.swift; sourceTree = "<group>"; };
 		67FC3DC62843DB1C009CCD05 /* InstagramHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstagramHelper.swift; sourceTree = "<group>"; };
+		67FC3DC82843DFE5009CCD05 /* ViewControllerStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerStyle.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -263,6 +265,7 @@
 				67529102282B6DE5005E2A4E /* RoundedImageView.swift */,
 				676E29C8283587E900A94E07 /* SectionReusableView.swift */,
 				67DA2DC628373C3D008886CC /* ShopCollectionViewLayout.swift */,
+				67FC3DC82843DFE5009CCD05 /* ViewControllerStyle.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -662,6 +665,7 @@
 				67DA2DB22836FEF5008886CC /* SymbolsHelper.swift in Sources */,
 				67E2281928147E1F0083D9EF /* AppDelegate.swift in Sources */,
 				67D98CC228397744006BCC6E /* RemoteTextAttachment.swift in Sources */,
+				67FC3DC92843DFE5009CCD05 /* ViewControllerStyle.swift in Sources */,
 				6741B683282B3F3800EF6415 /* MapViewModel.swift in Sources */,
 				676E29B528355F0000A94E07 /* MapItemSearch.swift in Sources */,
 				67A02285281DF912007987BE /* ShopDetailViewController.swift in Sources */,

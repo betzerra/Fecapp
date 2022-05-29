@@ -11,13 +11,9 @@ import MapKit
 import UIKit
 
 class ShopDetailViewController: UIViewController {
-    enum Style {
-        case fullscreen
-        case sheet
-    }
-
     let shop: Shop
     var shopDetail: ShopDetail?
+    private let style: ViewControllerStyle
 
     let viewModel: ShopDetailViewModel
     let dataSource: ShopsDataSource
@@ -31,8 +27,9 @@ class ShopDetailViewController: UIViewController {
 
     private var cancellables = [AnyCancellable]()
 
-    init(shop: Shop, style: Style, dataSource: ShopsDataSource) {
+    init(shop: Shop, style: ViewControllerStyle, dataSource: ShopsDataSource) {
         self.shop = shop
+        self.style = style
         self.viewModel = ShopDetailViewModel(shop: shop, view: _view, style: style)
         self.dataSource = dataSource
 
@@ -137,7 +134,12 @@ class ShopDetailViewController: UIViewController {
 
     private func openRoaster(_ roaster: Roaster) {
         let roasterShops = dataSource.shops?.filter { $0.roaster == roaster } ?? []
-        let vc = RoasterDetailViewController(roaster: roaster, shops: roasterShops)
+        let vc = RoasterDetailViewController(
+            roaster: roaster,
+            shops: roasterShops,
+            dataSource: dataSource,
+            style: style
+        )
         navigationController?.pushViewController(vc, animated: true)
     }
 

@@ -21,7 +21,7 @@ enum ShopDetailViewModelEvent {
 
 class ShopDetailViewModel {
     let shop: Shop
-    let style: ShopDetailViewController.Style
+    let style: ViewControllerStyle
     let view: ShopDetailView
 
     let events: AnyPublisher<ShopDetailViewModelEvent, Never>
@@ -107,7 +107,7 @@ class ShopDetailViewModel {
         }
     }
 
-    init(shop: Shop, view: ShopDetailView, style: ShopDetailViewController.Style) {
+    init(shop: Shop, view: ShopDetailView, style: ViewControllerStyle) {
         self.shop = shop
         self.style = style
         self.events = _events.eraseToAnyPublisher()

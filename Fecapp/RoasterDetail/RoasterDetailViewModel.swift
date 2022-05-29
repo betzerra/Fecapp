@@ -11,9 +11,10 @@ import UIKit
 
 enum RoasterDetailViewModelEvent {
     case openInstagram(username: String)
+    case selectedShop(_ shop: Shop)
 }
 
-class RoasterDetailViewModel {
+class RoasterDetailViewModel: NSObject {
     private lazy var dataSource: ShopsDiffableDataSource = {
         let dataSource = UICollectionViewDiffableDataSource<Section, Shop>(
             collectionView: view.collectionView,
@@ -112,7 +113,9 @@ class RoasterDetailViewModel {
             forCellWithReuseIdentifier: "ShopCollectionViewCell"
         )
 
+        super.init()
         refreshDatasource(shops: shops)
+        setDelegate(collectionView: view.collectionView)
     }
 
     func refreshDatasource(shops: [Shop]) {
@@ -120,5 +123,23 @@ class RoasterDetailViewModel {
         snapshot.appendSections([.main])
         snapshot.appendItems(shops)
         dataSource.apply(snapshot, animatingDifferences: false)
+    }
+}
+
+// MARK: - UICollectionViewDelegate
+extension RoasterDetailViewModel: UICollectionViewDelegate {
+    func setDelegate(collectionView: UICollectionView) {
+        collectionView.delegate = self
+    }
+
+    func collectionView(
+        _ collectionView: UICollectionView,
+        didSelectItemAt indexPath: IndexPath
+    ) {
+        guard let shop = dataSource.itemIdentifier(for: indexPath) else {
+            return
+        }
+
+        events.send(.selectedShop(shop))
     }
 }
