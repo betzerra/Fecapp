@@ -11,13 +11,9 @@ import MapKit
 import UIKit
 
 class ShopDetailViewController: UIViewController {
-    enum Style {
-        case fullscreen
-        case sheet
-    }
-
     let shop: Shop
     var shopDetail: ShopDetail?
+    private let style: ViewControllerStyle
 
     let viewModel: ShopDetailViewModel
     let dataSource: ShopsDataSource
@@ -31,8 +27,9 @@ class ShopDetailViewController: UIViewController {
 
     private var cancellables = [AnyCancellable]()
 
-    init(shop: Shop, style: Style, dataSource: ShopsDataSource) {
+    init(shop: Shop, style: ViewControllerStyle, dataSource: ShopsDataSource) {
         self.shop = shop
+        self.style = style
         self.viewModel = ShopDetailViewModel(shop: shop, view: _view, style: style)
         self.dataSource = dataSource
 
@@ -51,7 +48,7 @@ class ShopDetailViewController: UIViewController {
 
                 case .openInstagram(let username):
                     LogService.info("Opened instagram: \(username)")
-                    self?.openInstagram(username: username)
+                    InstagramHelper.openInstagram(username: username)
 
                 case .openRoaster(let roaster):
                     LogService.info("Opened roaster: \(roaster.title)")
@@ -135,22 +132,14 @@ class ShopDetailViewController: UIViewController {
         navigationController?.pushViewController(vc, animated: true)
     }
 
-    private func openInstagram(username: String) {
-        let appURL = URL(string: "instagram://user?username=\(username)")!
-        let application = UIApplication.shared
-
-        if application.canOpenURL(appURL) {
-            application.open(appURL)
-        } else {
-            // if Instagram app is not installed, open URL inside Safari
-            let webURL = URL(string: "https://instagram.com/\(username)")!
-            application.open(webURL)
-        }
-    }
-
     private func openRoaster(_ roaster: Roaster) {
         let roasterShops = dataSource.shops?.filter { $0.roaster == roaster } ?? []
-        let vc = RoasterDetailViewController(roaster: roaster, shops: roasterShops)
+        let vc = RoasterDetailViewController(
+            roaster: roaster,
+            shops: roasterShops,
+            dataSource: dataSource,
+            style: style
+        )
         navigationController?.pushViewController(vc, animated: true)
     }
 

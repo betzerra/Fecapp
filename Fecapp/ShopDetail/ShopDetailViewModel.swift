@@ -11,7 +11,7 @@ import MapKit
 import UIKit
 import SDWebImage
 
-enum ShopDetailViewModelEvents {
+enum ShopDetailViewModelEvent {
     case openInstagram(username: String)
     case openMap(shop: Shop)
     case openMenu(shop: Shop)
@@ -21,11 +21,11 @@ enum ShopDetailViewModelEvents {
 
 class ShopDetailViewModel {
     let shop: Shop
-    let style: ShopDetailViewController.Style
+    let style: ViewControllerStyle
     let view: ShopDetailView
 
-    let events: AnyPublisher<ShopDetailViewModelEvents, Never>
-    private let _events = PassthroughSubject<ShopDetailViewModelEvents, Never>()
+    let events: AnyPublisher<ShopDetailViewModelEvent, Never>
+    private let _events = PassthroughSubject<ShopDetailViewModelEvent, Never>()
 
     var title: String {
         shop.title
@@ -107,7 +107,7 @@ class ShopDetailViewModel {
         }
     }
 
-    init(shop: Shop, view: ShopDetailView, style: ShopDetailViewController.Style) {
+    init(shop: Shop, view: ShopDetailView, style: ViewControllerStyle) {
         self.shop = shop
         self.style = style
         self.events = _events.eraseToAnyPublisher()
