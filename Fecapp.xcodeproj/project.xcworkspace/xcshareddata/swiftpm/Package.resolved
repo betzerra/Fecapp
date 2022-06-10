@@ -1,0 +1,59 @@
+{
+  "pins" : [
+    {
+      "identity" : "pluma",
+      "kind" : "remoteSourceControl",
+      "location" : "git@github.com:betzerra/Pluma.git",
+      "state" : {
+        "branch" : "main",
+        "revision" : "31c9be0a3dbee7d379331acb2f1f71512dc7023b"
+      }
+    },
+    {
+      "identity" : "puppy",
+      "kind" : "remoteSourceControl",
+      "location" : "git@github.com:sushichop/Puppy.git",
+      "state" : {
+        "revision" : "7cfae42becac2d8916cb1a866dd12d9843199df9",
+        "version" : "0.5.0"
+      }
+    },
+    {
+      "identity" : "sdwebimage",
+      "kind" : "remoteSourceControl",
+      "location" : "git@github.com:SDWebImage/SDWebImage.git",
+      "state" : {
+        "revision" : "2c8ed9a2f3ad537dbe9e58e2ec18be361da112aa",
+        "version" : "5.9.5"
+      }
+    },
+    {
+      "identity" : "swift-cmark",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/apple/swift-cmark.git",
+      "state" : {
+        "branch" : "gfm",
+        "revision" : "476f7b4fcf12eba381b4aaed8987006fd8fcec9c"
+      }
+    },
+    {
+      "identity" : "swift-log",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/apple/swift-log.git",
+      "state" : {
+        "revision" : "5d66f7ba25daf4f94100e7022febf3c75e37a6c7",
+        "version" : "1.4.2"
+      }
+    },
+    {
+      "identity" : "swift-markdown",
+      "kind" : "remoteSourceControl",
+      "location" : "git@github.com:apple/swift-markdown.git",
+      "state" : {
+        "branch" : "main",
+        "revision" : "b1d9a3afdc5eee3a766ccc07f675fbce3957037c"
+      }
+    }
+  ],
+  "version" : 2
+}
